@@ -1,12 +1,16 @@
 <template>
-  <div class="app">
+  <div id="app">
     <router-view></router-view>
+    <jack-nav></jack-nav>
   </div>
 </template>
 
 <script>
+import jackNav from '@/components/nav'
+	
 export default {
-  name: 'app'
+  name: 'app',
+	components:{jackNav},
 }
 </script>
 
