@@ -36,12 +36,14 @@ export default{
 	}
 	.jackNav ul li{
 		display: inline-block;
-		padding: 0.2rem 0.8rem;
 		margin: 0 0.2rem 0.2rem 0.2rem;
-		border: 0.01rem solid gainsboro;
+		border: 0.1rem solid gray;
+		border-radius: 5rem;
 		background: orange;
 	}
 	.jackNav ul li a{
+		display: inline-block;
+		padding: 0.2rem 0.8rem;
 		color: white;
 		font-size: 1.2rem;		
 	}

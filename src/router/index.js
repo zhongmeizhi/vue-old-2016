@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from '@/components/home'
-import abc from '@/components/abc'
-import book from '@/components/book'
-import vr from '@/components/vr'
-import about from '@/components/about'
+import home from '@/components/main/home'
+import abc from '@/components/main/abc'
+import book from '@/components/main/book'
+import vr from '@/components/main/vr'
+import about from '@/components/main/about'
 
 
 Vue.use(Router)

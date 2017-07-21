@@ -2,7 +2,7 @@
 	<div class="jackHeader">
 		<router-link to="/">
 			<div class="logo">
-				<img src="../assets/logo.png"/>
+				<img src="../../assets/logo.png"/>
 				<span>Home</span>
 			</div>
 		</router-link>
@@ -19,12 +19,9 @@
 		width: 100%;
 		box-shadow: 0 0 5px gainsboro inset;
 	}
-	.jackHeader .logo,.jackHeader .logo img{
+	.jackHeader .logo{
 		height: 3rem;
 		line-height: 3rem;
-		font-size: 1.5rem;
-	}
-	.jackHeader .logo{
 		text-align: center;
 		cursor: pointer;
 	}
@@ -32,5 +29,10 @@
 		display: inline-block;
 		vertical-align: top;
 		color: orange;
+		font-size: 1.5rem;
+	}
+	.jackHeader .logo img{
+		vertical-align: middle;
+		height: 2.8rem;
 	}
 </style>
