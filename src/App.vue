@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import jackNav from '@/components/nav'
-import jackHeader from '@/components/header'
-import jackFooter from '@/components/footer'
+import jackNav from '@/components/common/nav'
+import jackHeader from '@/components/common/header'
+import jackFooter from '@/components/common/footer'
 	
 export default {
   name: 'app',
