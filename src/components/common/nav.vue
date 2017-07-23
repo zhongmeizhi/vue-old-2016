@@ -32,7 +32,10 @@ export default{
 
 <style scoped>
 	.jackNav{
-		margin: 3.2rem 0.6rem 0 0.6rem;
+		margin: 3.3rem 0.6rem 0 0.6rem;
+	}
+	.jackNav ul{
+		text-align: center;
 	}
 	.jackNav ul li{
 		display: inline-block;

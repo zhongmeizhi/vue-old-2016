@@ -12,9 +12,10 @@
 		position: fixed;
 		bottom: 0;
 		width: 100%;
-		box-shadow: 0 0 5px gainsboro inset;
+		box-shadow: 0 2px 8px gainsboro inset;
 		font:1.5rem/3rem arial;
 		text-align: center;
+		background: white;
 	}
 	.jackFooter{
 		color: orange; 
