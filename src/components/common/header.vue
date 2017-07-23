@@ -1,11 +1,11 @@
 <template>
 	<div class="jackHeader">
-		<router-link to="/">
-			<div class="logo">
+		<div class="logo">
+			<router-link to="/">
 				<img src="../../assets/logo.png"/>
 				<span>Home</span>
-			</div>
-		</router-link>
+			</router-link>
+		</div>
 	</div>
 </template>
 
@@ -14,25 +14,24 @@
 
 <style scoped>
 	.jackHeader{
-		position: absolute;
+		position: fixed;
 		top: 0;
 		width: 100%;
-		box-shadow: 0 0 5px gainsboro inset;
+		box-shadow: 0 2px 8px gainsboro;
+		background: white;
 	}
 	.jackHeader .logo{
 		height: 3rem;
-		line-height: 3rem;
-		text-align: center;
-		cursor: pointer;
+		margin-left: 1rem;
 	}
 	.jackHeader .logo span{
 		display: inline-block;
-		vertical-align: top;
+		vertical-align: middle;
 		color: orange;
 		font-size: 1.5rem;
 	}
 	.jackHeader .logo img{
 		vertical-align: middle;
-		height: 2.8rem;
+		height: 2.5rem;
 	}
 </style>

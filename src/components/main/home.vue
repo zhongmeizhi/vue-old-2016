@@ -5,7 +5,7 @@
 </template>
 
 <script>
-	
+
 export default {
   name: 'home',
   data () {
@@ -32,7 +32,7 @@ export default {
 	  			} else{
 	  				clearTimeout(tot);
 	  			}
-  			},180)
+  			},130)
   		return this.msg;
   	}  
   }

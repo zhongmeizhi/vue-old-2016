@@ -4,6 +4,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// import VueResource from 'vue-resource';
+// Vue.use(VueResource);
+import axios from 'axios'
+
+Vue.prototype.$http = axios
 /* 可以省略.vue|.js|.html|.css后缀名,也可以省略index */
 
 Vue.config.productionTip = false

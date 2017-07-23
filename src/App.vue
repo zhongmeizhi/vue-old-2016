@@ -11,7 +11,7 @@
 import jackNav from '@/components/common/nav'
 import jackHeader from '@/components/common/header'
 import jackFooter from '@/components/common/footer'
-	
+
 export default {
   name: 'app',
 	components:{
@@ -29,7 +29,7 @@ export default {
 			outline: none;
 		}
 	html{
-		font-size: 16px;
+		font-size: 15px;
 	}
 	@media only screen and (min-width:426px ) {
 			html{
@@ -43,8 +43,11 @@ export default {
 	}
 	@media only screen and (max-width:321px ) {
 			html{
-				font-size: 12px;
+				font-size: 13px;
 			}
+	}
+	ul{
+		list-style: none;
 	}
 	a{
 			text-decoration: none;
