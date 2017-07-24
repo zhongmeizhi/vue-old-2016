@@ -5,7 +5,7 @@ import abc from '@/components/main/abc'
 import book from '@/components/main/book'
 import vr from '@/components/main/vr'
 import about from '@/components/main/about'
-
+import cart from '@/components/main/section/cart'
 
 Vue.use(Router)
 
@@ -28,6 +28,11 @@ export default new Router({
       name: 'book',
       component: book
     }, 
+    {
+			path: '/book/cart',
+      name: 'cart',
+      component: cart
+		},
     {
       path: '/vr',
       name: 'vr',

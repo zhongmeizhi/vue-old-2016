@@ -1,8 +1,11 @@
 <template>
 	<div class="book">
 		<div class="searchBox">
-			<label for="search">Search Books: </label>
-			<input type="text" name="search" id="search" v-model="search" />
+			<input type="text" name="search" id="search" v-model="search" placeholder="Search your love..."/>
+			<select name="orderByPrice">
+				<option value="">price(low to high)</option>
+				<option value="">price(high to low)</option>
+			</select>
 		</div>
 		<ul class="bookList">
 			<li v-for="book in test.books">
@@ -23,6 +26,9 @@
 						<p>
 							<span>Price: </span>{{book.price}}
 						</p>
+						<p class="payment">
+							<router-link  to="/book/cart" @click.native="savePro(book)">Payment</router-link>
+						</p>
 					</div>
 				</div>
 			</li>
@@ -35,9 +41,16 @@
 		data() {
 			return {
 				test: [],
-				search:""
+				search:"",
+				bookSet:[],
+				sendBooks:[]
 			}
 		},
+		mounted:function(){
+			this.$nextTick(function(){
+			})
+		}
+		,
 		created: function() {
 			this.$http.get('/static/test.json').then((response) => {
 				this.test = response.data;
@@ -47,6 +60,15 @@
 		},
 		methods:{
 			bookSearch:function(search){
+			},
+			savePro:function(book){
+				let nowBooks = localStorage.getItem("curBook");
+				if(nowBooks==null || nowBooks == "null"){
+					this.bookSet[0] = book;
+				}else{
+					this.bookSet = JSON.parse(nowBooks).concat(book);
+				}
+				localStorage.setItem("curBook",JSON.stringify(this.bookSet));
 			}
 		}
 	}
@@ -58,7 +80,7 @@
 		padding: 0.01rem;
 		width: 100%;
 	}
-	.searchBox label,.searchBox input{
+	.searchBox label{
 		font-size: 1.1rem;
 		font-weight: bold;
 		color: darkgoldenrod;
@@ -66,6 +88,12 @@
 	.searchBox label{
 	}
 	.searchBox input{
+		color: black;
+		padding: 0.4rem;
+		border: 0.02rem gray solid;
+	}
+	.searchBox input:hover{
+		border: 0.02rem blue solid;
 	}
 	.bookList{
 	
@@ -86,7 +114,22 @@
 		float: right;
 	}
 	.bookDetail p{
-		margin: 1rem 0;
+		margin: 0.4rem 0;
+	}
+	.bookDetail .payment{
+		text-align: center;
+		font-size: 1.1rem;
+		font-weight: bold;
+		color: white;
+		background: red;
+		border-radius: 2rem;
+		cursor: pointer;
+	}
+	.payment a{
+		padding: 0.4rem 0;
+		width: 100%;
+		height: 100%;
+		display: inline-block;
 	}
 	.bookDetail p span{
 		font-weight: bold;
@@ -97,9 +140,5 @@
 		margin: 0.5rem;
 		border: 1px solid wheat;
 		box-shadow: 0 0 10px gray inset;
-	}
-	.bookList li:hover{
-		border: 1px solid wheat;
-		box-shadow: 0 0 10px orange inset;
 	}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <jack-header></jack-header>
-    <jack-nav></jack-nav>
+    <jack-nav v-if="true"></jack-nav>
     <router-view class="content"></router-view>
     <jack-footer></jack-footer>
   </div>
@@ -18,7 +18,7 @@ export default {
 		jackHeader,
 		jackNav,
 		jackFooter
-	}
+	},
 }
 </script>
 
