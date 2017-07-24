@@ -62,13 +62,14 @@
 			bookSearch:function(search){
 			},
 			savePro:function(book){
-				let nowBooks = localStorage.getItem("curBook");
-				if(nowBooks==null || nowBooks == "null"){
-					this.bookSet[0] = book;
-				}else{
-					this.bookSet = JSON.parse(nowBooks).concat(book);
-				}
-				localStorage.setItem("curBook",JSON.stringify(this.bookSet));
+				this.$store.commit("addToCart",book);
+//				let nowBooks = localStorage.getItem("curBook");
+//				if(nowBooks==null || nowBooks == "null"){
+//					this.bookSet[0] = book;
+//				}else{
+//					this.bookSet = JSON.parse(nowBooks).concat(book);
+//				}
+//				localStorage.setItem("curBook",JSON.stringify(this.bookSet));
 			}
 		}
 	}

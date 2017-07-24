@@ -18,17 +18,20 @@ export default{
 			nowBooks: [],
 		}
 	},
-	mounted:function(){
+	created:function(){
 		this.$nextTick(function(){
-			this.getBooks();
+//			this.getBooks();
+			this.$store.commit('getInCart');
+			this.nowBooks = this.$store.state.cartBook;
+			console.log(this.$store.state.cartBook)
 		})
 	},
 	watch:{
 	},
 	methods:{
-		getBooks:function(){
-			this.nowBooks = JSON.parse(localStorage.getItem("curBook"))
-		}
+//		getBooks:function(){
+//			this.nowBooks = JSON.parse(localStorage.getItem("curBook"))
+//		}
 	},
 }
 </script>

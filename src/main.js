@@ -7,9 +7,9 @@ import router from './router'
 import axios from 'axios'
 import store from './store'
 
+/* 可以省略.vue|.js|.html|.css后缀名,也可以省略index */
 
 Vue.prototype.$http = axios
-/* 可以省略.vue|.js|.html|.css后缀名,也可以省略index */
 
 Vue.config.productionTip = false
 
