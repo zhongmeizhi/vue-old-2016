@@ -22,7 +22,7 @@
 						<p>SubTotal:</p>
 						<span>￥{{book.num * book.price}}</span>
 					</div>
-					<object class="closePro" data="/static/tiny/close.svg" type="image/svg+xml"></object>
+					<object class="closePro" @click="closePro(book)" data="/static/tiny/close.svg" type="image/svg+xml"></object>
 				</div>
 			</div>
 			<hr />
@@ -32,7 +32,7 @@
 		<div class="cartEmpty" v-if="total==null">
 			<object data="/static/tiny/cry.svg" type="image/svg+xml"></object>
 			<h1>
-				CART IS EMPTY...
+				OH. NO!
 				<br />
 				I WANT SOMETHING...
 			</h1>
@@ -77,10 +77,21 @@ export default{
 					if (param=="add") {
 						v.num++;
 					} else{
-						v.num--;
+						if(v.num!=1){
+							v.num--;
+						}
 					}
 				}
-			})
+			});
+			localStorage.setItem("curBook",JSON.stringify(this.$store.state.bookSet));
+		},
+		closePro(book){
+			this.$store.state.bookSet.forEach((v,i)=>{
+				if(v.name == book.name){
+					delete this.$store.state.bookSet[i];
+				}
+			});
+			localStorage.setItem("curBook",JSON.stringify(this.$store.state.bookSet));
 		}
 	},
 }
@@ -155,7 +166,7 @@ export default{
 }
 .cartEmpty object{
 	display: block;
-	margin: 1.5rem auto 2.5rem;
+	margin: 1.5rem auto;
 	width: 80%;
 }
 .cartEmpty h1{
