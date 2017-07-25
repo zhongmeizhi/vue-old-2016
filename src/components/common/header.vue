@@ -6,6 +6,11 @@
 				<span>Home</span>
 			</router-link>
 		</div>
+		<div class="cartSvg">
+			<router-link to="/book/cart">
+				<object data="/static/tiny/cart.svg" type="image/svg+xml"/>
+			</router-link>
+		</div>
 	</div>
 </template>
 
@@ -21,7 +26,8 @@
 		background: white;
 	}
 	.jackHeader .logo{
-		height: 3rem;
+		float: left;
+		height: 2.5rem;
 		margin-left: 1rem;
 	}
 	.jackHeader .logo span{
@@ -33,5 +39,18 @@
 	.jackHeader .logo img{
 		vertical-align: middle;
 		height: 2.5rem;
+	}
+	.cartSvg{
+		float: right;
+		margin-right: 1rem;
+	}
+	.cartSvg a,.cartSvg object{
+		position: relative;
+		display: inline-block;
+		width: 3.5rem;
+		height: 2.5rem;
+	}
+	.cartSvg object{
+		z-index: -1;
 	}
 </style>

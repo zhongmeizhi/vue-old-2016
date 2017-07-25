@@ -63,19 +63,12 @@
 			},
 			savePro:function(book){
 				this.$store.commit("addToCart",book);
-//				let nowBooks = localStorage.getItem("curBook");
-//				if(nowBooks==null || nowBooks == "null"){
-//					this.bookSet[0] = book;
-//				}else{
-//					this.bookSet = JSON.parse(nowBooks).concat(book);
-//				}
-//				localStorage.setItem("curBook",JSON.stringify(this.bookSet));
 			}
 		}
 	}
 </script>
 
-<style>
+<style scoped>
 	.searchBox{
 		margin: 0.3rem 0;
 		padding: 0.01rem;
