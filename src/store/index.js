@@ -14,14 +14,26 @@ let store = new Vuex.Store({
     		this.state.count++
     	},
     	addToCart(state,book){
-    		let nowBooks = localStorage.getItem("curBook");
-			if(nowBooks==null || nowBooks == "null"){
+//  		let nowBooks = localStorage.getItem("curBook");
+			if(state.cartBook==null || state.cartBook == []){
+				book.num = 1;
 				state.bookSet[0] = book;
 			}else{
-				state.bookSet = JSON.parse(nowBooks).concat(book);
+				let flag = true;
+				state.bookSet.forEach(function(v,i){
+					if(v.name == book.name){
+						v.num++;
+						flag = false;
+					}
+				});
+				if(flag){
+					book.num = 1;
+					state.bookSet = state.cartBook.concat(book);
+				}
 			}
 			localStorage.setItem("curBook",JSON.stringify(state.bookSet));
-    	},
+			state.cartBook = JSON.parse(localStorage.getItem("curBook"));
+   		},
     	getInCart(state){
     		state.cartBook = JSON.parse(localStorage.getItem("curBook"));
     	}
