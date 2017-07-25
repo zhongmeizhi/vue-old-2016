@@ -8,7 +8,7 @@
 		</div>
 		<div class="cartSvg">
 			<router-link to="/book/cart">
-				<object data="/static/cart.svg" type="image/svg+xml"/>
+				<object data="/static/tiny/cart.svg" type="image/svg+xml"/>
 			</router-link>
 		</div>
 	</div>

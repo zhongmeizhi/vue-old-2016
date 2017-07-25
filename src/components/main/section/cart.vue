@@ -1,30 +1,40 @@
 <template>
 	<div class="cart">
-		<div v-for="book in getBooks" class="bookList" v-if="total!=null">
-			<div class="bookL"><img :src="book.img" alt="book.name" /></div>
-			<div class="bookR">
-				<ul>
-					<li class="name"><span>{{book.name}}</span></li>
-					<li class="number">
-						<p>Number:</p>
-						<span class="reduce">-</span>
-						<span>{{book.num}}</span>
-						<span class="add">+</span>
-					</li>
-					<li>
-						<p>Price:</p>
-						<span>{{book.price}}</span>
-					</li>
-					<li>
+		<hr />
+		<div  v-if="total!=null">
+			<div v-for="book in getBooks" class="bookList">
+				<div class="bookL"><img :src="book.img" alt="book.name" /></div>
+				<div class="bookR">
+					<ul>
+						<li class="name"><p>{{book.name}}</p></li>
+						<li class="number">
+							<p>Number:</p>
+							<span class="reduce">-</span>
+							<span>{{book.num}}</span>
+							<span class="add">+</span>
+						</li>
+						<li>
+							<p>Price:</p>
+							<span>￥{{book.price}}</span>
+						</li>
+					</ul>
+					<div class="subTotal">
 						<p>SubTotal:</p>
-						<span>{{book.num * book.price}}</span>
-					</li>
-				</ul>
+						<span>￥{{book.num * book.price}}</span>
+					</div>
+				</div>
 			</div>
-			<div class="total">Total:&nbsp;￥<span>{{total}}</span>RMB</div>
+			<hr />
+			<div class="total">Total:&nbsp;<span>￥{{total}}</span></div>
 		</div>
-		<div class="proNull" v-if="total==null">
-			Cart is blank lo...
+		
+		<div class="cartEmpty" v-if="total==null">
+			<object data="/static/tiny/cry.svg" type="image/svg+xml"></object>
+			<h1>
+				CART IS EMPTY...
+				<br />
+				I WANT SOMETHING...
+			</h1>
 		</div>
 	</div>
 </template>
@@ -67,28 +77,48 @@ export default{
 <style>
 .bookList{
 	overflow: hidden;
+	padding: 0.8rem 1rem;
 }
 .bookList .bookL{
 	float: left;
-	width: 35%;
 }
 .bookList .bookR{
-	float: right;
-	width: 65%;
-}
-.bookL,.bookL img,.bookR{
 	height: 10.18rem;
+	padding: 0.6rem 1.5rem;
+	box-sizing: border-box;
+	background-color: rgba(84, 264, 237, 0.05);
+	margin-left: 7.34rem;
+	position: relative;
+}
+.bookL,.bookL img{
+	height: 10.18rem;
+	width: 7.34rem;
 }
 .bookR .name{
 	text-align: center;
-	font-size: 1.1rem;
-	font-weight: 450;
+	font-size: 1.3rem;
+	font-weight: 500;
+	letter-spacing: 0.6rem;
 }
-.bookR li{
+.subTotal{
+	position: absolute;
+	bottom: 0.35rem;
+	right: 1rem;
 }
-.bookR li p{
+.subTotal p{
 	display: inline-block;
-	width: 40%;
+}
+.bookR li,.subTotal{
+	padding: 0.2rem;
+	font-size: 1.1rem;
+}
+.bookR li:not(.name) p{
+	display: inline-block;
+	width: 55%;
+}
+.bookR span{
+	font-weight: 500;
+	letter-spacing: 0.1rem;
 }
 .number .reduce,.number .add{
 	background: gainsboro;
@@ -105,5 +135,14 @@ export default{
 .total span{
 	color: orangered;
 	letter-spacing: 0.1rem;
+}
+.cartEmpty object{
+	display: block;
+	margin: 1.5rem auto 2.5rem;
+	width: 80%;
+}
+.cartEmpty h1{
+	color: orangered;
+	text-align: center;
 }
 </style>
