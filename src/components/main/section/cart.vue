@@ -7,21 +7,22 @@
 				<div class="bookR">
 					<ul>
 						<li class="name"><p>{{book.name}}</p></li>
-						<li class="number">
-							<p>Number:</p>
-							<span class="reduce">-</span>
-							<span>{{book.num}}</span>
-							<span class="add">+</span>
-						</li>
 						<li>
 							<p>Price:</p>
 							<span>￥{{book.price}}</span>
+						</li>
+						<li class="number">
+							<p>Number:</p>
+							<object class="reduce" @click="count(book)" data="/static/tiny/reduce.svg" type="image/svg+xml"></object>
+							<span>{{book.num}}</span>
+							<object class="add" @click="count(book,'add')" data="/static/tiny/add.svg" type="image/svg+xml"></object>
 						</li>
 					</ul>
 					<div class="subTotal">
 						<p>SubTotal:</p>
 						<span>￥{{book.num * book.price}}</span>
 					</div>
+					<object class="closePro" data="/static/tiny/close.svg" type="image/svg+xml"></object>
 				</div>
 			</div>
 			<hr />
@@ -65,11 +66,22 @@ export default{
 	    		return null;
 	    	}
 	    	return sum;
-	    }
+	    },
 	},
 	watch:{
 	},
 	methods:{
+		count(book,param){
+			this.$store.state.bookSet.forEach(function(v,i){
+				if(v.name == book.name){
+					if (param=="add") {
+						v.num++;
+					} else{
+						v.num--;
+					}
+				}
+			})
+		}
 	},
 }
 </script>
@@ -116,15 +128,20 @@ export default{
 	display: inline-block;
 	width: 55%;
 }
+.bookR .closePro{
+	position: absolute;
+	top: 0.3rem;
+	right: 1rem;
+	width: 1rem;
+}
 .bookR span{
 	font-weight: 500;
 	letter-spacing: 0.1rem;
 }
 .number .reduce,.number .add{
-	background: gainsboro;
-	font-weight: bold;
-	padding: 0.1rem 0.3rem;
-	color: blue;
+	width: 1.2rem;
+	display: inline-block;
+	vertical-align: text-top;
 }
 .total{
 	text-align: right;
