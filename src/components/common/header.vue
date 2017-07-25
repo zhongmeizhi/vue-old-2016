@@ -45,8 +45,12 @@
 		margin-right: 1rem;
 	}
 	.cartSvg a,.cartSvg object{
+		position: relative;
 		display: inline-block;
 		width: 3.5rem;
 		height: 2.5rem;
+	}
+	.cartSvg object{
+		z-index: -1;
 	}
 </style>

@@ -14,8 +14,9 @@ let store = new Vuex.Store({
     		this.state.count++
     	},
     	addToCart(state,book){
-//  		let nowBooks = localStorage.getItem("curBook");
-			if(state.cartBook==null || state.cartBook == []){
+    		let nowBooks = localStorage.getItem("curBook");
+    		console.log(nowBooks);
+			if(!nowBooks){
 				book.num = 1;
 				state.bookSet[0] = book;
 			}else{
