@@ -6,13 +6,19 @@
 				<ul>
 					<li class="name"><span>{{book.name}}</span></li>
 					<li class="number">
-						number:
+						<p>Number:</p>
 						<span class="reduce">-</span>
 						<span>{{book.num}}</span>
 						<span class="add">+</span>
 					</li>
-					<li>price:<span>{{book.price}}</span></li>
-					<li>subTotal:<span>{{book.num * book.price}}</span></li>
+					<li>
+						<p>Price:</p>
+						<span>{{book.price}}</span>
+					</li>
+					<li>
+						<p>SubTotal:</p>
+						<span>{{book.num * book.price}}</span>
+					</li>
 				</ul>
 			</div>
 			<div class="total">Total:&nbsp;￥<span>{{total}}</span>RMB</div>
@@ -37,7 +43,7 @@ export default{
 	computed:{
 		getBooks () {
 		  this.$store.commit('getInCart');
-	      return this.$store.state.cartBook;
+	      return this.$store.state.bookSet;
 	    },
 	    total(){
 	    	let sum = 0;
@@ -62,8 +68,6 @@ export default{
 .bookList{
 	overflow: hidden;
 }
-.bookList li img{
-}
 .bookList .bookL{
 	float: left;
 	width: 35%;
@@ -72,10 +76,19 @@ export default{
 	float: right;
 	width: 65%;
 }
+.bookL,.bookL img,.bookR{
+	height: 10.18rem;
+}
 .bookR .name{
 	text-align: center;
 	font-size: 1.1rem;
 	font-weight: 450;
+}
+.bookR li{
+}
+.bookR li p{
+	display: inline-block;
+	width: 40%;
 }
 .number .reduce,.number .add{
 	background: gainsboro;

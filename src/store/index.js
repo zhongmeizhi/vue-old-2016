@@ -5,18 +5,12 @@ Vue.use(Vuex)
 
 let store = new Vuex.Store({
 	state:{
-		count:0,
-		bookSet:[],
-		cartBook:[]
+		bookSet:[]
 	},
 	mutations: {
-    	increment (state) {
-    		this.state.count++
-    	},
     	addToCart(state,book){
-    		let nowBooks = localStorage.getItem("curBook");
-    		console.log(nowBooks);
-			if(!nowBooks){
+    		state.bookSet = JSON.parse(localStorage.getItem("curBook")) || [];
+			if(state.bookSet.length == 0){
 				book.num = 1;
 				state.bookSet[0] = book;
 			}else{
@@ -29,14 +23,14 @@ let store = new Vuex.Store({
 				});
 				if(flag){
 					book.num = 1;
-					state.bookSet = state.cartBook.concat(book);
+					state.bookSet = state.bookSet.concat(book);
 				}
 			}
 			localStorage.setItem("curBook",JSON.stringify(state.bookSet));
-			state.cartBook = JSON.parse(localStorage.getItem("curBook"));
+			state.bookSet = JSON.parse(localStorage.getItem("curBook"));
    		},
     	getInCart(state){
-    		state.cartBook = JSON.parse(localStorage.getItem("curBook"));
+    		state.bookSet = JSON.parse(localStorage.getItem("curBook"));
     	}
     	
 	},
