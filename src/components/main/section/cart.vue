@@ -1,7 +1,7 @@
 <template>
 	<div class="cart">
 		<hr />
-		<div  v-if="total!=null">
+		<div  v-if="total">
 			<div v-for="book in getBooks" class="bookList">
 				<div class="bookL"><img :src="book.img" alt="book.name" /></div>
 				<div class="bookR">
@@ -29,7 +29,7 @@
 			<div class="total">Total:&nbsp;<span>￥{{total}}</span></div>
 		</div>
 		
-		<div class="cartEmpty" v-if="total==null">
+		<div class="cartEmpty" v-if="!total">
 			<object data="/static/tiny/cry.svg" type="image/svg+xml"></object>
 			<h1>
 				OH. NO!
@@ -62,10 +62,10 @@ export default{
 	    		this.getBooks.forEach(function(v,i){
 		    		sum += v.price * v.num
 		    	})
+	    		return sum;
 	    	}catch(e){
 	    		return null;
 	    	}
-	    	return sum;
 	    },
 	},
 	watch:{
@@ -86,12 +86,7 @@ export default{
 			localStorage.setItem("curBook",JSON.stringify(this.$store.state.bookSet));
 		},
 		closePro(book){
-			this.$store.state.bookSet.forEach((v,i)=>{
-				if(v.name == book.name){
-					delete this.$store.state.bookSet[i];
-				}
-			});
-			localStorage.setItem("curBook",JSON.stringify(this.$store.state.bookSet));
+			this.$store.commit("delInCart",book);
 		}
 	},
 }

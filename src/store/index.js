@@ -31,6 +31,16 @@ let store = new Vuex.Store({
    		},
     	getInCart(state){
     		state.bookSet = JSON.parse(localStorage.getItem("curBook"));
+    	},
+    	delInCart(state,book){
+			let collection = JSON.parse(JSON.stringify(state.bookSet));
+			state.bookSet.forEach(function(v,i){
+				if(v.name == book.name){
+					collection.splice(i,1);
+				}
+			});
+			localStorage.setItem("curBook",JSON.stringify(collection));
+			state.bookSet = JSON.parse(localStorage.getItem("curBook"));
     	}
     	
 	},
