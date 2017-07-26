@@ -89,9 +89,6 @@
 	.searchBox input:hover{
 		border: 0.02rem blue solid;
 	}
-	.bookList{
-	
-	}
 	.bookBox{
 		padding: 0.9rem 2rem;
 		overflow: hidden;

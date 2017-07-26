@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import home from '@/components/main/home'
 import abc from '@/components/main/abc'
 import book from '@/components/main/book'
-import vr from '@/components/main/vr'
 import about from '@/components/main/about'
 import cart from '@/components/main/section/cart'
 
@@ -33,11 +32,6 @@ export default new Router({
       name: 'cart',
       component: cart
 		},
-    {
-      path: '/vr',
-      name: 'vr',
-      component: vr
-    }, 
     {
       path: '/about',
       name: 'about',

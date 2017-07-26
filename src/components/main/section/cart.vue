@@ -13,16 +13,22 @@
 						</li>
 						<li class="number">
 							<p>Number:</p>
-							<object class="reduce" @click="count(book)" data="/static/tiny/reduce.svg" type="image/svg+xml"></object>
+							<b  @click="count(book)">
+								<object class="reduce" data="/static/tiny/reduce.svg" type="image/svg+xml"></object>
+							</b>
 							<span>{{book.num}}</span>
-							<object class="add" @click="count(book,'add')" data="/static/tiny/add.svg" type="image/svg+xml"></object>
+							<b  @click="count(book,'add')">
+								<object class="add" data="/static/tiny/add.svg" type="image/svg+xml"></object>
+							</b>
 						</li>
 					</ul>
 					<div class="subTotal">
 						<p>SubTotal:</p>
 						<span>￥{{book.num * book.price}}</span>
 					</div>
-					<object class="closePro" @click="closePro(book)" data="/static/tiny/close.svg" type="image/svg+xml"></object>
+					<b class="closeP" @click="closePro(book)">
+						<object class="closePro" data="/static/tiny/close.svg" type="image/svg+xml"></object>
+					</b>
 				</div>
 			</div>
 			<hr />
@@ -92,7 +98,7 @@ export default{
 }
 </script>
 
-<style>
+<style scoped>
 .bookList{
 	overflow: hidden;
 	padding: 0.8rem 1rem;
@@ -134,20 +140,29 @@ export default{
 	display: inline-block;
 	width: 55%;
 }
-.bookR .closePro{
+.bookR .closeP{
 	position: absolute;
 	top: 0.3rem;
 	right: 1rem;
+	z-index: 222;
+}
+.bookR .closePro{
 	width: 1rem;
 }
 .bookR span{
 	font-weight: 500;
 	letter-spacing: 0.1rem;
 }
+.number b{
+	position: relative;
+	z-index: 222;
+}
 .number .reduce,.number .add{
 	width: 1.2rem;
 	display: inline-block;
 	vertical-align: text-top;
+	position: relative;
+	z-index: -222;
 }
 .total{
 	text-align: right;
