@@ -1,20 +1,20 @@
 <template>
 	<div class="book">
 		<div class="searchBox clearfix">
+			<div class="parentObj">
+				<span @click="searchStart()" :class="{active:searchFlag}">
+				</span>			
+			</div>
 			<div class="selectBox">
 				<select name="orderByPrice">
 					<option value="">price(low to high)</option>
 					<option value="">price(high to low)</option>
 				</select>
 			</div>
-			<div class="parentObj">
-				<span @click="searchStart()">
-				</span>			
-			</div>
 			<input v-if="searchFlag" type="text" name="search" id="search" v-model="search" placeholder="Search..."/>
 		</div>
 		<ul class="bookList">
-			<li v-for="book in test.books">
+			<li v-for="book in testBook.books">
 				<div class="bookBox">
 					<div class="bookImg">
 						<img :alt="book.name" :src="book.img"/>
@@ -39,6 +39,7 @@
 				</div>
 			</li>
 		</ul>
+		{{priceAsc()}}
 	</div>
 </template>
 
@@ -46,11 +47,12 @@
 	export default {
 		data() {
 			return {
-				test: [],
+				testBook: [],
 				search:"",
 				searchFlag:false,
 				bookSet:[],
-				sendBooks:[]
+				sendBooks:[],
+				search:""
 			}
 		},
 		mounted(){
@@ -60,7 +62,7 @@
 		,
 		created() {
 			this.$http.get('/static/test.json').then((response) => {
-				this.test = response.data;
+				this.testBook = response.data;
 			}).catch(function(response) {
 				console.log(response)
 			});
@@ -72,7 +74,27 @@
 				this.$store.commit("addToCart",book);
 			},
 			searchStart(){
-				this.searchFlag = true; 
+				let self = this;
+				if(this.searchFlag){
+					let filterBook = self.testBook.books.filter(function(v){
+						let flag = false;
+						for (let i in v) {
+							if(v[i].indexOf(self.search)!=-1){
+								flag = true;
+							}
+						}
+						return flag;
+					});
+					console.log(filterBook,self.search);
+				}
+				this.searchFlag = !this.searchFlag; 
+			},
+			priceAsc(){
+			},
+			priceDesc(){
+			},
+			searchBook(){
+				
 			}
 		}
 	}
@@ -84,16 +106,22 @@
 		position: relative;
 		margin: 0.3rem 2rem;
 	}
-	.selectBox,.parentObj{
-		float: left;
+	.selectBox{
+		float: right;
+		margin-right: 1rem;
 	}
 	.parentObj span{
 		display: inline-block;
-		margin-left: 5rem;
 		background: url(/static/tiny/search.svg) no-repeat;
 		background-size: 1.8rem;
 		height:1.8rem;
 		width:1.8rem;
+		position: absolute;
+		left: 3rem;
+	}
+	.parentObj span.active{
+		z-index: 333;
+		left: 0.4rem;
 	}
 	#search{
 		position: absolute;
@@ -103,7 +131,7 @@
 		top: -0.3rem;
 		width: 100%;
 		z-index: 33;
-		padding-left: 1rem;
+		padding-left: 2.6rem;
 		font-size: 1.22rem;
 		box-sizing: border-box;
 	}

@@ -47,7 +47,7 @@ export default{
 	}
 	.jackNav ul li{
 		display: inline-block;
-		margin: 0 0.2rem 0.2rem 0.2rem;
+		margin: 0 0.2rem 0.37rem;
 		border: 0.1rem solid gray;
 		border-radius: 5rem;
 		background: orange;
