@@ -19,6 +19,7 @@ export default {
   },
   watch:{
   	"msg":function(v,o){
+  		console.log(this.$route.name)
   	}
   },
   methods:{
@@ -32,7 +33,7 @@ export default {
 	  			} else{
 	  				clearTimeout(tot);
 	  			}
-  			},130)
+  			},50)
   		return this.msg;
   	}  
   }
