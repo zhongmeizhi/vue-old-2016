@@ -15,7 +15,7 @@
 							<p>Number:</p>
 							<b  @click="count(book)" class="reduce"></b>
 							<span>{{book.num}}</span>
-							<b  @click="count(book,'add')" class="reduce"></b>
+							<b  @click="count(book,'add')" class="add"></b>
 						</li>
 					</ul>
 					<div class="subTotal">
