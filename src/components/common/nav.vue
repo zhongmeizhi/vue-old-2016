@@ -1,7 +1,7 @@
 <template>
 	<div class="jackNav">
 		<ul>
-			<li v-for="nav in menu.list">
+			<li v-for="nav in menu.list" :class="{navActive:nav.link==$route.name}">
 <!-- :href 跳转的是url不是hash，需要route设置mode:"history" -->
 				<!--<a :href="nav.link">{{nav.name}}</a>-->
 				
@@ -19,18 +19,26 @@ export default{
 		return {
 	    	menu: {
 	    		list: [
-	    			{name:"Practice",link:"abc"},
-	    			{name:"Book",link:"book"},
-	    			{name:"VR",link:"vr"},
+	    			{name:"WeChat",link:"abc"},
+	    			{name:"BookShop",link:"book"},
 	    			{name:"About",link:"about"}
 	    		]
-	    	}			
+	    	}
 		}
+	},
+	mounted(){
+		this.$nextTick(function(){
+		})
 	}
 }
 </script>
 
 <style scoped>
+	.jackNav .navActive{
+		transform: scale(0.8);
+		background: orangered;
+		border: 0.1rem solid black;
+	}
 	.jackNav{
 		margin: 3.3rem 0.6rem 0 0.6rem;
 	}

@@ -1,8 +1,8 @@
 <template>
 	<div class="cart">
 		<hr />
-		<div  v-if="total!=null">
-			<div v-for="book in getBooks" class="bookList">
+		<div  v-if="total">
+			<div v-for="book in getBooks" class="bookList clearfix">
 				<div class="bookL"><img :src="book.img" alt="book.name" /></div>
 				<div class="bookR">
 					<ul>
@@ -13,23 +13,23 @@
 						</li>
 						<li class="number">
 							<p>Number:</p>
-							<object class="reduce" @click="count(book)" data="/static/tiny/reduce.svg" type="image/svg+xml"></object>
+							<b  @click="count(book)" class="reduce"></b>
 							<span>{{book.num}}</span>
-							<object class="add" @click="count(book,'add')" data="/static/tiny/add.svg" type="image/svg+xml"></object>
+							<b  @click="count(book,'add')" class="reduce"></b>
 						</li>
 					</ul>
 					<div class="subTotal">
 						<p>SubTotal:</p>
 						<span>￥{{book.num * book.price}}</span>
 					</div>
-					<object class="closePro" @click="closePro(book)" data="/static/tiny/close.svg" type="image/svg+xml"></object>
+					<b class="closeP" @click="closePro(book)"></b>
 				</div>
 			</div>
 			<hr />
 			<div class="total">Total:&nbsp;<span>￥{{total}}</span></div>
 		</div>
 		
-		<div class="cartEmpty" v-if="total==null">
+		<div class="cartEmpty" v-if="!total">
 			<object data="/static/tiny/cry.svg" type="image/svg+xml"></object>
 			<h1>
 				OH. NO!
@@ -62,10 +62,10 @@ export default{
 	    		this.getBooks.forEach(function(v,i){
 		    		sum += v.price * v.num
 		    	})
+	    		return sum;
 	    	}catch(e){
 	    		return null;
 	    	}
-	    	return sum;
 	    },
 	},
 	watch:{
@@ -86,20 +86,14 @@ export default{
 			localStorage.setItem("curBook",JSON.stringify(this.$store.state.bookSet));
 		},
 		closePro(book){
-			this.$store.state.bookSet.forEach((v,i)=>{
-				if(v.name == book.name){
-					delete this.$store.state.bookSet[i];
-				}
-			});
-			localStorage.setItem("curBook",JSON.stringify(this.$store.state.bookSet));
+			this.$store.commit("delInCart",book);
 		}
 	},
 }
 </script>
 
-<style>
+<style scoped>
 .bookList{
-	overflow: hidden;
 	padding: 0.8rem 1rem;
 }
 .bookList .bookL{
@@ -139,11 +133,14 @@ export default{
 	display: inline-block;
 	width: 55%;
 }
-.bookR .closePro{
+.bookR .closeP{
 	position: absolute;
 	top: 0.3rem;
 	right: 1rem;
-	width: 1rem;
+	width: 1.3rem;
+	height: 1.3rem;
+	background: url(/static/tiny/close.svg) no-repeat;
+	background-size: 1rem;
 }
 .bookR span{
 	font-weight: 500;
@@ -151,8 +148,17 @@ export default{
 }
 .number .reduce,.number .add{
 	width: 1.2rem;
+	height: 1.2rem;
 	display: inline-block;
 	vertical-align: text-top;
+}
+.number .reduce{
+	background: url(/static/tiny/reduce.svg) no-repeat;
+	background-size: 1.2rem;
+}
+.number .add{
+	background: url(/static/tiny/add.svg) no-repeat;
+	background-size: 1.2rem;
 }
 .total{
 	text-align: right;

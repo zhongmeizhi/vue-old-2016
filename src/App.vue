@@ -57,4 +57,9 @@ export default {
 	.content{
 		padding:0 0.6rem 3.1rem 0.6rem;
 	}
+	.clearfix:after{
+		display: table;
+		content: "";
+		clear: both;
+	}
 </style>

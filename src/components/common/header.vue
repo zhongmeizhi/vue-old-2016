@@ -1,14 +1,13 @@
 <template>
 	<div class="jackHeader">
-		<div class="logo">
+		<div class="logo" :class="{homeActive:$route.name=='home'}">
 			<router-link to="/">
 				<img src="../../assets/logo.png"/>
 				<span>Home</span>
 			</router-link>
 		</div>
-		<div class="cartSvg">
+		<div class="cartSvg" :class="{cartActive:$route.name=='cart'}">
 			<router-link to="/book/cart">
-				<object data="/static/tiny/cart.svg" type="image/svg+xml"/>
 			</router-link>
 		</div>
 	</div>
@@ -29,28 +28,41 @@
 		float: left;
 		height: 2.5rem;
 		margin-left: 1rem;
+		padding: 0 0.5rem;
 	}
-	.jackHeader .logo span{
+	.logo span{
 		display: inline-block;
 		vertical-align: middle;
 		color: orange;
 		font-size: 1.5rem;
 	}
-	.jackHeader .logo img{
+	.logo img,.logo a{
+		display: inline-block;
 		vertical-align: middle;
 		height: 2.5rem;
+	}
+	.jackHeader .homeActive{
+		transform: scale(0.8);
+		background: orangered;
+		border-radius: 4rem;
+		color: white;
+		font-weight: bold;
 	}
 	.cartSvg{
 		float: right;
 		margin-right: 1rem;
 	}
-	.cartSvg a,.cartSvg object{
-		position: relative;
+	.cartSvg a{
 		display: inline-block;
 		width: 3.5rem;
-		height: 2.5rem;
+		height: 2.3rem;
+	    vertical-align: middle;
+	    background: url(/static/tiny/cart.svg);
+	    background-size:3.5rem 2.3rem ;
 	}
-	.cartSvg object{
-		z-index: -1;
+	.cartSvg.cartActive{
+		background: orangered;
+		opacity: 0.99;
+		border-radius: 4rem;
 	}
 </style>
