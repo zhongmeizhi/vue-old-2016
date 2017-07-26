@@ -8,7 +8,6 @@
 		</div>
 		<div class="cartSvg" :class="{cartActive:$route.name=='cart'}">
 			<router-link to="/book/cart">
-				<object data="/static/tiny/cart.svg" type="image/svg+xml"/>
 			</router-link>
 		</div>
 	</div>
@@ -53,15 +52,13 @@
 		float: right;
 		margin-right: 1rem;
 	}
-	.cartSvg a,.cartSvg object{
-		position: relative;
+	.cartSvg a{
 		display: inline-block;
 		width: 3.5rem;
 		height: 2.3rem;
 	    vertical-align: middle;
-	}
-	.cartSvg object{
-		z-index: -12;
+	    background: url(/static/tiny/cart.svg);
+	    background-size:3.5rem 2.3rem ;
 	}
 	.cartSvg.cartActive{
 		background: orangered;

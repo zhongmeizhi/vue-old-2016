@@ -2,7 +2,7 @@
 	<div class="cart">
 		<hr />
 		<div  v-if="total">
-			<div v-for="book in getBooks" class="bookList">
+			<div v-for="book in getBooks" class="bookList clearfix">
 				<div class="bookL"><img :src="book.img" alt="book.name" /></div>
 				<div class="bookR">
 					<ul>
@@ -13,22 +13,16 @@
 						</li>
 						<li class="number">
 							<p>Number:</p>
-							<b  @click="count(book)">
-								<object class="reduce" data="/static/tiny/reduce.svg" type="image/svg+xml"></object>
-							</b>
+							<b  @click="count(book)" class="reduce"></b>
 							<span>{{book.num}}</span>
-							<b  @click="count(book,'add')">
-								<object class="add" data="/static/tiny/add.svg" type="image/svg+xml"></object>
-							</b>
+							<b  @click="count(book,'add')" class="reduce"></b>
 						</li>
 					</ul>
 					<div class="subTotal">
 						<p>SubTotal:</p>
 						<span>￥{{book.num * book.price}}</span>
 					</div>
-					<b class="closeP" @click="closePro(book)">
-						<object class="closePro" data="/static/tiny/close.svg" type="image/svg+xml"></object>
-					</b>
+					<b class="closeP" @click="closePro(book)"></b>
 				</div>
 			</div>
 			<hr />
@@ -100,7 +94,6 @@ export default{
 
 <style scoped>
 .bookList{
-	overflow: hidden;
 	padding: 0.8rem 1rem;
 }
 .bookList .bookL{
@@ -144,25 +137,28 @@ export default{
 	position: absolute;
 	top: 0.3rem;
 	right: 1rem;
-	z-index: 222;
-}
-.bookR .closePro{
-	width: 1rem;
+	width: 1.3rem;
+	height: 1.3rem;
+	background: url(/static/tiny/close.svg) no-repeat;
+	background-size: 1rem;
 }
 .bookR span{
 	font-weight: 500;
 	letter-spacing: 0.1rem;
 }
-.number b{
-	position: relative;
-	z-index: 222;
-}
 .number .reduce,.number .add{
 	width: 1.2rem;
+	height: 1.2rem;
 	display: inline-block;
 	vertical-align: text-top;
-	position: relative;
-	z-index: -222;
+}
+.number .reduce{
+	background: url(/static/tiny/reduce.svg) no-repeat;
+	background-size: 1.2rem;
+}
+.number .add{
+	background: url(/static/tiny/add.svg) no-repeat;
+	background-size: 1.2rem;
 }
 .total{
 	text-align: right;

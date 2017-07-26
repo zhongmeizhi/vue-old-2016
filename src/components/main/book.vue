@@ -1,11 +1,17 @@
 <template>
 	<div class="book">
-		<div class="searchBox">
-			<input type="text" name="search" id="search" v-model="search" placeholder="Search your love..."/>
-			<select name="orderByPrice">
-				<option value="">price(low to high)</option>
-				<option value="">price(high to low)</option>
-			</select>
+		<div class="searchBox clearfix">
+			<div class="selectBox">
+				<select name="orderByPrice">
+					<option value="">price(low to high)</option>
+					<option value="">price(high to low)</option>
+				</select>
+			</div>
+			<div class="parentObj">
+				<span @click="searchStart()">
+				</span>			
+			</div>
+			<input v-if="searchFlag" type="text" name="search" id="search" v-model="search" placeholder="Search..."/>
 		</div>
 		<ul class="bookList">
 			<li v-for="book in test.books">
@@ -42,16 +48,17 @@
 			return {
 				test: [],
 				search:"",
+				searchFlag:false,
 				bookSet:[],
 				sendBooks:[]
 			}
 		},
-		mounted:function(){
+		mounted(){
 			this.$nextTick(function(){
 			})
 		}
 		,
-		created: function() {
+		created() {
 			this.$http.get('/static/test.json').then((response) => {
 				this.test = response.data;
 			}).catch(function(response) {
@@ -59,36 +66,56 @@
 			});
 		},
 		methods:{
-			bookSearch:function(search){
+			bookSearch(search){
 			},
-			savePro:function(book){
+			savePro(book){
 				this.$store.commit("addToCart",book);
+			},
+			searchStart(){
+				this.searchFlag = true; 
 			}
 		}
 	}
 </script>
 
 <style scoped>
+/* filter */
 	.searchBox{
-		margin: 0.3rem 0;
-		padding: 0.01rem;
+		position: relative;
+		margin: 0.3rem 2rem;
+	}
+	.selectBox,.parentObj{
+		float: left;
+	}
+	.parentObj span{
+		display: inline-block;
+		margin-left: 5rem;
+		background: url(/static/tiny/search.svg) no-repeat;
+		background-size: 1.8rem;
+		height:1.8rem;
+		width:1.8rem;
+	}
+	#search{
+		position: absolute;
+		display: block;
+		height: 2.5rem;
+		line-height: 2.5rem;
+		top: -0.3rem;
 		width: 100%;
+		z-index: 33;
+		padding-left: 1rem;
+		font-size: 1.22rem;
+		box-sizing: border-box;
 	}
-	.searchBox label{
-		font-size: 1.1rem;
-		font-weight: bold;
-		color: darkgoldenrod;
+	.selectBox select{
+		font-size: 1.12rem;
+		padding: 0.17rem 0.3rem;
+		box-sizing: border-box;
 	}
-	.searchBox label{
+	.selectBox select:focus,.searchBox input:hover{
+		outline: 0.18rem solid orchid;
 	}
-	.searchBox input{
-		color: black;
-		padding: 0.4rem;
-		border: 0.02rem gray solid;
-	}
-	.searchBox input:hover{
-		border: 0.02rem blue solid;
-	}
+/* book list*/
 	.bookBox{
 		padding: 0.9rem 2rem;
 		overflow: hidden;
@@ -132,4 +159,5 @@
 		border: 1px solid wheat;
 		box-shadow: 0 0 10px gray inset;
 	}
+
 </style>

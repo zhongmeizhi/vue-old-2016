@@ -19,7 +19,7 @@ export default{
 		return {
 	    	menu: {
 	    		list: [
-	    			{name:"Practice",link:"abc"},
+	    			{name:"WeChat",link:"abc"},
 	    			{name:"BookShop",link:"book"},
 	    			{name:"About",link:"about"}
 	    		]
