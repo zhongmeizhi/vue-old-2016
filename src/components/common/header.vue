@@ -10,7 +10,7 @@
 			<router-link to="/cart">
 			</router-link>
 			<span>
-				{{$store.state.bookNum}}
+				{{bookNum}}
 			</span>
 		</div>
 	</div>
@@ -26,7 +26,10 @@ export default{
 	computed:{
 		bookNum(){
 			this.$store.commit("getBookNum");
+			return this.$store.state.bookNum;
 		}
+	},
+	method:{
 	}
 }
 </script>
@@ -38,6 +41,7 @@ export default{
 		width: 100%;
 		box-shadow: 0 2px 8px gainsboro;
 		background: white;
+		z-index: 444;
 	}
 	.jackHeader .logo{
 		float: left;

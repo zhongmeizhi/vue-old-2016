@@ -17,7 +17,7 @@ export default{
 </script>
 
 <style scoped>
-.cartIcon a{
+.cartIcon span{
 	display: inline-block;
 	width: 2rem;
 	height: 2rem;

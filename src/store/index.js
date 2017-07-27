@@ -43,8 +43,9 @@ let store = new Vuex.Store({
 			localStorage.setItem("curBook",JSON.stringify(collection));
 			state.bookSet = JSON.parse(localStorage.getItem("curBook"));
     	},
-    	getBookNum(){
+    	getBookNum(state){
     		state.bookNum = 0;
+    		state.bookSet = JSON.parse(localStorage.getItem("curBook"));
     		state.bookSet.forEach(function(v,i){
     			state.bookNum += v.num 
     		})
@@ -52,7 +53,6 @@ let store = new Vuex.Store({
     	
 	},
 	actions:{
-		
 	}
 })
 

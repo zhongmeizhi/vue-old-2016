@@ -58,7 +58,7 @@ export default{
 	},
 	computed:{
 		getBooks () {
-		  this.$store.commit('getInCart');
+//		  this.$store.commit('getInCart');
 	      return this.$store.state.bookSet;
 	    },
 	    total(){
