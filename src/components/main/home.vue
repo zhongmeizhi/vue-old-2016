@@ -18,9 +18,6 @@ export default {
   computed:{
   },
   watch:{
-  	"msg":function(v,o){
-  		console.log(this.$route.name)
-  	}
   },
   methods:{
   	addText:function(){

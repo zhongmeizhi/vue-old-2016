@@ -11,10 +11,11 @@
 					<option value="">price(high to low)</option>
 				</select>
 			</div>
-			<input v-if="searchFlag" type="text" name="search" id="search" v-model="search" placeholder="Search..."/>
+			<input v-if="searchFlag" @keydown.enter="searchStart()" @keydown.tab="searchStart()" type="text" name="search" id="search" v-model="search" placeholder="Search..."/>
+			<span class="close" v-if="searchFlag" @click="searchFlag=false"></span>
 		</div>
 		<ul class="bookList">
-			<li v-for="book in testBook.books">
+			<li v-for="book in filterBook.books">
 				<div class="bookBox">
 					<div class="bookImg">
 						<img :alt="book.name" :src="book.img"/>
@@ -52,7 +53,8 @@
 				searchFlag:false,
 				bookSet:[],
 				sendBooks:[],
-				search:""
+				search:"",
+				filterBook:[]
 			}
 		},
 		mounted(){
@@ -63,11 +65,18 @@
 		created() {
 			this.$http.get('/static/test.json').then((response) => {
 				this.testBook = response.data;
+				this.filterBook = JSON.parse(JSON.stringify(this.testBook));
 			}).catch(function(response) {
 				console.log(response)
 			});
 		},
+		computed:{
+			
+		},
 		methods:{
+			abc(ev){
+				console.log(ev)
+			},
 			bookSearch(search){
 			},
 			savePro(book){
@@ -75,19 +84,17 @@
 			},
 			searchStart(){
 				let self = this;
-				if(this.searchFlag){
-					let filterBook = self.testBook.books.filter(function(v){
-						let flag = false;
-						for (let i in v) {
-							if(v[i].indexOf(self.search)!=-1){
-								flag = true;
+				if(self.searchFlag){
+					self.filterBook.books = self.testBook.books.filter(function(v){
+						for (var i in v) {
+							if(v[i].toString().indexOf(self.search)!=-1){
+								return true;
 							}
 						}
-						return flag;
+						return false;
 					});
-					console.log(filterBook,self.search);
 				}
-				this.searchFlag = !this.searchFlag; 
+				self.searchFlag = !self.searchFlag; 	
 			},
 			priceAsc(){
 			},
@@ -134,6 +141,18 @@
 		padding-left: 2.6rem;
 		font-size: 1.22rem;
 		box-sizing: border-box;
+	}
+	.close{
+		height: 1.3rem;
+		width: 1.3rem;
+		position: absolute;
+		right: 1rem;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		z-index: 333;
+		background: url(/static/tiny/close.svg) no-repeat;
+		background-size: 1.3rem;
 	}
 	.selectBox select{
 		font-size: 1.12rem;
