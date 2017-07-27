@@ -77,15 +77,16 @@ export default{
 		width: 2.5rem;
 		height: 2.5rem;
 	    background: url(/static/tiny/cart.svg);
-	    background-size:2.5rem ;
+	    background-size:2.3rem ;
 	}
 	.cartSvg span{
 		color: white;
 		font-weight: bold;
 		background: orange;
-		display: inline-block;
 		text-align: center;
+		display: inline-block;
 		height: 1.5rem;
+		line-height: 1.5rem;
 		width: 1.5rem;
 		border-radius: 3rem;
 	}
