@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 let store = new Vuex.Store({
 	state:{
-		bookSet:[]
+		bookSet:[],
+		bookNum:0
 	},
 	mutations: {
     	addToCart(state,book){
@@ -41,6 +42,12 @@ let store = new Vuex.Store({
 			});
 			localStorage.setItem("curBook",JSON.stringify(collection));
 			state.bookSet = JSON.parse(localStorage.getItem("curBook"));
+    	},
+    	getBookNum(){
+    		state.bookNum = 0;
+    		state.bookSet.forEach(function(v,i){
+    			state.bookNum += v.num 
+    		})
     	}
     	
 	},

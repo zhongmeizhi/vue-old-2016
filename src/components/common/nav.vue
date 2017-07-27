@@ -36,7 +36,7 @@ export default{
 <style scoped>
 	.jackNav .navActive{
 		transform: scale(0.8);
-		background: orangered;
+		background: #7ec801;
 		border: 0.1rem solid black;
 	}
 	.jackNav{

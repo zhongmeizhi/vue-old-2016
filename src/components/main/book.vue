@@ -33,9 +33,9 @@
 						<p>
 							<span>Price: </span>{{book.price}}
 						</p>
-						<p class="payment">
-							<router-link  to="/book/cart" @click.native="savePro(book)">Payment</router-link>
-						</p>
+						<button class="payment">
+							<router-link  to="/cart" @click.native="savePro(book)">Payment</router-link>
+						</button>
 					</div>
 				</div>
 			</li>
@@ -129,14 +129,12 @@
 	}
 	#search{
 		position: absolute;
-		display: block;
 		height: 2.5rem;
-		line-height: 2.5rem;
 		top: -0.3rem;
 		width: 100%;
 		z-index: 33;
 		padding-left: 2.6rem;
-		font-size: 1.22rem;
+		font-size: 1.2rem;
 		box-sizing: border-box;
 	}
 	.close{
@@ -183,13 +181,14 @@
 		text-align: center;
 		font-size: 1.1rem;
 		font-weight: bold;
-		color: white;
-		background: red;
+		background: orangered;
 		border-radius: 2rem;
 		cursor: pointer;
-		margin-top: 0.877rem;
+		margin-top: 0.43rem;
+		width: 100%;
 	}
 	.payment a{
+		color: white;
 		padding: 0.4rem 0;
 		width: 100%;
 		height: 100%;
