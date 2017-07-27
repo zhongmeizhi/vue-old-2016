@@ -5,6 +5,7 @@ import abc from '@/components/main/abc'
 import book from '@/components/main/book'
 import about from '@/components/main/about'
 import cart from '@/components/main/section/cart'
+import checkout from '@/components/main/section/checkout'
 
 Vue.use(Router)
 
@@ -28,9 +29,14 @@ export default new Router({
       component: book
     }, 
     {
-			path: '/book/cart',
+			path: '/cart',
       name: 'cart',
       component: cart
+		},
+		{
+			path: '/checkout',
+			name: 'checkout',
+			component: checkout
 		},
     {
       path: '/about',

@@ -7,13 +7,31 @@
 			</router-link>
 		</div>
 		<div class="cartSvg" :class="{cartActive:$route.name=='cart'}">
-			<router-link to="/book/cart">
+			<router-link to="/cart">
 			</router-link>
+			<span>
+				{{bookNum}}
+			</span>
 		</div>
 	</div>
 </template>
 
 <script>
+export default{
+	data(){
+		return {
+			
+		}
+	},
+	computed:{
+		bookNum(){
+			this.$store.commit("getBookNum");
+			return this.$store.state.bookNum;
+		}
+	},
+	method:{
+	}
+}
 </script>
 
 <style scoped>
@@ -23,6 +41,7 @@
 		width: 100%;
 		box-shadow: 0 2px 8px gainsboro;
 		background: white;
+		z-index: 444;
 	}
 	.jackHeader .logo{
 		float: left;
@@ -39,27 +58,40 @@
 	}
 	.jackHeader .homeActive{
 		transform: scale(0.8);
-		background: orangered;
+		background: #7ec801;
 		border-radius: 4rem;
+	}
+	.homeActive a span{
 		color: white;
-		font-weight: bold;
 	}
 	.cartSvg{
 		float: right;
 		margin-right: 1rem;
+		padding: 0 0.5rem;
 	}
 	.logo img,.logo a,.cartSvg a,.logo span{
 		display: inline-block;
 		vertical-align: middle;
 	}
 	.cartSvg a{
-		width: 3.5rem;
-		height: 2.3rem;
+		width: 2.5rem;
+		height: 2.5rem;
 	    background: url(/static/tiny/cart.svg);
-	    background-size:3.5rem 2.3rem ;
+	    background-size:2.3rem ;
+	}
+	.cartSvg span{
+		color: white;
+		font-weight: bold;
+		background: orange;
+		text-align: center;
+		display: inline-block;
+		height: 1.5rem;
+		line-height: 1.5rem;
+		width: 1.5rem;
+		border-radius: 3rem;
 	}
 	.cartSvg.cartActive{
-		background: orangered;
+		background: #7ec801;
 		border-radius: 4rem;
 	}
 </style>

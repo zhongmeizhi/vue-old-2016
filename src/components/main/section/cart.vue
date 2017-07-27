@@ -27,6 +27,11 @@
 			</div>
 			<hr />
 			<div class="total">Total:&nbsp;<span>￥{{total}}</span></div>
+			<router-link class="checkout" to="/checkout">
+				<button>
+					Check out
+				</button>
+			</router-link>
 		</div>
 		
 		<div class="cartEmpty" v-if="!total">
@@ -53,7 +58,7 @@ export default{
 	},
 	computed:{
 		getBooks () {
-		  this.$store.commit('getInCart');
+//		  this.$store.commit('getInCart');
 	      return this.$store.state.bookSet;
 	    },
 	    total(){
@@ -143,7 +148,6 @@ export default{
 	background-size: 1rem;
 }
 .bookR span{
-	font-weight: 500;
 	letter-spacing: 0.1rem;
 }
 .number .reduce,.number .add{
@@ -165,6 +169,7 @@ export default{
 	padding: 0.1rem 0.2rem;
 	font-weight: bold;
 	font-size: 1.2rem;
+	margin: 0.9rem 2.6rem 0.8rem 0;
 }
 .total span{
 	color: orangered;
@@ -178,5 +183,18 @@ export default{
 .cartEmpty h1{
 	color: orangered;
 	text-align: center;
+}
+.checkout{
+	float: right;
+	margin-right: 2rem;
+}
+.checkout button{
+	border-radius: 4rem;
+	background: #7ec801;
+	color: white;
+	width: 12rem;
+	height: 2.8rem;
+	font-size: 1.26rem;
+	font-weight: bold;
 }
 </style>

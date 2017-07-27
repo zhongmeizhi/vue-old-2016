@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <jack-header></jack-header>
-    <jack-nav v-if="true"></jack-nav>
+    <jack-header v-if="$route.name!='checkout'"></jack-header>
+    <jack-nav v-if="$route.name!='checkout'"></jack-nav>
     <router-view class="content"></router-view>
-    <jack-footer></jack-footer>
+    <jack-footer v-if="$route.name!='checkout'"></jack-footer>
   </div>
 </template>
 
@@ -51,8 +51,6 @@ export default {
 	}
 	a{
 			text-decoration: none;
-			cursor: pointer;
-			color: black;
 		}
 	.content{
 		padding:0 0.6rem 3.1rem 0.6rem;
