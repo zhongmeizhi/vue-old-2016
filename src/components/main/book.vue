@@ -6,9 +6,9 @@
 				</span>			
 			</div>
 			<div class="selectBox">
-				<select name="orderByPrice">
-					<option value="">price(low to high)</option>
-					<option value="">price(high to low)</option>
+				<select name="orderByPrice" @change="orderPrice()" v-model="orderRule">
+					<option value="low" selected="selected">price(low to high)</option>
+					<option value="high">price(high to low)</option>
 				</select>
 			</div>
 			<input v-if="searchFlag" @keydown.enter="searchStart()" @keydown.tab="searchStart()" type="text" name="search" id="search" v-model="search" placeholder="Search..."/>
@@ -40,7 +40,6 @@
 				</div>
 			</li>
 		</ul>
-		{{priceAsc()}}
 	</div>
 </template>
 
@@ -48,37 +47,30 @@
 	export default {
 		data() {
 			return {
+				bookSet:[],
 				testBook: [],
+				filterBook:[],
 				search:"",
 				searchFlag:false,
-				bookSet:[],
-				sendBooks:[],
-				search:"",
-				filterBook:[]
+				orderRule:"low"
 			}
 		},
 		mounted(){
 			this.$nextTick(function(){
 			})
-		}
-		,
+		},
 		created() {
 			this.$http.get('/static/test.json').then((response) => {
 				this.testBook = response.data;
+				this.testBook.books.sort(function(a,b){
+					return a.price - b.price;
+				});
 				this.filterBook = JSON.parse(JSON.stringify(this.testBook));
 			}).catch(function(response) {
 				console.log(response)
 			});
 		},
-		computed:{
-			
-		},
 		methods:{
-			abc(ev){
-				console.log(ev)
-			},
-			bookSearch(search){
-			},
 			savePro(book){
 				this.$store.commit("addToCart",book);
 			},
@@ -96,13 +88,18 @@
 				}
 				self.searchFlag = !self.searchFlag; 	
 			},
-			priceAsc(){
+			orderPrice(){
+				let self = this;
+				if (this.orderRule == "low") {
+					self.filterBook.books.sort(function(a,b){
+						return a.price - b.price;
+					})
+				} else{
+					self.filterBook.books.sort(function(a,b){
+						return b.price - a.price;
+					})
+				}
 			},
-			priceDesc(){
-			},
-			searchBook(){
-				
-			}
 		}
 	}
 </script>
@@ -158,6 +155,7 @@
 		font-size: 1.12rem;
 		padding: 0.17rem 0.3rem;
 		box-sizing: border-box;
+		letter-spacing: 0.05rem;
 	}
 	.selectBox select:focus,.searchBox input:hover{
 		outline: 0.18rem solid orchid;
@@ -189,6 +187,7 @@
 		background: red;
 		border-radius: 2rem;
 		cursor: pointer;
+		margin-top: 0.877rem;
 	}
 	.payment a{
 		padding: 0.4rem 0;
