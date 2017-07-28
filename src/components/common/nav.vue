@@ -38,6 +38,7 @@ export default{
 		transform: scale(0.8);
 		background: #7ec801;
 		border: 0.1rem solid black;
+		transition: all 0.8s;
 	}
 	.jackNav{
 		margin: 3.3rem 0.6rem 0 0.6rem;
@@ -51,6 +52,7 @@ export default{
 		border: 0.1rem solid gray;
 		border-radius: 5rem;
 		background: orange;
+		transition: all 0.8s;
 	}
 	.jackNav ul li a{
 		display: inline-block;

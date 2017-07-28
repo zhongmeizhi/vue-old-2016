@@ -48,6 +48,7 @@ export default{
 		height: 2.5rem;
 		margin-left: 1rem;
 		padding: 0 0.5rem;
+		transition: all 0.8s;
 	}
 	.logo span{
 		color: orange;
@@ -57,9 +58,10 @@ export default{
 		height: 2.5rem;
 	}
 	.jackHeader .homeActive{
-		transform: scale(0.8);
 		background: #7ec801;
 		border-radius: 4rem;
+		transform: scale(0.8);
+		transition: all 0.8s;
 	}
 	.homeActive a span{
 		color: white;
@@ -68,6 +70,7 @@ export default{
 		float: right;
 		margin-right: 1rem;
 		padding: 0 0.5rem;
+		transition: all 0.8s;
 	}
 	.logo img,.logo a,.cartSvg a,.logo span{
 		display: inline-block;
@@ -93,5 +96,6 @@ export default{
 	.cartSvg.cartActive{
 		background: #7ec801;
 		border-radius: 4rem;
+		transition: all 0.8s;
 	}
 </style>

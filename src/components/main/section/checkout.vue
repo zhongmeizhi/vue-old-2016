@@ -3,20 +3,26 @@
 		<div class="cartIcon">
 			<router-link to="/cart"></router-link>		
 		</div>
-		<div class="shipBox">
+		<div class="infoBox">
+			<ul>
+				<li v-if="!newInfo" @click="login=!login,newInfo=false" :class="{active:login}">Had Address</li>
+				<li v-if="!login" @click="newInfo=!newInfo,login=false" :class="{active:newInfo}">Fast Buy</li>
+			</ul>
+		</div>
+		<!-- new Info -->
+		<div class="shipBox" v-if="newInfo">
 			<ul class="shipList">
-				<li>
-					<label v-labelUp :class="{active:true}">Name</label>
-					<input type="text" name="name" id="name" />
+				<li v-for="list in shipList">
+					 <!--@click="upLabel(list)"-->
+					<label :class="{active:list.name==curName}" :for="list.name">{{list.label}}</label>
+					<input :type="list.type" :name="list.name" :id="list.name"  @focus="upLabel(list)" @blur="downLabel(list)"/>
 				</li>
-				<li>
-					<label v-labelUp>Address</label>
-					<input type="text" name="address" id="address" />
-				</li>
-				<li>
-					<label v-labelUp>Phone</label>
-					<input type="tel" name="phone" id="phone" />
-				</li>
+			</ul>
+		</div>
+		<!-- login -->
+		<div class="oldInfo" v-if="login">
+			<ul>
+				<li>UserName</li>
 			</ul>
 		</div>
 	</div>
@@ -26,13 +32,22 @@
 export default{
 	data(){
 		return {
-			
+			shipList:[
+				{label:"Name",type:"text",name:"name"},
+				{label:"Address",type:"text",name:"address"},
+				{label:"Phone",type:"tel",name:"phone"}
+			],
+			curName:"",
+			newInfo:false,
+			login:false
 		}
 	},
-	directives:{
-		labelUp(ele,bind,vNode){
-			ele.onclick = function(){
-			}
+	methods:{
+		upLabel(list){
+			this.curName = list.name;
+		},
+		downLabel(list){
+			this.curName = "";
 		}
 	}
 }
@@ -59,27 +74,48 @@ export default{
 }
 .shipList label{
 	position: absolute;
-	z-index: 2;
-	top: 0;
+	z-index: 55;
 	color: gray;
 	display: inline-block;
-	padding-left: 1.8rem;
-	line-height: 4rem;
+	margin-left: 1.4rem;
+	padding: 0 0.2rem;
 	background: white;
+	font-size: 1.2rem;
+	top: 1.36rem;
+	transition: top 0.8s;
 }
 .shipList input{
-	padding: 0 0.71rem;
-	border: 0.1rem gainsboro solid;
-	border-radius: 0.3rem;
-}
-.shipList label,.shipList input{
 	height: 4rem;	
 	width: 100%;
+	padding-left: 0.81rem;
+	border: 0.1rem gainsboro solid;
+	border-radius: 0.3rem;
 	box-sizing: border-box;
 	font-size: 1.2rem;
 }
 .shipList label.active{
-	height: 0;
-	top: -50%;
+	top: -0.74rem;
+	transition: top 0.8s;
+}
+.infoBox{
+	margin: 0 1rem;
+}
+.infoBox li{
+	display: inline-block;
+	width: 100%;
+	height: 3rem;
+	text-align: center;
+	border-radius: 0.4rem;
+	background: #7ec801;
+	color: white;
+	font: 1.2rem/3rem arial bold;
+	transition: all 0.5s;
+}
+.infoBox li:first-child{
+	margin-bottom: 1.3rem;
+}
+.infoBox li.active{
+	background: orange;
+	transition: all 1s;
 }
 </style>

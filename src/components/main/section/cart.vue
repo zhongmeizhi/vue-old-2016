@@ -155,6 +155,8 @@ export default{
 	height: 1.2rem;
 	display: inline-block;
 	vertical-align: text-top;
+	border: 0.1rem solid gray;
+	border-radius: 0.3rem;
 }
 .number .reduce{
 	background: url(/static/tiny/reduce.svg) no-repeat;
