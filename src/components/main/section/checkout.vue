@@ -5,8 +5,8 @@
 		</div>
 		<div class="infoBox">
 			<ul>
-				<li v-if="!newInfo" @click="login=!login,newInfo=false" :class="{active:login}">Had Address</li>
-				<li v-if="!login" @click="newInfo=!newInfo,login=false" :class="{active:newInfo}">Fast Buy</li>
+				<li v-if="newInfo" @click="login=!login,newInfo=false" :class="{active:newInfo}">Sign In</li>
+				<li v-if="login" @click="newInfo=!newInfo,login=false" :class="{active:login}">Fast Buy</li>
 			</ul>
 		</div>
 		<!-- new Info -->
@@ -18,11 +18,24 @@
 					<input :type="list.type" :name="list.name" :id="list.name"  @focus="upLabel(list)" @blur="downLabel(list)"/>
 				</li>
 			</ul>
+			<div class="confirm">
+				<router-link to="/payment/alipay">
+					<button>Alipay 模拟</button>
+				</router-link>	
+				<router-link to="/payment/wechat">
+					<button>WeChat 模拟</button>
+				</router-link>
+			</div>
 		</div>
 		<!-- login -->
 		<div class="oldInfo" v-if="login">
 			<ul>
-				<li>UserName</li>
+				<li>
+					<h1>
+						There will be become... Sign In!<br />
+						But, I don't want to do.
+					</h1>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -38,7 +51,7 @@ export default{
 				{label:"Phone",type:"tel",name:"phone"}
 			],
 			curName:"",
-			newInfo:false,
+			newInfo:true,
 			login:false
 		}
 	},
@@ -54,6 +67,9 @@ export default{
 </script>
 
 <style scoped>
+.checkout{
+	margin-top: 3.8rem;
+}
 .cartIcon{
 	text-align: center;
 	margin: 1rem 0;
@@ -82,7 +98,6 @@ export default{
 	background: white;
 	font-size: 1.2rem;
 	top: 1.36rem;
-	transition: top 0.8s;
 }
 .shipList input{
 	height: 4rem;	
@@ -95,7 +110,6 @@ export default{
 }
 .shipList label.active{
 	top: -0.74rem;
-	transition: top 0.8s;
 }
 .infoBox{
 	margin: 0 1rem;
@@ -109,13 +123,22 @@ export default{
 	background: #7ec801;
 	color: white;
 	font: 1.2rem/3rem arial bold;
-	transition: all 0.5s;
 }
 .infoBox li:first-child{
 	margin-bottom: 1.3rem;
 }
 .infoBox li.active{
 	background: orange;
-	transition: all 1s;
+}
+.confirm button{
+	margin-right: 2rem;
+	float: right;
+	border-radius: 4rem;
+	background: #7ec801;
+	color: white;
+	width: 12rem;
+	height: 2.8rem;
+	font-size: 1.26rem;
+	font-weight: bold;
 }
 </style>

@@ -8,10 +8,10 @@
 		</div>
 		<div class="cartSvg" :class="{cartActive:$route.name=='cart'}">
 			<router-link to="/cart">
+				<span>
+					{{bookNum}}
+				</span>
 			</router-link>
-			<span>
-				{{bookNum}}
-			</span>
 		</div>
 	</div>
 </template>
@@ -79,8 +79,10 @@ export default{
 	.cartSvg a{
 		width: 2.5rem;
 		height: 2.5rem;
-	    background: url(/static/tiny/cart.svg);
+	    background: url(/static/tiny/cart.svg) no-repeat;
 	    background-size:2.3rem ;
+	    padding-right: 1.7rem;
+	    position: relative;
 	}
 	.cartSvg span{
 		color: white;
@@ -92,6 +94,11 @@ export default{
 		line-height: 1.5rem;
 		width: 1.5rem;
 		border-radius: 3rem;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0.1rem;
+		margin: auto;
 	}
 	.cartSvg.cartActive{
 		background: #7ec801;
