@@ -110,6 +110,7 @@ export default{
 }
 .shipList label.active{
 	top: -0.74rem;
+	transition: all 0.6s;
 }
 .infoBox{
 	margin: 0 1rem;
