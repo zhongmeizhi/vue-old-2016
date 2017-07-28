@@ -2,29 +2,31 @@
 	<div class="cart">
 		<hr />
 		<div  v-if="total">
-			<div v-for="book in getBooks" class="bookList clearfix">
-				<div class="bookL"><img :src="book.img" alt="book.name" /></div>
-				<div class="bookR">
-					<ul>
-						<li class="name"><p>{{book.name}}</p></li>
-						<li>
-							<p>Price:</p>
-							<span>￥{{book.price}}</span>
-						</li>
-						<li class="number">
-							<p>Number:</p>
-							<b  @click="count(book)" class="reduce"></b>
-							<span>{{book.num}}</span>
-							<b  @click="count(book,'add')" class="add"></b>
-						</li>
-					</ul>
-					<div class="subTotal">
-						<p>SubTotal:</p>
-						<span>￥{{book.num * book.price}}</span>
+			<transition-group name="fade">
+				<div v-for="book in getBooks" class="bookList clearfix" key="book">
+					<div class="bookL"><img :src="book.img" alt="book.name" /></div>
+					<div class="bookR">
+						<ul>
+							<li class="name"><p>{{book.name}}</p></li>
+							<li>
+								<p>Price:</p>
+								<span>￥{{book.price}}</span>
+							</li>
+							<li class="number">
+								<p>Number:</p>
+								<b  @click="count(book)" class="reduce"></b>
+								<span>{{book.num}}</span>
+								<b  @click="count(book,'add')" class="add"></b>
+							</li>
+						</ul>
+						<div class="subTotal">
+							<p>SubTotal:</p>
+							<span>￥{{book.num * book.price}}</span>
+						</div>
+						<b class="closeP" @click="closePro(book)"></b>
 					</div>
-					<b class="closeP" @click="closePro(book)"></b>
 				</div>
-			</div>
+			</transition-group>
 			<hr />
 			<div class="total">Total:&nbsp;<span>￥{{total}}</span></div>
 			<router-link class="checkout" to="/checkout">
@@ -98,6 +100,14 @@ export default{
 </script>
 
 <style scoped>
+.fade-enter,.fade-leave-active{
+	transition: opacity .5s;
+	opacity: 0;
+}
+.cf-enter,.cf-leave-active{
+	transition: all .5s;
+	background: red;
+}
 .bookList{
 	padding: 0.8rem 1rem;
 }

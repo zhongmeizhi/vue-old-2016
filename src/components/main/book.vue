@@ -34,7 +34,7 @@
 							<span>Price: </span>{{book.price}}
 						</p>
 						<button class="payment">
-							<router-link  to="/cart" @click.native="savePro(book)">Payment</router-link>
+							<router-link  to="/cart" @click.native="savePro(book)">Buy Now</router-link>
 						</button>
 					</div>
 				</div>
