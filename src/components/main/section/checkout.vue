@@ -98,6 +98,7 @@ export default{
 	background: white;
 	font-size: 1.2rem;
 	top: 1.36rem;
+	transition: all 0.6s;
 }
 .shipList input{
 	height: 4rem;	
