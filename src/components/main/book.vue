@@ -11,7 +11,9 @@
 					<option value="high">price(high to low)</option>
 				</select>
 			</div>
-			<input v-if="searchFlag" @keydown.enter="searchStart()" @keydown.tab="searchStart()" type="text" name="search" id="search" v-model="search" placeholder="Search..."/>
+			<transition name="search">
+				<input v-if="searchFlag" @keydown.enter="searchStart()" @keydown.tab="searchStart()" type="text" name="search" id="search" v-model="search" placeholder="Search..."/>
+			</transition>
 			<span class="close" v-if="searchFlag" @click="searchFlag=false"></span>
 		</div>
 		<ul class="bookList">
@@ -105,6 +107,17 @@
 </script>
 
 <style scoped>
+	.search-leave-active{
+		transition: all 1s;
+		opacity: 0;
+	}
+	.search-enter{
+		opacity: 0;
+	}
+	.search-enter-to{
+		transition: all 1s;
+		opacity: 1;
+	}
 /* filter */
 	.searchBox{
 		position: relative;
