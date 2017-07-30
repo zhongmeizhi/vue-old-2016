@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/components/main/home'
-import abc from '@/components/main/abc'
+import chat from '@/components/main/chat'
 import book from '@/components/main/book'
 import laugh from '@/components/main/laugh'
 import about from '@/components/main/about'
@@ -23,9 +23,9 @@ export default new Router({
       component: home
     },
     {
-      path: '/abc',
-      name: 'abc',
-      component: abc
+      path: '/chat',
+      name: 'chat',
+      component: chat
     }, 
     {
       path: '/book',
