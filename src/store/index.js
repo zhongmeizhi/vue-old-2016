@@ -46,9 +46,13 @@ let store = new Vuex.Store({
     	getBookNum(state){
     		state.bookNum = 0;
     		state.bookSet = JSON.parse(localStorage.getItem("curBook"));
-    		state.bookSet.forEach(function(v,i){
-    			state.bookNum += v.num 
-    		})
+    		if(state.bookSet==null || state.bookSet=="null"){
+    			state.bookNum = 0;
+    		}else{
+    			state.bookSet.forEach(function(v,i){
+    				state.bookNum += v.num 
+    			})
+    		}
     	}
     	
 	},

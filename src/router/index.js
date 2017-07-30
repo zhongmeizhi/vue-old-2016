@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import home from '@/components/main/home'
 import abc from '@/components/main/abc'
 import book from '@/components/main/book'
+import laugh from '@/components/main/laugh'
 import about from '@/components/main/about'
 import cart from '@/components/main/section/cart'
 import checkout from '@/components/main/section/checkout'
@@ -58,6 +59,11 @@ export default new Router({
 				}
 			]
 		},
+		{
+      path: '/laugh',
+      name: 'laugh',
+      component: laugh
+    },
     {
       path: '/about',
       name: 'about',

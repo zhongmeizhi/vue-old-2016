@@ -72,7 +72,7 @@ export default {
 			text-decoration: none;
 		}
 	.content{
-		padding:0 0.6rem 3.1rem 0.6rem;
+		padding:0 0.6rem 3.6rem 0.6rem;
 	}
 	.clearfix:after{
 		display: table;

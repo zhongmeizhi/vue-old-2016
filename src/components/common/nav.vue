@@ -19,8 +19,9 @@ export default{
 		return {
 	    	menu: {
 	    		list: [
-	    			{name:"WeChat",link:"abc"},
-	    			{name:"BookShop",link:"book"},
+	    			{name:"Chat",link:"abc"},
+	    			{name:"Shop",link:"book"},
+	    			{name:"Laugh",link:"laugh"},
 	    			{name:"About",link:"about"}
 	    		]
 	    	}

@@ -58,7 +58,7 @@
 			}
 		},
 		mounted(){
-			this.$nextTick(function(){
+			this.$nextTick(()=> {
 			})
 		},
 		created() {
@@ -77,27 +77,25 @@
 				this.$store.commit("addToCart",book);
 			},
 			searchStart(){
-				let self = this;
-				if(self.searchFlag){
-					self.filterBook.books = self.testBook.books.filter(function(v){
+				if(this.searchFlag){
+					this.filterBook.books = this.testBook.books.filter(v => {
 						for (var i in v) {
-							if(v[i].toString().indexOf(self.search)!=-1){
+							if(v[i].toString().indexOf(this.search)!=-1){
 								return true;
 							}
 						}
 						return false;
 					});
 				}
-				self.searchFlag = !self.searchFlag; 	
+				this.searchFlag = !this.searchFlag; 	
 			},
 			orderPrice(){
-				let self = this;
 				if (this.orderRule == "low") {
-					self.filterBook.books.sort(function(a,b){
+					this.filterBook.books.sort((a,b) => {
 						return a.price - b.price;
 					})
 				} else{
-					self.filterBook.books.sort(function(a,b){
+					this.filterBook.books.sort((a,b) => {
 						return b.price - a.price;
 					})
 				}

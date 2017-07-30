@@ -4,8 +4,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import axios from 'axios'
 import store from './store'
+import axios from 'axios'
 
 /* 可以省略.vue|.js|.html|.css后缀名,也可以省略index */
 
