@@ -1,16 +1,22 @@
 <template>
-	<div class="abc">
-		<h2>Jokes API, Random of ten </h2>
-		<div class="emoji">
-			<div :style="imgStyle"></div>
+	<div class="chat">
+		<div>
+			<h2>Emoji Face</h2>
+			<div class="say">
+				{{curEmoji}}
+			</div>
+			<div class="emojiBox">
+				<span v-for="(emoji,index) in emojiSet" @click="sendEmoji(index)" :title="emoji.key">
+					{{emoji.value}}
+				</span>
+			</div>
 		</div>
-		<div class="emoji">
-			<div v-for="img in imgSet">
-				<div v-for="emoji in img">
-					<div :style="emoji" class="emojiCell">
-						
-					</div>
-				</div>
+		<div>
+			<h2>Picture Face</h2>
+			<div class="text" v-html="curImg">
+			</div>
+			<div class="imgBox">
+				<span @click="sendImg(index)" v-for="(img,index) in imgSet"  :style="img" class="imgCell"></span>
 			</div>
 		</div>
 	</div>
@@ -20,57 +26,68 @@
 	export default {
 		data() {
 			return {
-				imgStyle:'',
-				imgSet:[]
+				emojiSet:[],
+				curEmoji:"",
+				imgSet:[],
+				curImg:"",
 			}
-		},
-		methods: {
 		},
 		mounted() {
 			this.$nextTick(()=> {
-				this.getImg();
-				console.log(this.imgStyle)
+				this.getEmoji();
+				this.getImgs();
 			})
 		},
 		methods: {
-			getImg(){
+			getEmoji(){
+				this.$http.get("/static/emoji.json").then((res)=> {
+					res.data.people.forEach((v,i)=> {
+						this.emojiSet.push(v);
+					})
+				})
+			},
+			sendEmoji(i){
+				this.curEmoji = this.emojiSet[i].value;
+			},
+			getImgs(){
 				let space = {
-					spaceX: 0.1,
-					spaceY: 0.1,
 					startX: 0,
 					startY: 0,
-					width:30.5,
-					heigh:30.5,
+					width:31,
+					heigh:31,
 					cell:14,
-					row:8
+					row:8,
 				};
-				this.imgStyle = 'background: url(/static/books/emoji.jpg) no-repeat -'+ space.startX +'px -'+ space.startY +'px;'; 
-				
-				let cellNext = (num)=> {
-					return	space.startX + space.width*num + space.spaceX*num/2;	
-				}
-				let rowNext = (num)=> {
-					return	space.startY + space.heigh*num + space.spaceY*num/2;
-				} 
-				
+				let cellNext = (num)=> space.startX + space.width*num;	
+				let rowNext = (num)=> space.startY + space.heigh*num;
 				for (let i=0; i<space.row; i++) {
 					let H = rowNext(i);
-					this.imgSet[i] = [];
 					for (let j=0; j<space.cell; j++) {
 						let W = cellNext(j);
-						let emoji = 'background: url(/static/books/emoji.jpg) no-repeat -'+ W +'px -'+ H+'px;'; 
-						this.imgSet[i].push(emoji);
-						console.log(this.imgSet)
+						let emoji = 'background-position: -'+ W +'px -'+ H+'px;'; 
+						this.imgSet.push(emoji);
 					}
 				}
+			},
+			sendImg(i){
+				this.curImg = '<span style="'+ this.imgSet[i] +'" class="imgCell"></span>'
 			}
 		}
 	}
 </script>
 
 <style>
-.emoji div.emojiCell{
+.imgBox{
+	border: 0.1rem solid orange;
+	border-radius: 0.2rem;
+}
+.imgCell{
+	display: inline-block;
 	width: 30px;
-	height: 30px;
+	height: 29px;
+	background: url(/static/books/emoji.jpg) no-repeat;
+}
+.say,.text{
+	min-height: 3rem;
 }
 </style>
