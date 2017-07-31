@@ -15,9 +15,12 @@ export default {
     	num: 0,
     }
   },
-  computed:{
-  },
-  watch:{
+  mounted(){
+  	this.$nextTick(()=>{
+			if(navigator.platform.indexOf("Win")!=-1 || navigator.platform.indexOf("Mac")!=-1){
+  				alert("Your platform is " + navigator.platform + ". Please use mobile!");
+			}
+  	})
   },
   methods:{
   	addText:function(){

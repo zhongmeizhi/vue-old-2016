@@ -19,6 +19,13 @@
 				<span @click="sendImg(index)" v-for="(img,index) in imgSet"  :style="img" class="imgCell"></span>
 			</div>
 		</div>
+		<div class="footer">
+			<input type="text" name="talk" id="talk" value="" />
+			<div class="talkIcon">
+				<span class="face"></span>
+				<span class="love"></span>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -89,5 +96,47 @@
 }
 .say,.text{
 	min-height: 3rem;
+}
+.footer{
+	margin-left: -0.6rem ;
+	padding: 0.5rem 2rem;
+	background: gainsboro;
+	position: fixed;
+	z-index: 555;
+	bottom: 0;
+	width: 100%;
+	box-sizing: border-box;
+	font-size: 0;
+}
+#talk{
+	box-sizing: border-box;
+	border: none;
+	outline: none;
+	height: 2.2rem;
+	width: 73%;
+	padding-left: 0.6rem;
+}
+.talkIcon{
+	display: inline-block;
+	width: 27%;
+	height: 2.2rem;
+	position: relative;
+	vertical-align: top;
+}
+.face,.love{
+	position: absolute;
+	display: inline-block;
+	height:2.2rem;
+	width: 2.2rem;
+}
+.face{
+	background: url(/static/tiny/talk.svg) no-repeat;
+	background-size: 2.2rem;
+	left: 10%;
+}
+.love{
+	background: url(/static/tiny/love.svg) no-repeat;
+	background-size: 2.2rem;
+	right: 10%;
 }
 </style>

@@ -5,7 +5,7 @@
     <transition :name="transitionName" mode="out-in">
 		  <router-view class="content"></router-view>
 		</transition>
-    <jack-footer></jack-footer>
+    <jack-footer v-if="$route.name != 'chat'"></jack-footer>
   </div>
 </template>
 
