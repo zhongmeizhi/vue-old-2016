@@ -41,6 +41,9 @@
 		},
 		mounted() {
 			this.$nextTick(()=> {
+				if(navigator.platform.indexOf("Win")!=-1 || navigator.platform.indexOf("Mac")!=-1){
+//	  				alert(navigator.platform + " can't display emoji. ");
+				}
 				this.getEmoji();
 				this.getImgs();
 			})
@@ -58,15 +61,17 @@
 			},
 			getImgs(){
 				let space = {
-					startX: 0,
-					startY: 0,
-					width:31,
-					heigh:31,
-					cell:14,
-					row:8,
+					startX: 11,
+					startY: 18,
+					spaceX: 65,
+					spaceY:102,
+					width:61,
+					heigh:47,
+					cell:7,
+					row:3,
 				};
-				let cellNext = (num)=> space.startX + space.width*num;	
-				let rowNext = (num)=> space.startY + space.heigh*num;
+				let cellNext = (num)=> space.startX + space.width*num + space.spaceX*num/2;	
+				let rowNext = (num)=> space.startY + space.heigh*num + space.spaceY*num/2;
 				for (let i=0; i<space.row; i++) {
 					let H = rowNext(i);
 					for (let j=0; j<space.cell; j++) {
@@ -74,7 +79,8 @@
 						let emoji = 'background-position: -'+ W +'px -'+ H+'px;'; 
 						this.imgSet.push(emoji);
 					}
-				}
+				};
+				this.imgSet.pop();
 			},
 			sendImg(i){
 				this.curImg = '<span style="'+ this.imgSet[i] +'" class="imgCell"></span>'
@@ -85,17 +91,19 @@
 
 <style>
 .imgBox{
-	border: 0.1rem solid orange;
-	border-radius: 0.2rem;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0.5rem;
 }
 .imgCell{
 	display: inline-block;
-	width: 30px;
-	height: 29px;
-	background: url(/static/books/emoji.jpg) no-repeat;
+	width: 66px;
+	height: 60px;
+	background: url(/static/books/emoji.png) no-repeat;
 }
 .say,.text{
-	min-height: 3rem;
+	min-height: 5rem;
 }
 .footer{
 	margin-left: -0.6rem ;
