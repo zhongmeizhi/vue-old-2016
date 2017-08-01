@@ -1,10 +1,31 @@
 <template>
 	<div class="chat">
-		<div>
-			<h2>Emoji Face</h2>
-			<div class="say">
-				{{curEmoji}}
+		
+		<div class="note" v-note>
+<!-- TODO 这里应该构思下-->
+			<div class="self clearfix">
+				<div class="head"></div>
+				<p>
+					<span>Ah, summer, what power you have to make us suffer and like it？</span>
+				</p>
 			</div>
+			<div class="other clearfix">
+				<div class="head"></div>
+				<p>
+					<span>Due to love. Because hot.</span>
+				</p>
+			</div>
+			<div class="other clearfix">
+				<div class="head"></div>
+				<p>
+					<span>Summer is coming, haha. winter be far behind</span>
+				</p>
+			</div>
+		</div>
+		<div>
+			<!--<div class="say">
+				{{curEmoji}}
+			</div>-->
 			<div class="emojiBox">
 				<span v-for="(emoji,index) in emojiSet" @click="sendEmoji(index)" :title="emoji.key">
 					{{emoji.value}}
@@ -12,9 +33,7 @@
 			</div>
 		</div>
 		<div>
-			<h2>Picture Face</h2>
-			<div class="text" v-html="curImg">
-			</div>
+			<!--<div class="text" v-html="curImg"></div>-->
 			<div class="imgBox">
 				<span @click="sendImg(index)" v-for="(img,index) in imgSet"  :style="img" class="imgCell"></span>
 			</div>
@@ -85,11 +104,48 @@
 			sendImg(i){
 				this.curImg = '<span style="'+ this.imgSet[i] +'" class="imgCell"></span>'
 			}
+		},
+		directives:{
+			note:{
+				update(ele,bind,vNode){
+				}
+			}
 		}
 	}
 </script>
 
-<style>
+<style scoped>
+.self p,.other p{
+	border-radius: 1.2rem;
+	max-width: 58%;
+	padding: 0.2rem 1.3rem;
+	font-size: 1.1rem;
+	margin: 0.3rem;
+}
+.self p{
+	float: left;
+	background: gainsboro;
+}
+.other p{
+	float: right;
+	background: #F5DEB3;
+}
+.self .head{
+	float: left;
+	background: url(/static/tiny/talk.svg) no-repeat gainsboro;
+}
+.other .head{
+	float: right;
+	background: url(/static/tiny/talk.svg) no-repeat #F5DEB3;
+}
+.self .head,.other .head{
+	background-size: 2.2rem;
+	width: 2.2rem;
+	height: 2.2rem;
+	border-radius: 50%;
+	margin-top: -0.5rem;
+	position: relative;
+}
 .imgBox{
     display: inline-flex;
     flex-wrap: wrap;
