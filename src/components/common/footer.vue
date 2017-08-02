@@ -1,7 +1,7 @@
 <template>
-	<div class="jackFooter">
+	<footer class="jackFooter">
 		<p>This site done by jack</p>
-	</div>
+	</footer>
 </template>
 
 <script>

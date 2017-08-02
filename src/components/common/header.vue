@@ -1,5 +1,5 @@
 <template>
-	<div class="jackHeader">
+	<header class="jackHeader">
 		<div class="logo" :class="{homeActive:$route.name=='home'}">
 			<router-link to="/">
 				<img src="../../assets/logo.png"/>
@@ -13,7 +13,7 @@
 				</span>
 			</router-link>
 		</div>
-	</div>
+	</header>
 </template>
 
 <script>

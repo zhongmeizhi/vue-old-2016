@@ -1,5 +1,5 @@
 <template>
-  <div class="laugh">
+  <section class="laugh">
     <div class="joke">
     	<h2>Laugh Daily</h2>
     	<ul>
@@ -9,7 +9,7 @@
 		</ul>
 		<button @click="addJokes">Add More</button>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -46,35 +46,35 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.joke h2{
-	text-align: center;
-	color: #7ec801;
-}
-.joke li{
-	border: 0.1rem solid orange;
-	border-radius: 0.3rem;
-	padding: 0.3rem;
-	margin: 0.5rem 0.3rem;
-}
-.joke li b{
-	color: green;
-}
-.joke button{
-	margin-right: 2rem;
-	background: #7ec801;
-	color: white;
-	height: 2.8rem;
-	font-size: 1.26rem;
-	font-weight: bold;
-	width: 100%;
-	animation: add 0.5s infinite;
-}
-@keyframes add {
-	from{
-		transform:scale(1.03); 
+	.joke h2{
+		text-align: center;
+		color: #7ec801;
 	}
-	to{
-		transform:scale(0.97);
+	.joke li{
+		border: 0.1rem solid orange;
+		border-radius: 0.3rem;
+		padding: 0.3rem;
+		margin: 0.5rem 0.3rem;
 	}
-}
+	.joke li b{
+		color: green;
+	}
+	.joke button{
+		margin-right: 2rem;
+		background: #7ec801;
+		color: white;
+		height: 2.8rem;
+		font-size: 1.26rem;
+		font-weight: bold;
+		width: 100%;
+		animation: add 0.5s infinite;
+	}
+	@keyframes add {
+		from{
+			transform:scale(1.03); 
+		}
+		to{
+			transform:scale(0.97);
+		}
+	}
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div class="checkout">
+	<section class="checkout">
 		<div class="cartIcon">
 			<router-link to="/cart"></router-link>		
 		</div>
@@ -38,7 +38,7 @@
 				</li>
 			</ul>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>
@@ -67,80 +67,80 @@ export default{
 </script>
 
 <style scoped>
-.checkout{
-	margin-top: 3.8rem;
-}
-.cartIcon{
-	text-align: center;
-	margin: 1rem 0;
-}	
-.cartIcon a{
-	display: inline-block;
-	width: 3rem;
-	height: 3rem;
-	background: url(/static/tiny/cart.svg) no-repeat;
-	background-size: 2.8rem;
-}
-.shipList{
-	margin: 0 1rem;
-}
-.shipList li{
-	position: relative;
-	margin: 1.3rem 0;
-}
-.shipList label{
-	position: absolute;
-	z-index: 55;
-	color: gray;
-	display: inline-block;
-	margin-left: 1.4rem;
-	padding: 0 0.2rem;
-	background: white;
-	font-size: 1.2rem;
-	top: 1.36rem;
-	transition: all 0.6s;
-}
-.shipList input{
-	height: 4rem;	
-	width: 100%;
-	padding-left: 0.81rem;
-	border: 0.1rem gainsboro solid;
-	border-radius: 0.3rem;
-	box-sizing: border-box;
-	font-size: 1.2rem;
-}
-.shipList label.active{
-	top: -0.74rem;
-	transition: all 0.6s;
-}
-.infoBox{
-	margin: 0 1rem;
-}
-.infoBox li{
-	display: inline-block;
-	width: 100%;
-	height: 3rem;
-	text-align: center;
-	border-radius: 0.4rem;
-	background: #7ec801;
-	color: white;
-	font: 1.2rem/3rem arial bold;
-}
-.infoBox li:first-child{
-	margin-bottom: 1.3rem;
-}
-.infoBox li.active{
-	background: orange;
-}
-.confirm button{
-	margin-right: 2rem;
-	float: right;
-	border-radius: 4rem;
-	background: #7ec801;
-	color: white;
-	width: 12rem;
-	height: 2.8rem;
-	font-size: 1.26rem;
-	font-weight: bold;
-}
+	.checkout{
+		margin-top: 3.8rem;
+	}
+	.cartIcon{
+		text-align: center;
+		margin: 1rem 0;
+	}	
+	.cartIcon a{
+		display: inline-block;
+		width: 3rem;
+		height: 3rem;
+		background: url(/static/tiny/cart.svg) no-repeat;
+		background-size: 2.8rem;
+	}
+	.shipList{
+		margin: 0 1rem;
+	}
+	.shipList li{
+		position: relative;
+		margin: 1.3rem 0;
+	}
+	.shipList label{
+		position: absolute;
+		z-index: 55;
+		color: gray;
+		display: inline-block;
+		margin-left: 1.4rem;
+		padding: 0 0.2rem;
+		background: white;
+		font-size: 1.2rem;
+		top: 1.36rem;
+		transition: all 0.6s;
+	}
+	.shipList input{
+		height: 4rem;	
+		width: 100%;
+		padding-left: 0.81rem;
+		border: 0.1rem gainsboro solid;
+		border-radius: 0.3rem;
+		box-sizing: border-box;
+		font-size: 1.2rem;
+	}
+	.shipList label.active{
+		top: -0.74rem;
+		transition: all 0.6s;
+	}
+	.infoBox{
+		margin: 0 1rem;
+	}
+	.infoBox li{
+		display: inline-block;
+		width: 100%;
+		height: 3rem;
+		text-align: center;
+		border-radius: 0.4rem;
+		background: #7ec801;
+		color: white;
+		font: 1.2rem/3rem arial bold;
+	}
+	.infoBox li:first-child{
+		margin-bottom: 1.3rem;
+	}
+	.infoBox li.active{
+		background: orange;
+	}
+	.confirm button{
+		margin-right: 2rem;
+		float: right;
+		border-radius: 4rem;
+		background: #7ec801;
+		color: white;
+		width: 12rem;
+		height: 2.8rem;
+		font-size: 1.26rem;
+		font-weight: bold;
+	}
 </style>

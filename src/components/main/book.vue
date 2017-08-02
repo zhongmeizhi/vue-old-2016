@@ -1,5 +1,5 @@
 <template>
-	<div class="book">
+	<section class="book">
 		<div class="searchBox clearfix">
 			<div class="parentObj">
 				<span @click="searchStart()" :class="{active:searchFlag}">
@@ -42,7 +42,7 @@
 				</div>
 			</li>
 		</ul>
-	</div>
+	</section>
 </template>
 
 <script>

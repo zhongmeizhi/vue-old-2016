@@ -1,5 +1,5 @@
 <template>
-	<div class="cart">
+	<section class="cart">
 		<hr />
 		<div  v-if="total">
 			<transition-group name="fade">
@@ -44,7 +44,7 @@
 				I WANT SOMETHING...
 			</h1>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script scoped>
@@ -100,111 +100,111 @@ export default{
 </script>
 
 <style scoped>
-.fade-enter,.fade-leave-active{
-	transition: opacity .5s;
-	opacity: 0;
-}
-.cf-enter,.cf-leave-active{
-	transition: all .5s;
-	background: red;
-}
-.bookList{
-	padding: 0.8rem 1rem;
-}
-.bookList .bookL{
-	float: left;
-}
-.bookList .bookR{
-	height: 10.18rem;
-	padding: 0.6rem 1.5rem;
-	box-sizing: border-box;
-	background-color: rgba(84, 264, 237, 0.05);
-	margin-left: 7.34rem;
-	position: relative;
-}
-.bookL,.bookL img{
-	height: 10.18rem;
-	width: 7.34rem;
-}
-.bookR .name{
-	text-align: center;
-	font-size: 1.3rem;
-	font-weight: 500;
-	letter-spacing: 0.6rem;
-}
-.subTotal{
-	position: absolute;
-	bottom: 0.35rem;
-	right: 1rem;
-}
-.subTotal p{
-	display: inline-block;
-}
-.bookR li,.subTotal{
-	padding: 0.2rem;
-	font-size: 1.1rem;
-}
-.bookR li:not(.name) p{
-	display: inline-block;
-	width: 55%;
-}
-.bookR .closeP{
-	position: absolute;
-	top: 0.3rem;
-	right: 1rem;
-	width: 1.3rem;
-	height: 1.3rem;
-	background: url(/static/tiny/close.svg) no-repeat;
-	background-size: 1rem;
-}
-.bookR span{
-	letter-spacing: 0.1rem;
-}
-.number .reduce,.number .add{
-	width: 1.2rem;
-	height: 1.2rem;
-	display: inline-block;
-	vertical-align: text-top;
-}
-.number .reduce{
-	background: url(/static/tiny/reduce.svg) no-repeat;
-	background-size: 1.2rem;
-}
-.number .add{
-	background: url(/static/tiny/add.svg) no-repeat;
-	background-size: 1.2rem;
-}
-.total{
-	text-align: right;
-	padding: 0.1rem 0.2rem;
-	font-weight: bold;
-	font-size: 1.2rem;
-	margin: 0.9rem 2.6rem 0.8rem 0;
-}
-.total span{
-	color: orangered;
-	letter-spacing: 0.1rem;
-}
-.cartEmpty object{
-	display: block;
-	margin: 1.5rem auto;
-	width: 80%;
-}
-.cartEmpty h1{
-	color: orangered;
-	text-align: center;
-}
-.checkout{
-	float: right;
-	margin-right: 2rem;
-}
-.checkout button{
-	border-radius: 4rem;
-	background: #7ec801;
-	color: white;
-	width: 12rem;
-	height: 2.8rem;
-	font-size: 1.26rem;
-	font-weight: bold;
-}
+	.fade-enter,.fade-leave-active{
+		transition: opacity .5s;
+		opacity: 0;
+	}
+	.cf-enter,.cf-leave-active{
+		transition: all .5s;
+		background: red;
+	}
+	.bookList{
+		padding: 0.8rem 1rem;
+	}
+	.bookList .bookL{
+		float: left;
+	}
+	.bookList .bookR{
+		height: 10.18rem;
+		padding: 0.6rem 1.5rem;
+		box-sizing: border-box;
+		background-color: rgba(84, 264, 237, 0.05);
+		margin-left: 7.34rem;
+		position: relative;
+	}
+	.bookL,.bookL img{
+		height: 10.18rem;
+		width: 7.34rem;
+	}
+	.bookR .name{
+		text-align: center;
+		font-size: 1.3rem;
+		font-weight: 500;
+		letter-spacing: 0.6rem;
+	}
+	.subTotal{
+		position: absolute;
+		bottom: 0.35rem;
+		right: 1rem;
+	}
+	.subTotal p{
+		display: inline-block;
+	}
+	.bookR li,.subTotal{
+		padding: 0.2rem;
+		font-size: 1.1rem;
+	}
+	.bookR li:not(.name) p{
+		display: inline-block;
+		width: 55%;
+	}
+	.bookR .closeP{
+		position: absolute;
+		top: 0.3rem;
+		right: 1rem;
+		width: 1.3rem;
+		height: 1.3rem;
+		background: url(/static/tiny/close.svg) no-repeat;
+		background-size: 1rem;
+	}
+	.bookR span{
+		letter-spacing: 0.1rem;
+	}
+	.number .reduce,.number .add{
+		width: 1.2rem;
+		height: 1.2rem;
+		display: inline-block;
+		vertical-align: text-top;
+	}
+	.number .reduce{
+		background: url(/static/tiny/reduce.svg) no-repeat;
+		background-size: 1.2rem;
+	}
+	.number .add{
+		background: url(/static/tiny/add.svg) no-repeat;
+		background-size: 1.2rem;
+	}
+	.total{
+		text-align: right;
+		padding: 0.1rem 0.2rem;
+		font-weight: bold;
+		font-size: 1.2rem;
+		margin: 0.9rem 2.6rem 0.8rem 0;
+	}
+	.total span{
+		color: orangered;
+		letter-spacing: 0.1rem;
+	}
+	.cartEmpty object{
+		display: block;
+		margin: 1.5rem auto;
+		width: 80%;
+	}
+	.cartEmpty h1{
+		color: orangered;
+		text-align: center;
+	}
+	.checkout{
+		float: right;
+		margin-right: 2rem;
+	}
+	.checkout button{
+		border-radius: 4rem;
+		background: #7ec801;
+		color: white;
+		width: 12rem;
+		height: 2.8rem;
+		font-size: 1.26rem;
+		font-weight: bold;
+	}
 </style>

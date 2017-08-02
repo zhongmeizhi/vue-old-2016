@@ -1,6 +1,6 @@
 <template>
-	<div class="chat" :class="{active:imgOpen||emojiOpen}">
-		<div class="note" v-note>
+	<section class="chat" :class="{active:imgOpen||emojiOpen}">
+		<div class="note">
 			<div v-for="chat in chatData" :class="chat.people" class="clearfix">
 				<i class="head"></i>
 				<p v-if="chat.saying" class="chatSay">
@@ -23,19 +23,21 @@
 		<div class="booth" :class="{active:imgOpen}">
 			<div class="bench" @click="benchSlide" :style="{width:imgSet.length*100+'%',left:-benchSlideNum*100+'%'}">
 				<div class="imgBox" v-for="(imgPage,i) in imgSet" :style="{width: 100/imgSet.length+'%'}">
-					<span @click="sendImg(i,j)" v-for="(img,j) in imgPage"  :style="img" class="imgCell"></span>
+					<p v-for="(img,j) in imgPage">
+						<i @click="sendImg(i,j)"   :style="img" class="imgCell"></i>
+					</p>
 				</div>
 			</div>
 			
 		</div>
 		<div class="footer" :class="{active:imgOpen||emojiOpen}">
-			<input type="text" name="talk" id="talk" value="" v-model="setSay" @keydown.enter="sendSay" @focus="emojiOpen = false;imgOpen = false;"/>
+			<input  v-focus-input type="text" name="talk" id="talk" value="" v-model="setSay" @keydown.enter="sendSay" @focus="emojiOpen = false;imgOpen = false;"/>
 			<div class="talkIcon">
 				<span class="face" @click="emojiOpen = true;imgOpen = false;"></span>
 				<span class="love" @click="imgOpen = true;emojiOpen = false;"></span>
 			</div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script scoped>
@@ -129,8 +131,10 @@
 			}
 		},
 		directives:{
-			note:{
-				update(ele,bind,vNode){
+			focusInput:{
+				inserted(ele,bind,vNode){
+					console.log(1)
+					ele.focus();
 				}
 			}
 		}
@@ -138,135 +142,139 @@
 </script>
 
 <style scoped>
-/* chatBox*/
-.self .chatSay,.other .chatSay{
-	border-radius: 0.4rem;
-	max-width: 58%;
-	padding: 0.2rem 1.3rem;
-	font-size: 1.1rem;
-	margin: 0.3rem;
-}
-.other .chatImg,.other .head,.other .chatSay{
-	float: left;
-}
-.self .chatImg,.self .chatSay,.self .head{
-	float: right;
-}
-.self .chatSay{
-	background: aquamarine;
-}
-.other .chatSay{
-	background: #F5DEB3;
-}
-.self .head{
-	background: url(/static/tiny/talk.svg) no-repeat aquamarine;
-}
-.other .head{
-	background: url(/static/tiny/talk.svg) no-repeat #F5DEB3;
-}
-.self .head,.other .head{
-	background-size: 1.81rem;
-	width: 1.81rem;
-	height: 1.81rem;
-	border-radius: 50%;
-	margin: 0.3rem 0;
-	position: relative;
-}
-/* imgBox */
-.imgBox,.emojiBox{
-    display: inline-flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    height: 17rem;
-    box-sizing: border-box;
-    align-content: flex-start;
-}
-.booth{
-	position: fixed;
-    margin-right: 0.6rem;
-    bottom: 0;
-	height: 0;
-    overflow: hidden;
-    z-index: 33;
-    background: gainsboro;
-}
-.bench{
-	position: relative;
-}
-.imgCell{
-	display: inline-block;
-	width: 66px;
-	height: 60px;
-	background: url(/static/books/emoji.png) no-repeat;
-}
-.imgBox .imgCell{
-	margin: 0.5rem 0.5rem 1.5rem;
-}
-/* emoji Box*/
-.emojiBox span{
-	width: 16.6666%;
-    vertical-align: middle;
-    display: inline-block;
-    font: 2.2rem/4rem arial;
-    text-align: center;
-}
-/* footer talkBox*/
-.footer{
-	margin-left: -0.6rem ;
-	padding-left: 1.3rem;
-	height: 3rem;
-	line-height: 3rem;
-	background: gainsboro;
-	position: fixed;
-	z-index: 22;
-	bottom: 0;
-	width: 100%;
-	box-sizing: border-box;
-	font-size: 0;
-}
-#talk,.talkIcon,.face,.love{
-	height: 2.2rem;
-}
-#talk{
-	box-sizing: border-box;
-	border: none;
-	outline: none;
-	width: 73%;
-	padding-left: 0.6rem;
-	vertical-align: middle;
-}
-.talkIcon{
-	width: 27%;
-	position: relative;
-	vertical-align: top;
-	display: inline-block;
-	vertical-align: middle;
-}
-.face,.love{
-	position: absolute;
-	display: inline-block;
-	width: 2.2rem;
-}
-.face{
-	background: url(/static/tiny/talk.svg) no-repeat;
-	background-size: 2.2rem;
-	left: 13%;
-}
-.love{
-	background: url(/static/tiny/love.svg) no-repeat;
-	background-size: 2.2rem;
-	right: 13%;
-}
-/* active*/
-.chat.active{
-	padding-bottom: 17.8rem;
-}
-.booth.active{
-	transition: all 0.5s;
-	height: 14.5rem;
-}
-.footer.active{
-	transition: all 0.5s;
-	padding-bottom: 17.5rem;
-}
+	/* chatBox*/
+	.self .chatSay,.other .chatSay{
+		border-radius: 0.4rem;
+		max-width: 58%;
+		padding: 0.2rem 1.3rem;
+		font-size: 1.1rem;
+		margin: 0.3rem;
+	}
+	.other .chatImg,.other .head,.other .chatSay{
+		float: left;
+	}
+	.self .chatImg,.self .chatSay,.self .head{
+		float: right;
+	}
+	.self .chatSay{
+		background: aquamarine;
+	}
+	.other .chatSay{
+		background: #F5DEB3;
+	}
+	.self .head{
+		background: url(/static/tiny/talk.svg) no-repeat aquamarine;
+	}
+	.other .head{
+		background: url(/static/tiny/talk.svg) no-repeat #F5DEB3;
+	}
+	.self .head,.other .head{
+		background-size: 1.81rem;
+		width: 1.81rem;
+		height: 1.81rem;
+		border-radius: 50%;
+		margin: 0.3rem 0;
+		position: relative;
+	}
+	/* imgBox */
+	.imgBox,.emojiBox{
+	    display: inline-flex;
+	    flex-wrap: wrap;
+	    justify-content: space-around;
+	    height: 17rem;
+	    box-sizing: border-box;
+	    align-content: flex-start;
+	}
+	.booth{
+		position: fixed;
+	    margin-right: 0.6rem;
+	    bottom: 0;
+		height: 0;
+	    overflow: hidden;
+	    z-index: 33;
+	    background: gainsboro;
+	}
+	.bench{
+		position: relative;
+	}
+	.imgBox p{
+		width: 25%;
+		text-align: center;
+	}
+	.imgCell{
+		display: inline-block;
+		width: 66px;
+		height: 60px;
+		background: url(/static/books/emoji.png) no-repeat;
+	}
+	.imgBox .imgCell{
+		margin: 1rem 0;
+	}
+	/* emoji Box*/
+	.emojiBox span{
+		width: 16.6666%;
+	    vertical-align: middle;
+	    display: inline-block;
+	    font: 2.2rem/4rem arial;
+	    text-align: center;
+	}
+	/* footer talkBox*/
+	.footer{
+		margin-left: -0.6rem ;
+		padding-left: 1.3rem;
+		height: 3rem;
+		line-height: 3rem;
+		background: gainsboro;
+		position: fixed;
+		z-index: 22;
+		bottom: 0;
+		width: 100%;
+		box-sizing: border-box;
+		font-size: 0;
+	}
+	#talk,.talkIcon,.face,.love{
+		height: 2.2rem;
+	}
+	#talk{
+		box-sizing: border-box;
+		border: none;
+		outline: none;
+		width: 73%;
+		padding-left: 0.6rem;
+		vertical-align: middle;
+	}
+	.talkIcon{
+		width: 27%;
+		position: relative;
+		vertical-align: top;
+		display: inline-block;
+		vertical-align: middle;
+	}
+	.face,.love{
+		position: absolute;
+		display: inline-block;
+		width: 2.2rem;
+	}
+	.face{
+		background: url(/static/tiny/talk.svg) no-repeat;
+		background-size: 2.2rem;
+		left: 13%;
+	}
+	.love{
+		background: url(/static/tiny/love.svg) no-repeat;
+		background-size: 2.2rem;
+		right: 13%;
+	}
+	/* active*/
+	.chat.active{
+		padding-bottom: 17.8rem;
+	}
+	.booth.active{
+		transition: all 0.5s;
+		height: 14.5rem;
+	}
+	.footer.active{
+		transition: all 0.5s;
+		padding-bottom: 17.5rem;
+	}
 </style>

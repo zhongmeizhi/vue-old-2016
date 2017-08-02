@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <section class="home">
     <h2>{{addText()}}</h2>
-  </div>
+  </section>
 </template>
 
 <script>

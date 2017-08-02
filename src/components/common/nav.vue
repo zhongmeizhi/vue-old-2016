@@ -1,5 +1,5 @@
 <template>
-	<div class="jackNav">
+	<nav class="jackNav">
 		<ul>
 			<li v-for="nav in menu.list" :class="{navActive:nav.link==$route.name}">
 <!-- :href 跳转的是url不是hash，需要route设置mode:"history" -->
@@ -9,7 +9,7 @@
 				<router-link  v-bind:to="{name:nav.link}">{{nav.name}}</router-link>
 			</li>
 		</ul>
-	</div>
+	</nav>
 </template>
 
 <script>
