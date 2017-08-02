@@ -1,5 +1,5 @@
 <template>
-	<div class="chat" :class="{active:imgOpen}">
+	<div class="chat" :class="{active:imgOpen||emojiOpen}">
 		<div class="note" v-note>
 			<div v-for="chat in chatData" :class="chat.people" class="clearfix">
 				<i class="head"></i>
@@ -12,16 +12,21 @@
 			</div>
 		</div>
 		<div class="booth" :class="{active:emojiOpen}">
-			<div class="emojiBox">
-				<span v-for="(emoji,index) in emojiSet" @click="sendEmoji(index)" :title="emoji.key">
-					{{emoji.value}}
-				</span>
+			<div class="bench" @click="benchSlide" :style="{width:emojiSet.length*100+'%',left:-benchSlideNum*100+'%'}">
+				<div  class="emojiBox" v-for="(emojiPage,i) in emojiSet" :style="{width: 100/emojiSet.length+'%'}">
+					<span v-for="(emoji,j) in emojiPage" @click="sendEmoji(i,j)" :title="emoji.key">
+						{{emoji.value}}
+					</span>	
+				</div>
 			</div>
 		</div>
 		<div class="booth" :class="{active:imgOpen}">
-			<div class="imgBox" >
-				<span @click="sendImg(index)" v-for="(img,index) in imgSet"  :style="img" class="imgCell"></span>
+			<div class="bench" @click="benchSlide" :style="{width:imgSet.length*100+'%',left:-benchSlideNum*100+'%'}">
+				<div class="imgBox" v-for="(imgPage,i) in imgSet" :style="{width: 100/imgSet.length+'%'}">
+					<span @click="sendImg(i,j)" v-for="(img,j) in imgPage"  :style="img" class="imgCell"></span>
+				</div>
 			</div>
+			
 		</div>
 		<div class="footer" :class="{active:imgOpen||emojiOpen}">
 			<input type="text" name="talk" id="talk" value="" v-model="setSay" @keydown.enter="sendSay" @focus="emojiOpen = false;imgOpen = false;"/>
@@ -41,6 +46,7 @@
 				emojiOpen: false,
 				imgSet: [],
 				imgOpen: false,
+				benchSlideNum: 0,
 				setSay:"",
 				chatData: [
 					{people:"self",saying:"Ah, summer, what power you have to make us suffer and like it？"},
@@ -60,17 +66,28 @@
 		},
 		methods: {
 			getEmoji(){
+				let row = 3;
+				let column = 6;
+				let pageNum = row * column;
 				this.$http.get("/static/emoji.json").then((res)=> {
 					res.data.people.forEach((v,i)=> {
-						this.emojiSet.push(v);
+						let page = Math.floor(i/pageNum);
+						if(this.emojiSet[page]==undefined || this.emojiSet[page]=="undefined" ){
+							this.emojiSet[page] = [];
+						}
+						this.emojiSet[page].push(v);
 					})
 				})
 			},
-			sendEmoji(i){
-				let curEmoji = this.emojiSet[i].value;
+			sendEmoji(i,j){
+				let curEmoji = this.emojiSet[i][j].value;
 				this.setSay += curEmoji;
 			},
 			getImgs(){
+				let disply = {
+					row: 2,
+					column: 4
+				}
 				let space = {
 					startX: 11,
 					startY: 18,
@@ -81,17 +98,23 @@
 					cell:7,
 					row:3,
 				};
+				let pageNum= disply.row * disply.column;
 				let cellNext = (num)=> space.startX + space.width*num + space.spaceX*num/2;	
 				let rowNext = (num)=> space.startY + space.heigh*num + space.spaceY*num/2;
 				for (let i=0; i<space.row; i++) {
 					let H = rowNext(i);
 					for (let j=0; j<space.cell; j++) {
 						let W = cellNext(j);
+						let page = Math.floor((i*space.cell+j)/pageNum);
+						if(this.imgSet[page]==undefined || this.imgSet[page]=="undefined" ){
+							this.imgSet[page] = [];
+						}
 						let emoji = 'background-position: -'+ W +'px -'+ H+'px;'; 
-						this.imgSet.push(emoji);
+						this.imgSet[page].push(emoji);
 					}
 				};
-				this.imgSet.pop();
+				// 图片最后一个不是表情 
+				this.imgSet[2].pop();
 			},
 			sendImg(i){
 				let curImg = {people:"self",imgStyle:this.imgSet[i]};
@@ -99,7 +122,10 @@
 			},
 			sendSay(){
 				this.chatData.push({people:"self",saying:this.setSay});
-				this.setSay = ""
+				this.setSay = "";
+			},
+			benchSlide(){
+				
 			}
 		},
 		directives:{
@@ -114,7 +140,7 @@
 <style scoped>
 /* chatBox*/
 .self .chatSay,.other .chatSay{
-	border-radius: 1.2rem;
+	border-radius: 0.4rem;
 	max-width: 58%;
 	padding: 0.2rem 1.3rem;
 	font-size: 1.1rem;
@@ -139,11 +165,11 @@
 	background: url(/static/tiny/talk.svg) no-repeat #F5DEB3;
 }
 .self .head,.other .head{
-	background-size: 2.2rem;
-	width: 2.2rem;
-	height: 2.2rem;
+	background-size: 1.81rem;
+	width: 1.81rem;
+	height: 1.81rem;
 	border-radius: 50%;
-	margin-top: -0.5rem;
+	margin: 0.3rem 0;
 	position: relative;
 }
 /* imgBox */
@@ -151,9 +177,9 @@
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    padding: 0.5rem;
     height: 17rem;
     box-sizing: border-box;
+    align-content: flex-start;
 }
 .booth{
 	position: fixed;
@@ -163,6 +189,9 @@
     overflow: hidden;
     z-index: 33;
     background: gainsboro;
+}
+.bench{
+	position: relative;
 }
 .imgCell{
 	display: inline-block;
@@ -175,7 +204,7 @@
 }
 /* emoji Box*/
 .emojiBox span{
-	width: 4rem;
+	width: 16.6666%;
     vertical-align: middle;
     display: inline-block;
     font: 2.2rem/4rem arial;
@@ -230,7 +259,7 @@
 }
 /* active*/
 .chat.active{
-	padding-bottom: 19.4rem;
+	padding-bottom: 17.8rem;
 }
 .booth.active{
 	transition: all 0.5s;
