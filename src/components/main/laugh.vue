@@ -4,7 +4,7 @@
     	<h2>Laugh Daily</h2>
     	<ul>
 			<li v-for="(joke,index) in jokes">
-				<b>Joke&nbsp;{{index+1}}:</b>{{joke.content}}
+				<b>Joke&nbsp;{{index+1}}:&nbsp&nbsp</b>{{joke.content}}
 			</li>
 		</ul>
 		<button @click="addJokes">Add More</button>

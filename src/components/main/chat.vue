@@ -1,48 +1,33 @@
 <template>
-	<div class="chat">
-		
+	<div class="chat" :class="{active:imgOpen}">
 		<div class="note" v-note>
-<!-- TODO 这里应该构思下-->
-			<div class="self clearfix">
-				<div class="head"></div>
-				<p>
-					<span>Ah, summer, what power you have to make us suffer and like it？</span>
+			<div v-for="chat in chatData" :class="chat.people" class="clearfix">
+				<i class="head"></i>
+				<p v-if="chat.saying" class="chatSay">
+					<span>{{chat.saying}}</span>
 				</p>
-			</div>
-			<div class="other clearfix">
-				<div class="head"></div>
-				<p>
-					<span>Due to love. Because hot.</span>
-				</p>
-			</div>
-			<div class="other clearfix">
-				<div class="head"></div>
-				<p>
-					<span>Summer is coming, haha. winter be far behind</span>
+				<p v-else  class="chatImg">
+					<span class="imgCell" :style="chat.imgStyle"></span>
 				</p>
 			</div>
 		</div>
-		<div>
-			<!--<div class="say">
-				{{curEmoji}}
-			</div>-->
+		<div class="booth" :class="{active:emojiOpen}">
 			<div class="emojiBox">
 				<span v-for="(emoji,index) in emojiSet" @click="sendEmoji(index)" :title="emoji.key">
 					{{emoji.value}}
 				</span>
 			</div>
 		</div>
-		<div>
-			<!--<div class="text" v-html="curImg"></div>-->
-			<div class="imgBox">
+		<div class="booth" :class="{active:imgOpen}">
+			<div class="imgBox" >
 				<span @click="sendImg(index)" v-for="(img,index) in imgSet"  :style="img" class="imgCell"></span>
 			</div>
 		</div>
-		<div class="footer">
-			<input type="text" name="talk" id="talk" value="" />
+		<div class="footer" :class="{active:imgOpen||emojiOpen}">
+			<input type="text" name="talk" id="talk" value="" v-model="setSay" @keydown.enter="sendSay" @focus="emojiOpen = false;imgOpen = false;"/>
 			<div class="talkIcon">
-				<span class="face"></span>
-				<span class="love"></span>
+				<span class="face" @click="emojiOpen = true;imgOpen = false;"></span>
+				<span class="love" @click="imgOpen = true;emojiOpen = false;"></span>
 			</div>
 		</div>
 	</div>
@@ -52,10 +37,16 @@
 	export default {
 		data() {
 			return {
-				emojiSet:[],
-				curEmoji:"",
-				imgSet:[],
-				curImg:"",
+				emojiSet: [],
+				emojiOpen: false,
+				imgSet: [],
+				imgOpen: false,
+				setSay:"",
+				chatData: [
+					{people:"self",saying:"Ah, summer, what power you have to make us suffer and like it？"},
+					{people:"other",saying:"Due to love. Because hot."},
+					{people:"other",saying:"Summer is coming, haha. winter be far behind."},
+				]
 			}
 		},
 		mounted() {
@@ -76,7 +67,8 @@
 				})
 			},
 			sendEmoji(i){
-				this.curEmoji = this.emojiSet[i].value;
+				let curEmoji = this.emojiSet[i].value;
+				this.setSay += curEmoji;
 			},
 			getImgs(){
 				let space = {
@@ -102,7 +94,12 @@
 				this.imgSet.pop();
 			},
 			sendImg(i){
-				this.curImg = '<span style="'+ this.imgSet[i] +'" class="imgCell"></span>'
+				let curImg = {people:"self",imgStyle:this.imgSet[i]};
+				this.chatData.push(curImg);
+			},
+			sendSay(){
+				this.chatData.push({people:"self",saying:this.setSay});
+				this.setSay = ""
 			}
 		},
 		directives:{
@@ -115,27 +112,30 @@
 </script>
 
 <style scoped>
-.self p,.other p{
+/* chatBox*/
+.self .chatSay,.other .chatSay{
 	border-radius: 1.2rem;
 	max-width: 58%;
 	padding: 0.2rem 1.3rem;
 	font-size: 1.1rem;
 	margin: 0.3rem;
 }
-.self p{
+.other .chatImg,.other .head,.other .chatSay{
 	float: left;
-	background: gainsboro;
 }
-.other p{
+.self .chatImg,.self .chatSay,.self .head{
 	float: right;
+}
+.self .chatSay{
+	background: aquamarine;
+}
+.other .chatSay{
 	background: #F5DEB3;
 }
 .self .head{
-	float: left;
-	background: url(/static/tiny/talk.svg) no-repeat gainsboro;
+	background: url(/static/tiny/talk.svg) no-repeat aquamarine;
 }
 .other .head{
-	float: right;
 	background: url(/static/tiny/talk.svg) no-repeat #F5DEB3;
 }
 .self .head,.other .head{
@@ -146,11 +146,23 @@
 	margin-top: -0.5rem;
 	position: relative;
 }
-.imgBox{
+/* imgBox */
+.imgBox,.emojiBox{
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 0.5rem;
+    height: 17rem;
+    box-sizing: border-box;
+}
+.booth{
+	position: fixed;
+    margin-right: 0.6rem;
+    bottom: 0;
+	height: 0;
+    overflow: hidden;
+    z-index: 33;
+    background: gainsboro;
 }
 .imgCell{
 	display: inline-block;
@@ -158,49 +170,74 @@
 	height: 60px;
 	background: url(/static/books/emoji.png) no-repeat;
 }
-.say,.text{
-	min-height: 5rem;
+.imgBox .imgCell{
+	margin: 0.5rem 0.5rem 1.5rem;
 }
+/* emoji Box*/
+.emojiBox span{
+	width: 4rem;
+    vertical-align: middle;
+    display: inline-block;
+    font: 2.2rem/4rem arial;
+    text-align: center;
+}
+/* footer talkBox*/
 .footer{
 	margin-left: -0.6rem ;
-	padding: 0.5rem 2rem;
+	padding-left: 1.3rem;
+	height: 3rem;
+	line-height: 3rem;
 	background: gainsboro;
 	position: fixed;
-	z-index: 555;
+	z-index: 22;
 	bottom: 0;
 	width: 100%;
 	box-sizing: border-box;
 	font-size: 0;
 }
+#talk,.talkIcon,.face,.love{
+	height: 2.2rem;
+}
 #talk{
 	box-sizing: border-box;
 	border: none;
 	outline: none;
-	height: 2.2rem;
 	width: 73%;
 	padding-left: 0.6rem;
+	vertical-align: middle;
 }
 .talkIcon{
-	display: inline-block;
 	width: 27%;
-	height: 2.2rem;
 	position: relative;
 	vertical-align: top;
+	display: inline-block;
+	vertical-align: middle;
 }
 .face,.love{
 	position: absolute;
 	display: inline-block;
-	height:2.2rem;
 	width: 2.2rem;
 }
 .face{
 	background: url(/static/tiny/talk.svg) no-repeat;
 	background-size: 2.2rem;
-	left: 10%;
+	left: 13%;
 }
 .love{
 	background: url(/static/tiny/love.svg) no-repeat;
 	background-size: 2.2rem;
-	right: 10%;
+	right: 13%;
+}
+/* active*/
+.chat.active{
+	padding-bottom: 19.4rem;
+}
+.booth.active{
+	transition: all 0.5s;
+	height: 14.5rem;
+}
+.footer.active{
+	transition: all 0.5s;
+	padding-bottom: 17.5rem;
 }
 </style>
