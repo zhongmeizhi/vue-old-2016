@@ -1,5 +1,6 @@
 <template>
 	<section class="chat" :class="{active:imgOpen||emojiOpen}">
+		<!-- note chat box-->
 		<div class="note">
 			<div v-for="chat in chatData" :class="chat.people" class="clearfix">
 				<i class="head"></i>
@@ -11,30 +12,34 @@
 				</p>
 			</div>
 		</div>
-		<div class="booth" :class="{active:emojiOpen}">
-			<div class="bench" @click="benchSlide" :style="{width:emojiSet.length*100+'%',left:-benchSlideNum*100+'%'}">
-				<div  class="emojiBox" v-for="(emojiPage,i) in emojiSet" :style="{width: 100/emojiSet.length+'%'}">
+		<!-- emoji swipe-->
+		<div  class="booth" :class="{active:emojiOpen}">
+			<swiper :options="swiperOption" ref="mySwiper">
+				<swiper-slide  class="emojiBox" v-for="(emojiPage,i) in emojiSet">
 					<span v-for="(emoji,j) in emojiPage" @click="sendEmoji(i,j)" :title="emoji.key">
 						{{emoji.value}}
 					</span>	
-				</div>
-			</div>
+				</swiper-slide>
+				<div class="swiper-pagination" slot="pagination"></div>
+			</swiper>
 		</div>
+		<!-- img swipe-->
 		<div class="booth" :class="{active:imgOpen}">
-			<div class="bench" @click="benchSlide" :style="{width:imgSet.length*100+'%',left:-benchSlideNum*100+'%'}">
-				<div class="imgBox" v-for="(imgPage,i) in imgSet" :style="{width: 100/imgSet.length+'%'}">
-					<p v-for="(img,j) in imgPage">
+			<swiper :options="swiperOption" ref="mySwiper" >
+				<swiper-slide class="imgBox" v-for="(imgPage,i) in imgSet" key="imgPage">
+					<p v-for="(img,j) in imgPage" key="img">
 						<i @click="sendImg(i,j)"   :style="img" class="imgCell"></i>
 					</p>
-				</div>
-			</div>
-			
+				</swiper-slide>
+				<div class="swiper-pagination" slot="pagination"></div>
+			</swiper>
 		</div>
+		<!-- say input box-->
 		<div class="footer" :class="{active:imgOpen||emojiOpen}">
-			<input  v-focus-input type="text" name="talk" id="talk" value="" v-model="setSay" @keydown.enter="sendSay" @focus="faceTF(0,0)"/>
+			<input  v-focus-input type="text" name="talk" id="talk" value="" v-model="setSay" @keydown.enter="sendSay" @focus="emojiOpen = false;imgOpen = false;"/>
 			<div class="talkIcon">
-				<span class="face" @click="faceTF(1,0)"></span>
-				<span class="love" @click="faceTF(0,1)"></span>
+				<span class="face" @click="emojiOpen = true;imgOpen = false;"></span>
+				<span class="love" @click="imgOpen = true;emojiOpen = false;"></span>
 			</div>
 		</div>
 	</section>
@@ -48,13 +53,16 @@
 				emojiOpen: false,
 				imgSet: [],
 				imgOpen: false,
-				benchSlideNum: 0,
 				setSay:"",
 				chatData: [
 					{people:"self",saying:"Ah, summer, what power you have to make us suffer and like it？"},
 					{people:"other",saying:"Due to love. Because hot."},
 					{people:"other",saying:"Summer is coming, haha. winter be far behind."},
-				]
+				],
+				swiperOption: {
+					pagination: '.swiper-pagination',
+					paginationClickable: true,					
+				}
 			}
 		},
 		mounted() {
@@ -126,18 +134,10 @@
 				this.chatData.push({people:"self",saying:this.setSay});
 				this.setSay = "";
 			},
-			faceTF(emoji,img){
-				this.emojiOpen = emoji;
-				this.imgOpen = img; 
-			},
-			benchSlide(){
-				
-			}
 		},
 		directives:{
 			focusInput:{
 				inserted(ele,bind,vNode){
-					console.log(1)
 					ele.focus();
 				}
 			}
@@ -181,13 +181,8 @@
 		position: relative;
 	}
 	/* imgBox */
-	.imgBox,.emojiBox{
-	    display: inline-flex;
-	    flex-wrap: wrap;
-	    justify-content: space-around;
-	    height: 17rem;
-	    box-sizing: border-box;
-	    align-content: flex-start;
+	.emojiBox{
+	    height: 14rem;
 	}
 	.booth{
 		position: fixed;
@@ -197,12 +192,12 @@
 	    overflow: hidden;
 	    z-index: 33;
 	    background: gainsboro;
-	}
-	.bench{
-		position: relative;
+	    width: 100%;
+	    margin-left: -0.6rem;
 	}
 	.imgBox p{
 		width: 25%;
+		display: inline-block;
 		text-align: center;
 	}
 	.imgCell{
@@ -250,7 +245,6 @@
 	.talkIcon{
 		width: 27%;
 		position: relative;
-		vertical-align: top;
 		display: inline-block;
 		vertical-align: middle;
 	}
@@ -281,4 +275,9 @@
 		transition: all 0.5s;
 		padding-bottom: 17.5rem;
 	}
+	/* bench swipe */
+	.booth .swiper-pagination{
+		bottom: 0;
+	}
+
 </style>
