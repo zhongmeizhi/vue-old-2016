@@ -31,10 +31,10 @@
 			
 		</div>
 		<div class="footer" :class="{active:imgOpen||emojiOpen}">
-			<input  v-focus-input type="text" name="talk" id="talk" value="" v-model="setSay" @keydown.enter="sendSay" @focus="emojiOpen = false;imgOpen = false;"/>
+			<input  v-focus-input type="text" name="talk" id="talk" value="" v-model="setSay" @keydown.enter="sendSay" @focus="faceTF(0,0)"/>
 			<div class="talkIcon">
-				<span class="face" @click="emojiOpen = true;imgOpen = false;"></span>
-				<span class="love" @click="imgOpen = true;emojiOpen = false;"></span>
+				<span class="face" @click="faceTF(1,0)"></span>
+				<span class="love" @click="faceTF(0,1)"></span>
 			</div>
 		</div>
 	</section>
@@ -125,6 +125,10 @@
 			sendSay(){
 				this.chatData.push({people:"self",saying:this.setSay});
 				this.setSay = "";
+			},
+			faceTF(emoji,img){
+				this.emojiOpen = emoji;
+				this.imgOpen = img; 
 			},
 			benchSlide(){
 				
