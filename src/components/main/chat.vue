@@ -144,7 +144,9 @@
 			faceTF(emoji,img){
 				this.emojiOpen = emoji;
 				this.imgOpen = img;
-				this.noteDown();
+				if(emoji || emoji){
+					this.noteDown();
+				}
 			},
 			noteDown(){
 				setTimeout(()=>{
