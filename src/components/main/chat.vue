@@ -1,7 +1,7 @@
 <template>
-	<section class="chat" :class="{active:imgOpen||emojiOpen}">
+	<section class="chat" >
 		<!-- note chat box-->
-		<div class="note">
+		<div class="note" :class="{active:imgOpen||emojiOpen}" @click="faceTF(0,0)">
 			<div v-for="chat in chatData" :class="chat.people" class="clearfix">
 				<i class="head"></i>
 				<p v-if="chat.saying" class="chatSay">
@@ -15,8 +15,8 @@
 		<!-- emoji swipe-->
 		<div  class="booth" :class="{active:emojiOpen}">
 			<swiper :options="swiperOption" ref="mySwiper">
-				<swiper-slide  class="emojiBox" v-for="(emojiPage,i) in emojiSet">
-					<span v-for="(emoji,j) in emojiPage" @click="sendEmoji(i,j)" :title="emoji.key">
+				<swiper-slide  class="emojiBox" v-for="(emojiPage,i) in emojiSet" key="emojiPage">
+					<span v-for="(emoji,j) in emojiPage" @click="sendEmoji(i,j)" :title="emoji.key" key="emoji">
 						{{emoji.value}}
 					</span>	
 				</swiper-slide>
@@ -36,10 +36,10 @@
 		</div>
 		<!-- say input box-->
 		<div class="footer" :class="{active:imgOpen||emojiOpen}">
-			<input  v-focus-input type="text" name="talk" id="talk" value="" v-model="setSay" @keydown.enter="sendSay" @focus="emojiOpen = false;imgOpen = false;"/>
+			<input  v-focus-input type="text" name="talk" id="talk" value="" v-model="setSay" @keydown.enter="sendSay" @focus="faceTF(0,0)"/>
 			<div class="talkIcon">
-				<span class="face" @click="emojiOpen = true;imgOpen = false;"></span>
-				<span class="love" @click="imgOpen = true;emojiOpen = false;"></span>
+				<span class="face" @click="faceTF(1,0)"></span>
+				<span class="love" @click="faceTF(0,1)"></span>
 			</div>
 		</div>
 	</section>
@@ -69,9 +69,12 @@
 			this.$nextTick(()=> {
 				if(navigator.platform.indexOf("Win")!=-1 || navigator.platform.indexOf("Mac")!=-1){
 //	  				alert(navigator.platform + " can't display emoji. ");
-				}
-				this.getEmoji();
-				this.getImgs();
+				};
+				console.log(this.swiper)
+				setTimeout(()=>{
+					this.getEmoji();
+					this.getImgs();	
+				},0)
 			})
 		},
 		methods: {
@@ -126,14 +129,18 @@
 				// 图片最后一个不是表情 
 				this.imgSet[2].pop();
 			},
-			sendImg(i){
-				let curImg = {people:"self",imgStyle:this.imgSet[i]};
+			sendImg(i,j){
+				let curImg = {people:"self",imgStyle:this.imgSet[i][j]};
 				this.chatData.push(curImg);
 			},
 			sendSay(){
 				this.chatData.push({people:"self",saying:this.setSay});
 				this.setSay = "";
 			},
+			faceTF(emoji,img){
+				this.emojiOpen = emoji;
+				this.imgOpen = img;
+			}
 		},
 		directives:{
 			focusInput:{
@@ -146,6 +153,13 @@
 </script>
 
 <style scoped>
+	.note{
+		position: absolute;
+		margin-right: 0.6rem;
+		min-height: calc(100% - 9rem);
+		padding-bottom: 3rem;
+		transition: all 0.5s;
+	}
 	/* chatBox*/
 	.self .chatSay,.other .chatSay{
 		border-radius: 0.4rem;
@@ -194,6 +208,7 @@
 	    background: gainsboro;
 	    width: 100%;
 	    margin-left: -0.6rem;
+	    transition: all 0.5s;
 	}
 	.imgBox p{
 		width: 25%;
@@ -264,11 +279,10 @@
 		right: 13%;
 	}
 	/* active*/
-	.chat.active{
+	.note.active{
 		padding-bottom: 17.8rem;
 	}
 	.booth.active{
-		transition: all 0.5s;
 		height: 14.5rem;
 	}
 	.footer.active{
