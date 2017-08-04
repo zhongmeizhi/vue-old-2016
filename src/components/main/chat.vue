@@ -22,13 +22,16 @@
 				</swiper-slide>
 				<div class="swiper-pagination" slot="pagination"></div>
 			</swiper>
+			<div>
+				
+			</div>
 		</div>
 		<!-- img swipe-->
 		<div class="booth" :class="{active:imgOpen}">
 			<swiper :options="swiperOption" ref="mySwiper" >
 				<swiper-slide class="imgBox" v-for="(imgPage,i) in imgSet" key="imgPage">
-					<p v-for="(img,j) in imgPage" key="img">
-						<i @click="sendImg(i,j)"   :style="img" class="imgCell"></i>
+					<p v-for="(img,j) in imgPage" key="img" @click="sendImg(i,j)">
+						<i :style="img" class="imgCell"></i>
 					</p>
 				</swiper-slide>
 				<div class="swiper-pagination" slot="pagination"></div>
@@ -69,12 +72,11 @@
 			this.$nextTick(()=> {
 				if(navigator.platform.indexOf("Win")!=-1 || navigator.platform.indexOf("Mac")!=-1){
 //	  				alert(navigator.platform + " can't display emoji. ");
-				};
-				console.log(this.swiper)
+				}
 				setTimeout(()=>{
 					this.getEmoji();
 					this.getImgs();	
-				},0)
+				})
 			})
 		},
 		methods: {
@@ -132,14 +134,22 @@
 			sendImg(i,j){
 				let curImg = {people:"self",imgStyle:this.imgSet[i][j]};
 				this.chatData.push(curImg);
+				this.noteDown();
 			},
 			sendSay(){
 				this.chatData.push({people:"self",saying:this.setSay});
 				this.setSay = "";
+				this.noteDown();
 			},
 			faceTF(emoji,img){
 				this.emojiOpen = emoji;
 				this.imgOpen = img;
+				this.noteDown();
+			},
+			noteDown(){
+				setTimeout(()=>{
+					document.getElementsByTagName("body")[0].scrollTop=999999;
+				})
 			}
 		},
 		directives:{
@@ -154,10 +164,7 @@
 
 <style scoped>
 	.note{
-		position: absolute;
-		margin-right: 0.6rem;
 		min-height: calc(100% - 9rem);
-		padding-bottom: 3rem;
 		transition: all 0.5s;
 	}
 	/* chatBox*/
