@@ -85,8 +85,7 @@
 				//  other response.
 				//	Simulation of the other letter
 					setInterval(()=>{
-						let random = Math.random(1)
-						if(random>0.92){
+						if(this.curData.length%3 != 0){
 							this.otherResponse();
 						}
 					},1000);
