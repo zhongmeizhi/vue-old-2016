@@ -2,15 +2,18 @@
 	<section class="chat" >
 		<!-- note chat box-->
 		<div class="note" :class="{active:imgOpen||emojiOpen}" @click="faceTF(0,0)">
-			<div v-for="chat in curData" :class="chat.people" class="clearfix">
-				<i class="head"></i>
-				<p v-if="chat.saying" class="chatSay">
-					<span>{{chat.saying}}</span>
-				</p>
-				<p v-else  class="chatImg">
-					<span class="imgCell" :style="chat.imgStyle"></span>
-				</p>
-			</div>
+			<transition-group name="chat">
+				<div v-for="chat in curData" :class="chat.people" class="clearfix" key="chat">
+					<i class="head"></i>
+					<p v-if="chat.saying" class="chatSay">
+						<span>{{chat.saying}}</span>
+					</p>
+					<p v-else  class="chatImg">
+						<span class="imgCell" :style="chat.imgStyle"></span>
+					</p>
+				</div>	
+			</transition-group>
+			
 		</div>
 		<!-- emoji swipe-->
 		<div  class="booth" :class="{active:emojiOpen}">
@@ -88,7 +91,7 @@
 						if(this.curData.length%3 != 0){
 							this.otherResponse();
 						}
-					},1000);
+					},3000);
 				});
 				this.noteDown();
 			})
@@ -200,6 +203,13 @@
 </script>
 
 <style scoped>
+	.chat-enter{
+		opacity: 0;
+	}
+	.chat-enter-to{
+		transition: all 0.8s;
+		opacity: 1;
+	}
 	.note{
 		min-height: calc(100% - 9rem);
 		transition: all 0.5s;
