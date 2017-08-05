@@ -2,7 +2,7 @@
 	<section class="chat" >
 		<!-- note chat box-->
 		<div class="note" :class="{active:imgOpen||emojiOpen}" @click="faceTF(0,0)">
-			<div v-for="chat in chatData" :class="chat.people" class="clearfix">
+			<div v-for="chat in curData" :class="chat.people" class="clearfix">
 				<i class="head"></i>
 				<p v-if="chat.saying" class="chatSay">
 					<span>{{chat.saying}}</span>
@@ -22,8 +22,8 @@
 				</swiper-slide>
 				<div class="swiper-pagination" slot="pagination"></div>
 			</swiper>
-			<div>
-				
+			<div class="send" @click="sendSay">
+				Send
 			</div>
 		</div>
 		<!-- img swipe-->
@@ -57,11 +57,12 @@
 				imgSet: [],
 				imgOpen: false,
 				setSay:"",
-				chatData: [
+				initData: [
 					{people:"self",saying:"Ah, summer, what power you have to make us suffer and like it？"},
 					{people:"other",saying:"Due to love. Because hot."},
 					{people:"other",saying:"Summer is coming, haha. winter be far behind."},
 				],
+				curData:[],
 				swiperOption: {
 					pagination: '.swiper-pagination',
 					paginationClickable: true,					
@@ -70,13 +71,27 @@
 		},
 		mounted() {
 			this.$nextTick(()=> {
-				if(navigator.platform.indexOf("Win")!=-1 || navigator.platform.indexOf("Mac")!=-1){
-//	  				alert(navigator.platform + " can't display emoji. ");
-				}
+			// curData
+				if(sessionStorage.getItem("curData")==null){
+					this.curData = this.initData;
+					sessionStorage.setItem("curData",JSON.stringify(this.curData))
+				}else{
+					this.curData = JSON.parse(sessionStorage.getItem("curData"));
+				};
+				//
 				setTimeout(()=>{
 					this.getEmoji();
-					this.getImgs();	
-				})
+					this.getImgs();
+				//  other response.
+				//	Simulation of the other letter
+					setInterval(()=>{
+						let random = Math.random(1)
+						if(random>0.92){
+							this.otherResponse();
+						}
+					},1000);
+				});
+				this.noteDown();
 			})
 		},
 		methods: {
@@ -133,11 +148,11 @@
 			},
 			sendImg(i,j){
 				let curImg = {people:"self",imgStyle:this.imgSet[i][j]};
-				this.chatData.push(curImg);
+				this.saveChatData(curImg);
 				this.noteDown();
 			},
 			sendSay(){
-				this.chatData.push({people:"self",saying:this.setSay});
+				this.saveChatData({people:"self",saying:this.setSay});
 				this.setSay = "";
 				this.noteDown();
 			},
@@ -149,9 +164,30 @@
 				}
 			},
 			noteDown(){
+			//	when user are send message，
+			//	then note will move to down
 				setTimeout(()=>{
 					document.getElementsByTagName("body")[0].scrollTop=999999;
-				})
+				},0)
+			},
+			saveChatData(data){
+				let oldData = JSON.parse(sessionStorage.getItem("curData"));
+				oldData.push(data);
+				sessionStorage.setItem("curData",JSON.stringify(oldData));
+				this.curData = JSON.parse(sessionStorage.getItem("curData"));
+			},
+			otherResponse(){
+				this.saveChatData({people:"other",saying:"hello world!"});
+			//	receive other response ,
+			//	when user are browsing history，
+			//	then note don't move to down
+				let $body = document.getElementsByTagName("body")[0];
+				let scrollHeight = $body.scrollHeight;
+				let scrollTop = $body.scrollTop;
+				let innerHeight = window.innerHeight;
+				if(scrollHeight-scrollTop-innerHeight<50){
+					this.noteDown();
+				}
 			}
 		},
 		directives:{
@@ -218,6 +254,10 @@
 	    width: 100%;
 	    margin-left: -0.6rem;
 	    transition: all 0.5s;
+	}
+	.booth .send{
+		opacity: 0;
+		transition: all 0.3s; 
 	}
 	.imgBox p{
 		width: 25%;
@@ -293,6 +333,16 @@
 	}
 	.booth.active{
 		height: 14.5rem;
+	}
+	.booth.active .send{
+		opacity: 1;
+		position: absolute;
+	    bottom: 5%;
+    	right: 10%;
+    	border: gray 0.2rem solid;
+    	border-radius: 0.3rem;
+    	padding: 0.1rem 0.3rem;
+    	z-index: 789;
 	}
 	.footer.active{
 		transition: all 0.5s;
