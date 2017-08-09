@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <jack-header></jack-header>
+    <jack-header down="hello" @up="up"></jack-header>
     <jack-nav v-if="['checkout','wechat','alipay'].indexOf($route.name)==-1"></jack-nav>
     <transition :name="transitionName" mode="out-in">
 		  <router-view class="content"></router-view>
@@ -33,6 +33,11 @@ export default {
       this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
     }
   },
+  methods:{
+  	up(msg){
+  		console.log(msg);
+  	}
+  }
 }
 </script>
 
