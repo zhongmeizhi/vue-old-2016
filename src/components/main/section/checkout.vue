@@ -5,12 +5,19 @@
 		</div>
 		<div class="infoBox">
 			<ul>
-				<li v-if="newInfo" @click="login=!login,newInfo=false" :class="{active:newInfo}">Sign In</li>
-				<li v-if="login" @click="newInfo=!newInfo,login=false" :class="{active:login}">Fast Buy</li>
+				<li v-if="login" @click="login=!login">Fast Buy</li>
+				<li v-else @click="login=!login">Sign In</li>
 			</ul>
 		</div>
+		<!-- login -->
+		<div class="oldInfo" v-if="login">
+			<h1>
+				There will be become... Sign In!<br />
+				But, I don't want to do.
+			</h1>
+		</div>
 		<!-- new Info -->
-		<div class="shipBox" v-if="newInfo">
+		<div class="shipBox" v-else>
 			<ul class="shipList">
 				<li v-for="list in shipList">
 					 <!--@click="upLabel(list)"-->
@@ -27,17 +34,6 @@
 				</router-link>
 			</div>
 		</div>
-		<!-- login -->
-		<div class="oldInfo" v-if="login">
-			<ul>
-				<li>
-					<h1>
-						There will be become... Sign In!<br />
-						But, I don't want to do.
-					</h1>
-				</li>
-			</ul>
-		</div>
 	</section>
 </template>
 
@@ -51,7 +47,6 @@ export default{
 				{label:"Phone",type:"tel",name:"phone"}
 			],
 			curName:"",
-			newInfo:true,
 			login:false
 		}
 	},
@@ -122,15 +117,12 @@ export default{
 		height: 3rem;
 		text-align: center;
 		border-radius: 0.4rem;
-		background: #7ec801;
+		background: orange;
 		color: white;
 		font: 1.2rem/3rem arial bold;
 	}
 	.infoBox li:first-child{
 		margin-bottom: 1.3rem;
-	}
-	.infoBox li.active{
-		background: orange;
 	}
 	.confirm button{
 		margin-right: 2rem;

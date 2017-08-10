@@ -20,6 +20,7 @@ let store = new Vuex.Store({
 					if(v.name == book.name){
 						v.num++;
 						flag = false;
+						return;
 					}
 				});
 				if(flag){

@@ -1,6 +1,6 @@
 <template>
 	<section class="chat" >
-		<!-- note chat box-->
+<!-- note chat box-->
 		<div class="note" :class="{active:imgOpen||emojiOpen}" @click="faceTF(0,0)">
 			<div v-for="chat in curData" :class="chat.people" class="clearfix">
 				<i class="head"></i>
@@ -12,7 +12,7 @@
 				</p>
 			</div>
 		</div>
-		<!-- emoji swipe-->
+<!-- emoji swipe-->
 		<div  class="booth" :class="{active:emojiOpen}">
 			<swiper :options="swiperOption" ref="mySwiper">
 				<swiper-slide  class="emojiBox" v-for="(emojiPage,i) in emojiSet" key="emojiPage">
@@ -26,7 +26,7 @@
 				Send
 			</div>
 		</div>
-		<!-- img swipe-->
+<!-- img swipe-->
 		<div class="booth" :class="{active:imgOpen}">
 			<swiper :options="swiperOption" ref="mySwiper" >
 				<swiper-slide class="imgBox" v-for="(imgPage,i) in imgSet" key="imgPage">
@@ -37,7 +37,7 @@
 				<div class="swiper-pagination" slot="pagination"></div>
 			</swiper>
 		</div>
-		<!-- say input box-->
+<!-- say input box-->
 		<div class="footer" :class="{active:imgOpen||emojiOpen}">
 			<input  v-focus-input type="text" name="talk" id="talk" value="" v-model="setSay" @keydown.enter="sendSay" @focus="faceTF(0,0)"/>
 			<div class="talkIcon">
@@ -71,19 +71,19 @@
 		},
 		mounted() {
 			this.$nextTick(()=> {
-			// curData
+// curData
 				if(sessionStorage.getItem("curData")==null){
 					this.curData = this.initData;
 					sessionStorage.setItem("curData",JSON.stringify(this.curData))
 				}else{
 					this.curData = JSON.parse(sessionStorage.getItem("curData"));
 				};
-				//
+//
 				setTimeout(()=>{
 					this.getEmoji();
 					this.getImgs();
-				//  other response.
-				//	Simulation of the other letter
+//  other response.
+//	Simulation of the other letter
 					setInterval(()=>{
 						if(this.curData.length%3 != 0){
 							this.otherResponse();
@@ -138,11 +138,12 @@
 						if(this.imgSet[page]==undefined || this.imgSet[page]=="undefined" ){
 							this.imgSet[page] = [];
 						}
-						let emoji = 'background-position: -'+ W +'px -'+ H+'px;'; 
+// ES6 结构赋值插入变量真的很好用
+						let emoji = `background-position: -${W}px -${H}px;`; 
 						this.imgSet[page].push(emoji);
 					}
 				};
-				// 图片最后一个不是表情 
+// 图片最后一个不是表情 
 				this.imgSet[2].pop();
 			},
 			sendImg(i,j){
