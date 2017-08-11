@@ -95,15 +95,14 @@
 		},
 		methods: {
 			getEmoji(){
-				let row = 3;
-				let column = 6;
-				let pageNum = row * column;
+				const row = 3,
+					column = 6,
+					pageNum = row * column;
 				this.$http.get("/static/emoji.json").then((res)=> {
 					res.data.people.forEach((v,i)=> {
 						let page = Math.floor(i/pageNum);
-						if(this.emojiSet[page]==undefined || this.emojiSet[page]=="undefined" ){
+						if(this.emojiSet[page]==undefined)
 							this.emojiSet[page] = [];
-						}
 						this.emojiSet[page].push(v);
 					})
 				})
@@ -113,11 +112,11 @@
 				this.setSay += curEmoji;
 			},
 			getImgs(){
-				let disply = {
+				const disply = {
 					row: 2,
 					column: 4
 				}
-				let space = {
+				const space = {
 					startX: 11,
 					startY: 18,
 					spaceX: 65,
@@ -127,14 +126,14 @@
 					cell:7,
 					row:3,
 				};
-				let pageNum= disply.row * disply.column;
-				let cellNext = (num)=> space.startX + space.width*num + space.spaceX*num/2;	
-				let rowNext = (num)=> space.startY + space.heigh*num + space.spaceY*num/2;
+				const pageNum= disply.row * disply.column,
+					cellNext = (num)=> space.startX + space.width*num + space.spaceX*num/2,
+					rowNext = (num)=> space.startY + space.heigh*num + space.spaceY*num/2;
 				for (let i=0; i<space.row; i++) {
 					let H = rowNext(i);
 					for (let j=0; j<space.cell; j++) {
-						let W = cellNext(j);
-						let page = Math.floor((i*space.cell+j)/pageNum);
+						let W = cellNext(j),
+							page = Math.floor((i*space.cell+j)/pageNum);
 						if(this.imgSet[page]==undefined || this.imgSet[page]=="undefined" ){
 							this.imgSet[page] = [];
 						}
@@ -143,7 +142,6 @@
 						this.imgSet[page].push(emoji);
 					}
 				};
-// 图片最后一个不是表情 
 				this.imgSet[2].pop();
 			},
 			sendImg(i,j){
@@ -157,8 +155,8 @@
 				this.noteDown();
 			},
 			faceTF(emoji,img){
-				this.emojiOpen = emoji;
-				this.imgOpen = img;
+//	解构赋值很好用啊。				
+				[this.emojiOpen, this.imgOpen] = [emoji, img];
 				if(emoji || emoji){
 					this.noteDown();
 				}
@@ -181,10 +179,10 @@
 			//	receive other response ,
 			//	when user are browsing history，
 			//	then note don't move to down
-				let $body = document.getElementsByTagName("body")[0];
-				let scrollHeight = $body.scrollHeight;
-				let scrollTop = $body.scrollTop;
-				let innerHeight = window.innerHeight;
+				let $body = document.getElementsByTagName("body")[0],
+					scrollHeight = $body.scrollHeight, 
+					scrollTop = $body.scrollHeight, 
+					innerHeight = window.innerHeight;
 				if(scrollHeight-scrollTop-innerHeight<50){
 					this.noteDown();
 				}
