@@ -1,6 +1,6 @@
 <template>
   <section class="home">
-    <h2>{{addText()}}</h2>
+    <h2>{{msg}}</h2>
   </section>
 </template>
 
@@ -10,31 +10,28 @@ export default {
   name: 'home',
   data () {
     return {
-    	welcome: "Welcome to my blog. This is vue project of wap. Just for practice.",
     	msg: "",
-    	num: 0,
     }
   },
   mounted(){
   	this.$nextTick(()=>{
 			if(navigator.platform.indexOf("Win")!=-1 || navigator.platform.indexOf("Mac")!=-1){
-  				alert("Your platform is " + navigator.platform + ". Please use mobile!");
-			}
+				alert("Your platform is " + navigator.platform + ". Please use mobile!");
+			};
+			this.addText();
   	})
   },
   methods:{
-  	addText:function(){
-  		let self = this;
-  		let welcomeLen = self.welcome.length;
-  		let tot = setTimeout(function(){
-  				if (self.num<welcomeLen) {
-	  				self.msg += self.welcome[self.num];
-	  				self.num++;
-	  			} else{
-	  				clearTimeout(tot);
-	  			}
-  			},50)
-  		return this.msg;
+  	addText(){
+  		var w;
+			if(typeof(Worker)!=="undefined"){
+				if(typeof(w)=="undefined"){
+			    w = new Worker("/static/plug/woker.js");
+		    }
+			  w.onmessage = (value)=> {
+						this.msg = value.data; 
+			  };
+			}
   	}  
   }
   
