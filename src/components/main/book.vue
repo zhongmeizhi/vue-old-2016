@@ -2,17 +2,17 @@
 	<section class="book">
 		<div class="searchBox clearfix">
 			<div class="parentObj">
-				<span @click="searchStart()" :class="{active:searchFlag}">
+				<span @click="searchFilter()" :class="{active:searchFlag}">
 				</span>			
 			</div>
 			<div class="selectBox">
 				<select name="orderByPrice" @change="orderPrice()" v-model="orderRule">
-					<option value="low" selected="selected">price(low to high)</option>
+					<option value="low">price(low to high)</option>
 					<option value="high">price(high to low)</option>
 				</select>
 			</div>
 			<transition name="search">
-				<input v-if="searchFlag" @keydown.enter="searchStart()" @keydown.tab="searchStart()" type="text" name="search" id="search" v-model="search" placeholder="Search..."/>
+				<input v-if="searchFlag" @keydown.enter="searchFilter()" @keydown.tab="searchFilter()" type="text" name="search" id="search" v-model="search" placeholder="Search..."/>
 			</transition>
 			<span class="close" v-if="searchFlag" @click="searchFlag=false"></span>
 		</div>
@@ -23,17 +23,8 @@
 						<img :alt="book.name" :src="book.img"/>
 					</div>
 					<div class="bookDetail">
-						<p>
-							<span>Name: </span>{{book.name}}
-						</p>
-						<p>
-							<span>Author: </span>{{book.author}}
-						</p>
-						<p>
-							<span>Type: </span>{{book.type}}
-						</p>
-						<p>
-							<span>Price: </span>{{book.price}}
+						<p v-for="(value,key) in book" v-if="key!='productID' && key!='img'">
+							<span>{{key}}</span>{{value}}
 						</p>
 						<button class="payment">
 							<router-link  to="/cart" @click.native="savePro(book)">Buy Now</router-link>
@@ -76,7 +67,7 @@
 			savePro(book){
 				this.$store.commit("addToCart",book);
 			},
-			searchStart(){
+			searchFilter(){
 				if(this.searchFlag){
 					this.filterBook.books = this.testBook.books.filter(v => {
 						for (var i in v) {
@@ -209,6 +200,7 @@
 		font-weight: bold;
 		display: inline-block;
 		width: 50%;
+		text-transform: uppercase;
 	}
 	.bookList li{
 		margin: 0.5rem;

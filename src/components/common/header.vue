@@ -20,8 +20,14 @@
 export default{
 	data(){
 		return {
-			
 		}
+	},
+	props:['down'],
+	mounted(){
+		this.$nextTick(()=>{
+			console.log(this.down);
+			this.$emit("up","word!")
+		})
 	},
 	computed:{
 		bookNum(){

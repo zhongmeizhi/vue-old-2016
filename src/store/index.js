@@ -10,7 +10,7 @@ let store = new Vuex.Store({
 	},
 	mutations: {
     	addToCart(state,book){
-    		state.bookSet = JSON.parse(localStorage.getItem("curBook")) || [];
+    		state.bookSet = getStorage() || [];
 			if(state.bookSet.length == 0){
 				book.num = 1;
 				state.bookSet[0] = book;
@@ -20,6 +20,7 @@ let store = new Vuex.Store({
 					if(v.name == book.name){
 						v.num++;
 						flag = false;
+						return;
 					}
 				});
 				if(flag){
@@ -27,11 +28,11 @@ let store = new Vuex.Store({
 					state.bookSet = state.bookSet.concat(book);
 				}
 			}
-			localStorage.setItem("curBook",JSON.stringify(state.bookSet));
-			state.bookSet = JSON.parse(localStorage.getItem("curBook"));
+			setStorage(state.bookSet);
+			state.bookSet = getStorage();
    		},
     	getInCart(state){
-    		state.bookSet = JSON.parse(localStorage.getItem("curBook"));
+    		state.bookSet = getStorage();
     	},
     	delInCart(state,book){
 			let collection = JSON.parse(JSON.stringify(state.bookSet));
@@ -40,12 +41,12 @@ let store = new Vuex.Store({
 					collection.splice(i,1);
 				}
 			});
-			localStorage.setItem("curBook",JSON.stringify(collection));
-			state.bookSet = JSON.parse(localStorage.getItem("curBook"));
+			setStorage(collection);
+			state.bookSet = getStorage();
     	},
     	getBookNum(state){
     		state.bookNum = 0;
-    		state.bookSet = JSON.parse(localStorage.getItem("curBook"));
+    		state.bookSet = getStorage();
     		if(state.bookSet==null || state.bookSet=="null"){
     			state.bookNum = 0;
     		}else{
@@ -59,5 +60,10 @@ let store = new Vuex.Store({
 	actions:{
 	}
 })
+
+let getStorage = ()=> JSON.parse(localStorage.getItem("curBook"));
+
+
+let setStorage = (save)=> localStorage.setItem("curBook",JSON.stringify(save));
 
 export default store
