@@ -16,7 +16,7 @@ let store = new Vuex.Store({
 				state.bookSet[0] = book;
 			}else{
 				let flag = true;
-				state.bookSet.forEach(function(v,i){
+				state.bookSet.forEach((v,i)=>{
 					if(v.name == book.name){
 						v.num++;
 						flag = false;

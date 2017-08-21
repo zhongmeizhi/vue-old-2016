@@ -168,7 +168,7 @@
 			//	when user are send message，
 			//	then note will move to down
 				setTimeout(()=>{
-					document.getElementsByTagName("body")[0].scrollTop=999999;
+					window.scrollTo(0, 99999)
 				},0)
 			},
 			saveChatData(data){
