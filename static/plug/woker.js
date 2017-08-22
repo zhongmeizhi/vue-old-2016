@@ -1,4 +1,4 @@
-var welcome = "Welcome to my blog. This is vue project of wap. Just for practice.",
+var welcome = "Welcome to my blog. This is vue project (four) of wap. Just for practice.",
 	num = 0,
 	msg = "",
 	welcomeLen = welcome.length,

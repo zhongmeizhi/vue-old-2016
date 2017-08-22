@@ -49,6 +49,7 @@ export default {
 	.joke h2{
 		text-align: center;
 		color: #7ec801;
+		text-shadow: 0.02rem 0.02rem 0.1rem black;
 	}
 	.joke li{
 		border: 0.1rem solid orange;

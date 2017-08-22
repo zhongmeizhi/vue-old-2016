@@ -21,7 +21,7 @@ export default{
 	    		list: [
 	    			{name:"Chat",link:"chat"},
 	    			{name:"Shop",link:"book"},
-	    			{name:"Laugh",link:"laugh"},
+	    			{name:"Eatery",link:"eatery"},
 	    			{name:"About",link:"about"}
 	    		]
 	    	}

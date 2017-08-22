@@ -3,13 +3,13 @@ import Router from 'vue-router'
 import home from '@/components/main/home'
 import chat from '@/components/main/chat'
 import book from '@/components/main/book'
-import laugh from '@/components/main/laugh'
+import eatery from '@/components/main/eatery'
 import about from '@/components/main/about'
-import cart from '@/components/main/section/cart'
-import checkout from '@/components/main/section/checkout'
-import payment from '@/components/main/section/payment'
-import alipay from '@/components/main/section/payment/alipay'
-import wechat from '@/components/main/section/payment/wechat'
+import cart from '@/components/main/cart'
+import checkout from '@/components/main/checkout'
+import payment from '@/components/main/section/pay/payment'
+import alipay from '@/components/main/section/pay/alipay'
+import wechat from '@/components/main/section/pay/wechat'
 
 Vue.use(Router)
 
@@ -60,9 +60,9 @@ export default new Router({
 			]
 		},
 		{
-      path: '/laugh',
-      name: 'laugh',
-      component: laugh
+      path: '/eatery',
+      name: 'eatery',
+      component: eatery
     },
     {
       path: '/about',
