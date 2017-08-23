@@ -1,43 +1,39 @@
 <template>
   <section class="home">
-    <h2>{{msg}}</h2>
     <laugh></laugh>
+    <jack-alert v-if="web && platformAlert" msg="You're not a platform for mobile phones." @alertClose="alertClose"></jack-alert>
   </section>
 </template>
 
 <script>
-import laugh from "@/components/main/section/laugh"
+import laugh from "@/components/common/laugh"
+import alert from "@/components/common/alert"
 
 export default {
   name: 'home',
   data () {
     return {
-    	msg: "",
+    	web: false,
+    	platformAlert: true
     }
   },
-  mounted(){
-  	this.$nextTick(()=>{
-			if(navigator.platform.indexOf("Win")!=-1 || navigator.platform.indexOf("Mac")!=-1){
-				alert("Your platform is " + navigator.platform + ". Please use mobile!");
-			};
-			this.addText();
-  	})
-  },
-  methods:{
-  	addText(){
-  		var w;
-			if(typeof(Worker)!=="undefined"){
-				if(typeof(w)=="undefined"){
-			    w = new Worker("/static/plug/woker.js");
-		    }
-			  w.onmessage = (value)=> {
-						this.msg = value.data; 
-			  };
-			}
-  	}  
-  },
+  mounted() {
+	  	this.$nextTick(()=>{
+				if(navigator.platform.indexOf("Win")!=-1 || navigator.platform.indexOf("Mac")!=-1){
+					this.web = true
+					this.platformAlert = sessionStorage.getItem("platformAlert") ? false : true;
+				};
+	  	})
+	},
   components: {
-  	"laugh": laugh
+  	"laugh": laugh,
+  	"jack-alert": alert
+  },
+  methods: {
+  	alertClose() {
+  		this.web=false;
+  		sessionStorage.setItem("platformAlert","done");
+  	}
   }
   
 }
@@ -45,8 +41,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	h2{
-		min-height: 6rem;
-		text-shadow: 0.01rem 0.02rem 0.1rem gray;
-	}
 </style>

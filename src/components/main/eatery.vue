@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import baiduMap from '@/components/main/section/map'
+import baiduMap from '@/components/common/map'
 	
 export default{
 	data(){

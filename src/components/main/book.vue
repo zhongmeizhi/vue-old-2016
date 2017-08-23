@@ -60,7 +60,7 @@
 				});
 				this.filterBook = JSON.parse(JSON.stringify(this.testBook));
 			}).catch(function(response) {
-				console.log(response)
+				console.error(response)
 			});
 		},
 		methods:{

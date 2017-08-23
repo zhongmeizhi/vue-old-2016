@@ -53,9 +53,10 @@ export default {
 	}
 	.joke li{
 		border: 0.1rem solid orange;
-		border-radius: 0.3rem;
+		border-radius: 0.1rem;
 		padding: 0.3rem;
 		margin: 0.5rem 0.3rem;
+		box-shadow: 0.08rem 0.05rem 0.1rem #FFA500;
 	}
 	.joke li b{
 		color: green;

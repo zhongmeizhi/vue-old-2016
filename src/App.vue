@@ -24,7 +24,7 @@ export default {
 	components:{
 		jackHeader,
 		jackNav,
-		jackFooter
+		jackFooter,
 	},
 	watch: {
     '$route' (to, from) {

@@ -88,7 +88,7 @@
 //  other response.
 //	Simulation of the other letter
 					setInterval(()=>{
-						if(this.curData.length%3 != 0){
+						if(this.curData.length%2 == 0){
 							this.otherResponse();
 						}
 					},3000);
