@@ -1,20 +1,10 @@
 <template>
 	<div>
-		
-		<div id="driving_way">
-			<input type="start" name="start" id="start" v-model="start"/>
-			<input type="end" name="end" id="end" v-model="end"/>
-			<select>
-				<option value="0">最少时间</option>
-				<option value="1">最少换乘</option>
-				<option value="2">最少步行</option>
-				<option value="3">不乘地铁</option>
-			</select>
-			<input type="button" id="result" value="查询"/>
-		</div>
-		
+		<!--  traffic -->
+		<slot name="traffic"></slot>
 		<!-- Search -->
-		<input type="text" id="mapSearch" name="mapSearch" placeholder="address" v-model="mapInput" class="mapSearch">
+		<slot name="mapSearch"></slot>		
+		<!-- map -->
 		<div id="baidu-map" class="baidu-map"></div>
 	</div>
 </template>
@@ -73,56 +63,61 @@
 					//					}, {
 					//						enableHighAccuracy: true
 					//					})
-
-					var ac = new BMap.Autocomplete( //建立一个自动完成的对象
-						{
-							"input": "mapSearch",
-							"location": map
-						})
-					var myValue;
-					ac.addEventListener("onconfirm", function(e) { //鼠标点击下拉列表后的事件
-						var _value = e.item.value;
-						myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
-						this.mapInput = myValue
-						setPlace();
-					});
-
-					function setPlace() {
-						map.clearOverlays(); //清除地图上所有覆盖物
-						function myFun() {
-							th.userlocation = local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
-							map.centerAndZoom(th.userlocation, 18);
-							map.addOverlay(new BMap.Marker(th.userlocation)); //添加标注
-						}
-						var local = new BMap.LocalSearch(map, { //智能搜索
-							onSearchComplete: myFun
+					
+					const $mapSearch = document.getElementById("mapSearch");
+					if($mapSearch){
+						var ac = new BMap.Autocomplete( //建立一个自动完成的对象
+							{
+								"input": "mapSearch",
+								"location": map
+							})
+						var myValue;
+						ac.addEventListener("onconfirm", function(e) { //鼠标点击下拉列表后的事件
+							var _value = e.item.value;
+							myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+							this.mapInput = myValue
+							setPlace();
 						});
-						local.search(myValue);
+	
+						function setPlace() {
+							map.clearOverlays(); //清除地图上所有覆盖物
+							function myFun() {
+								th.userlocation = local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
+								map.centerAndZoom(th.userlocation, 18);
+								map.addOverlay(new BMap.Marker(th.userlocation)); //添加标注
+							}
+							var local = new BMap.LocalSearch(map, { //智能搜索
+								onSearchComplete: myFun
+							});
+							local.search(myValue);
+						}
 					}
 
 
 //	baidu APi, start-end way search;
-					var routePolicy = [BMAP_TRANSIT_POLICY_LEAST_TIME, BMAP_TRANSIT_POLICY_LEAST_TRANSFER, BMAP_TRANSIT_POLICY_LEAST_WALKING, BMAP_TRANSIT_POLICY_AVOID_SUBWAYS];
-					var transit = new BMap.TransitRoute(map, {
-						renderOptions: {
-							map: map
-						},
-						policy: 0
-					});
-					
 					var $result = document.getElementById("result");
-					$result.onclick = function() {
-						map.clearOverlays();
-						
-						var $way = document.querySelector("#driving_way select")[0];
-						var i = $way.attributes.value;
-						search(th.start, th.end, routePolicy[i]);
-
-						function search(start, end, route) {
-							transit.setPolicy(route);
-							transit.search(start, end);
-						}
-					};
+					if($result){
+						var routePolicy = [BMAP_TRANSIT_POLICY_LEAST_TIME, BMAP_TRANSIT_POLICY_LEAST_TRANSFER, BMAP_TRANSIT_POLICY_LEAST_WALKING, BMAP_TRANSIT_POLICY_AVOID_SUBWAYS];
+						var transit = new BMap.TransitRoute(map, {
+							renderOptions: {
+								map: map
+							},
+							policy: 0
+						});
+					
+						$result.onclick = function() {
+							map.clearOverlays();
+							
+							var $way = document.querySelector("#driving_way select")[0];
+							var i = $way.attributes.value;
+							search(th.start, th.end, routePolicy[i]);
+	
+							function search(start, end, route) {
+								transit.setPolicy(route);
+								transit.search(start, end);
+							}
+						};
+					}
 
 				})
 			})
