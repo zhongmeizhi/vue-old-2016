@@ -26,15 +26,13 @@
 	export default {
 		data() {
 			return {
-				mapInput: "", //详细地址
 				userlocation: {
 					lng: "",
 					lat: ""
-				},
-				start: "",
-				end: ""
+				}
 			}
 		},
+		props: ['mapInput', 'start', 'end'],
 		mounted() {
 			this.$nextTick(function() {
 				MP().then(BMap => {
