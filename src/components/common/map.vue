@@ -78,39 +78,38 @@
 				ac.addEventListener("onconfirm", (e)=>{ //鼠标点击下拉列表后的事件
 					let _value = e.item.value;
 					let myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
-					this.mapInput = myValue
+					this.mapInput = myValue;
 					this.setPlace(myValue);
 				});
 //	智能搜索地点
-				this.local = new BMap.LocalSearch(
-					this.map, 
+				this.local = new BMap.LocalSearch(this.map, 
 					{onSearchComplete: this.searchComplete}
 				);
 
 //	导航方式：驾车出行
-				this.transit = new BMap.DrivingRoute(
-					this.map, 
+				this.transit = new BMap.DrivingRoute(this.map, 
 					{renderOptions: {map: this.map}, onSearchComplete: this.trafficComplete}
 				);
 				
+			},
+			addMark(){
+				this.userlocation = this.local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
+				this.map.addOverlay(new BMap.Marker(this.userlocation)); //添加标注
 			},
 			setPlace(myV){
 				this.map.clearOverlays(); //清除地图上所有覆盖物
 				this.local.search(myV);
 			},
 			searchComplete(){
-				this.userlocation = local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
-				this.map.centerAndZoom(this.userlocation, 18);
-				this.map.addOverlay(new BMap.Marker(this.userlocation)); //添加标注
+				this.addMark();
+				this.map.centerAndZoom(this.userlocation, 17);
 			},
 			traffic(){
 				this.map.clearOverlays();
 				this.transit.search(this.start, this.end);
 			},
 			trafficComplete(results) {
-				if (this.transit.getStatus() != BMAP_STATUS_SUCCESS){
-					return ;
-				}
+				if (this.transit.getStatus() != BMAP_STATUS_SUCCESS) return ;
 				let plan = results.getPlan(0);
 				let output = `从${this.start}到${this.end}驾车需要${plan.getDuration(true)}\               
 				总路程为: ${plan.getDistance(true)}`; 
