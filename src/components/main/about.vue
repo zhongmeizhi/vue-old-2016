@@ -1,11 +1,6 @@
 <template>
 	<section class="about"	>
-		<h1>
-			Hi. My name is Jack. <br />
-			<a href="https://github.com/zhongmeizhi" class="gitHub">
-				Into My GitHub
-			</a>
-		</h1>
+		<h1>Hi. My name is Jack.</h1>
 		<h2>{{msg}}</h2>
 	</section>
 </template>
@@ -49,8 +44,5 @@ export default{
 		min-height: 6rem;
 		text-indent: 4rem;
 		color: goldenrod;
-	}
-	.gitHub{
-		color: #7ec801;
 	}
 </style>
