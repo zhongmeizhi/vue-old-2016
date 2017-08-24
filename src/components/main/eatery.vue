@@ -1,8 +1,9 @@
 <template>
 	<section class="about"	>
-		<input type="start" name="start" id="start" v-model="map.start" :start="map.start"/>
-		<input type="end" name="end" id="end" v-model="map.end" :end="map.end"/>
-		<baidu-map></baidu-map>
+		<baidu-map :start="map.start" :end="map.end">
+			<input type="text" name="start" id="start" v-model="map.start"/>
+			<input type="text" name="end" id="end" v-model="map.end"/>
+		</baidu-map>
 	</section>
 </template>
 
