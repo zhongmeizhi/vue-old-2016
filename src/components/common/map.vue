@@ -22,7 +22,7 @@
 				},
 			}
 		},
-		props: ["start", "end"],
+		props: ["start", "end", "customers"],
 		mounted() {
 			this.$nextTick(function() {
 				this.setMap().then(BMap => {
@@ -55,35 +55,22 @@
 				this.map.enableScrollWheelZoom(true);
 				this.map.addControl(top_right_navigation);
 
-//	/* baidu API, get local */
-//				var geolocation = new BMap.Geolocation();
-//				geolocation.getCurrentPosition(function(r) {
-//					if(this.getStatus() == BMAP_STATUS_SUCCESS) {
-//						var mk = new BMap.Marker(r.point);
-//						this.map.addOverlay(mk);
-//						this.map.panTo(r.point);
-//						alert('您的位置：' + r.point.lng + ',' + r.point.lat);
-//					} else {
-//						alert('failed' + this.getStatus());
-//					}
-//				}, {
-//					enableHighAccuracy: true
-//				})
-
 //	建立一个自动完成的对象				
 				let ac = new BMap.Autocomplete({
 						"input": "mapSearch",
 						"location": this.map
 					})
+
 				ac.addEventListener("onconfirm", (e)=>{ //鼠标点击下拉列表后的事件
 					let _value = e.item.value;
 					let myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
 					this.mapInput = myValue;
 					this.setPlace(myValue);
 				});
+
 //	智能搜索地点
 				this.local = new BMap.LocalSearch(this.map, 
-					{onSearchComplete: this.searchComplete}
+					{onSearchComplete: this.addMark}
 				);
 
 //	导航方式：驾车出行
@@ -91,18 +78,28 @@
 					{renderOptions: {map: this.map}, onSearchComplete: this.trafficComplete}
 				);
 				
+				this.customersMark(this.customers);
 			},
 			addMark(){
 				this.userlocation = this.local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
 				this.map.addOverlay(new BMap.Marker(this.userlocation)); //添加标注
+				if(this.mapInput){
+					//	聚焦
+					this.map.centerAndZoom(this.userlocation, 17);
+				}
+			},
+			customersMark(customer){
+				if(customer.length>0){
+					customer.forEach((v, i)=>{
+						this.setPlace(v.address);
+					})
+				}else{
+					return;
+				}
 			},
 			setPlace(myV){
 				this.map.clearOverlays(); //清除地图上所有覆盖物
 				this.local.search(myV);
-			},
-			searchComplete(){
-				this.addMark();
-				this.map.centerAndZoom(this.userlocation, 17);
 			},
 			traffic(){
 				this.map.clearOverlays();
@@ -111,8 +108,7 @@
 			trafficComplete(results) {
 				if (this.transit.getStatus() != BMAP_STATUS_SUCCESS) return ;
 				let plan = results.getPlan(0);
-				let output = `从${this.start}到${this.end}驾车需要${plan.getDuration(true)}\               
-				总路程为: ${plan.getDistance(true)}`; 
+				let output = `从${this.start}到${this.end}驾车需要${plan.getDuration(true)}${"\n"}总路程为: ${plan.getDistance(true)}`; 
 				setTimeout(function(){alert(output)},"500");
 			}
 		}
