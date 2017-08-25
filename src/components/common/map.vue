@@ -78,7 +78,6 @@
 			showLocation(position) {
 				let longitude = position.coords.longitude;
 				let latitude = position.coords.latitude;
-				console.log(longitude, latitude);
 				let gpsPoint = new BMap.Point(longitude, latitude);
 
 				let translateCallback = (data) => {

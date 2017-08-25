@@ -22,20 +22,11 @@ export default{
 		return {
 		}
 	},
-	props:['down'],
-	mounted(){
-		this.$nextTick(()=>{
-			console.log(this.down);
-			this.$emit("up","word!")
-		})
-	},
 	computed:{
 		bookNum(){
 			this.$store.commit("getBookNum");
 			return this.$store.state.bookNum;
 		}
-	},
-	method:{
 	}
 }
 </script>

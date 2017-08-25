@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <jack-header down="hello" @up="up"></jack-header>
+    <jack-header></jack-header>
     <jack-nav v-if="['checkout','wechat','alipay'].indexOf($route.name)==-1"></jack-nav>
     <transition :name="transitionName" mode="out-in">
 		  <router-view class="content"></router-view>
@@ -32,11 +32,6 @@ export default {
       const fromDepth = from.path.split('/').length
       this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
     }
-  },
-  methods:{
-  	up(msg){
-  		console.log(msg);
-  	}
   }
 }
 </script>
@@ -45,7 +40,7 @@ export default {
 	.slide-left-leave-active,.slide-right-leave-active{
 		transition: all 0.3s;
 		opacity: 0;
-		transform: scale(0);
+		transform: scale(0.5);
 	}
 	html,body,div,ul,li,dl,dd,dt,p,span,img,h1,h2,h3,h4,h5,h6,table,td,tr,select,option,input,header,footer,nav,menu,aside,article,section{
 		margin: 0;

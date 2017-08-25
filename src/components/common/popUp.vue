@@ -1,10 +1,12 @@
 <template>
-	<div class="jack-popUp">
-		<div class="popUp-box">
-			<slot></slot>
-			<i @click="popUpClose()"></i>
+	<transition name="anm">
+		<div class="jack-popUp">
+			<div class="popUp-box">
+				<slot></slot>
+				<i @click="popUpClose()"></i>
+			</div>
 		</div>
-	</div>
+	</transition>
 </template>
 
 <script>
@@ -22,6 +24,13 @@
 </script>
 
 <style scoped>
+	.anm-enter-active{
+		opacity: 1;
+	}
+	.anm-enter,.anm-leave-active{
+		opacity: 0;
+		transform: scale(0.7);
+	}
 	.jack-popUp{
 		position: fixed;
 		top: 0;
@@ -30,6 +39,7 @@
 		width: 100%;
 		height: 100%;
 		background: rgba(33, 33, 33, 0.75);
+		transition: all 0.4s;
 	}
 	.popUp-box{
 		position: fixed;
@@ -38,12 +48,6 @@
 		left: 50%;
 		transform: translateY(-50%) translateX(-50%);
    		-webkit-transform: translateY(-50%) translateX(-50%);
-	}
-	.popUp-box .content{
-		width: 21rem;
-		border-radius: 1rem;
-	    background: white;
-   		padding: 2.5rem 1.5rem 2rem;
 	}
 	.popUp-box i{
 		display: inline-block;

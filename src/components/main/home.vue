@@ -4,7 +4,7 @@
     <laugh></laugh>
     <!-- popUp -->
     <jack-popUp v-if="web && platformPopUp" @popUpClose="popUpClose">
-    	<p class="content">{{msg}}</p>
+    	<p class="pop-content">{{msg}}</p>
     </jack-popUp>
   </section>
 </template>
@@ -46,8 +46,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.popUp-box .content{
+	.pop-content{
 		font: bold 1.3rem/2.2rem "arial, helvetica, sans-serif";
 		color: orange;
+		width: 21rem;
+		border-radius: 1rem;
+    background: white;
+		padding: 2.5rem 1.5rem 2rem;
 	}
 </style>

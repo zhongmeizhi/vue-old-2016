@@ -7,9 +7,9 @@
 			</div>
 		</div>
 		<!-- Customers List-->
-		<jack-popUp v-if="appearDetail" @popUpClose="popUpClose">
+		<jack-popUp v-show="appearDetail" @popUpClose="popUpClose">
 			<h3>顾客清单</h3>
-			<ul class="content">
+			<ul class="pop-content">
 				<li v-for="customer in customers">
 					<div>
 						<p>
@@ -72,5 +72,11 @@ export default{
 		position: absolute;
 		text-indent: 3rem;
 		top: 0.5rem;
+	}
+	.pop-content{
+		width: 21rem;
+		border-radius: 1rem;
+	    background: white;
+   		padding: 2.5rem 1.5rem 2rem;
 	}
 </style>
