@@ -50,12 +50,12 @@
 					anchor: BMAP_ANCHOR_TOP_RIGHT,
 					type: BMAP_NAVIGATION_CONTROL_SMALL
 				}); //右上角
-				this.map.centerAndZoom(point, 14);
+				this.map.centerAndZoom(point, 12);
 				this.map.enableScrollWheelZoom(true);
 				this.map.addControl(top_right_navigation);
 				//	ico标记
-				this.icon = new BMap.Icon('/static/tiny/man.ico', new BMap.Size(32, 32), {
-					anchor: new BMap.Size(16, 16)
+				this.icon = new BMap.Icon('/static/tiny/location.ico', new BMap.Size(32, 32), {
+					anchor: new BMap.Size(16, 32)
 				});
 
 				//	智能搜索地点
@@ -78,6 +78,7 @@
 			showLocation(position) {
 				let longitude = position.coords.longitude;
 				let latitude = position.coords.latitude;
+				console.log(longitude, latitude);
 				let gpsPoint = new BMap.Point(longitude, latitude);
 
 				let translateCallback = (data) => {
@@ -119,7 +120,7 @@
 				let userlocation = this.local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
 				let mark = new BMap.Marker(userlocation);
 				this.map.addOverlay(mark); //添加标注
-				mark.setLabel(new BMap.Label(this.local.ga.sd));
+//				mark.setLabel(new BMap.Label(this.local.ga.sd, {offset:new BMap.Size(-30,-10)}));
 			},
 			customersMark(customer) {
 				if(customer.length > 0) {

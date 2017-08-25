@@ -1,38 +1,43 @@
 <template>
   <section class="home">
+  	<!-- laugh -->
     <laugh></laugh>
-    <jack-alert v-if="web && platformAlert" msg="You're not a platform for mobile phones." @alertClose="alertClose"></jack-alert>
+    <!-- popUp -->
+    <jack-popUp v-if="web && platformPopUp" @popUpClose="popUpClose">
+    	<p class="content">{{msg}}</p>
+    </jack-popUp>
   </section>
 </template>
 
 <script>
 import laugh from "@/components/common/laugh"
-import alert from "@/components/common/alert"
+import popUp from "@/components/common/popUp"
 
 export default {
   name: 'home',
   data () {
     return {
+    	msg: "You're not a platform for mobile phones.",
     	web: false,
-    	platformAlert: true
+    	platformPopUp: true
     }
   },
   mounted() {
 	  	this.$nextTick(()=>{
 				if(navigator.platform.indexOf("Win")!=-1 || navigator.platform.indexOf("Mac")!=-1){
 					this.web = true
-					this.platformAlert = sessionStorage.getItem("platformAlert") ? false : true;
+					this.platformPopUp = sessionStorage.getItem("platformPopUp") ? false : true;
 				};
 	  	})
 	},
   components: {
   	"laugh": laugh,
-  	"jack-alert": alert
+  	"jack-popUp": popUp
   },
   methods: {
-  	alertClose() {
+  	popUpClose() {
   		this.web=false;
-  		sessionStorage.setItem("platformAlert","done");
+  		sessionStorage.setItem("platformPopUp","done");
   	}
   }
   
@@ -41,4 +46,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+	.popUp-box .content{
+		font: bold 1.3rem/2.2rem "arial, helvetica, sans-serif";
+		color: orange;
+	}
 </style>

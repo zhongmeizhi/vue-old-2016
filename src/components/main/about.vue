@@ -53,5 +53,8 @@ export default{
 	.gitHub{
 		color: #7ec801;
 		text-shadow: 0.1rem 0.1rem 0.1rem green;
+		padding: 0 1.2rem;
+		background: gainsboro;
+		border-radius: 0.6rem;
 	}
 </style>
