@@ -2,26 +2,33 @@
 	<div>
 		<!-- traffic  -->
 		<slot></slot>
-		<input type="button" id="result" value="查询" @click="traffic" />
 		<!-- Search -->
 		<div id="baidu-map" class="baidu-map"></div>
+		<!-- popUp 组件-->
+		<jack-popUp v-show="pop.appear"  @popUpClose="pop.appear=false">
+			<p v-html="pop.output"></p>
+		</jack-popUp>
 	</div>
 </template>
 <script>
+	import popUp from "@/components/common/popUp"
+	
 	export default {
 		data() {
 			return {
 				map: "",
 				local: "",
 				transit: "",
-				curPosition: {
-					lg: "",
-					la: ""
+				ico: "",
+				pop: {
+					output: "",
+					appear: false
 				},
-				ico: ""
+				start: "富锦路地铁站",
+				end: ""
 			}
 		},
-		props: ["start", "end", "customers"],
+		props: [ "customers"],
 		mounted() {
 			this.$nextTick(function() {
 				this.setMap().then(BMap => {
@@ -107,9 +114,7 @@
 			},
 			getLocation() {
 				if(navigator.geolocation) {
-					let options = {
-						timeout: 6000
-					};
+					let options = { timeout: 6000 };
 					navigator.geolocation.getCurrentPosition(this.showLocation, this.errorHandler, options);
 				} else {
 					alert("Sorry, browser does not support geolocation!");
@@ -119,16 +124,13 @@
 				let userlocation = this.local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
 				let mark = new BMap.Marker(userlocation);
 				this.map.addOverlay(mark); //添加标注
-//				mark.setLabel(new BMap.Label(this.local.ga.sd, {offset:new BMap.Size(-30,-10)}));
 			},
 			customersMark(customer) {
 				if(customer.length > 0) {
 					customer.forEach((v, i) => {
 						this.setPlace(v.address);
 					})
-				} else {
-					return;
-				}
+				} 
 			},
 			setPlace(myV) {
 				this.map.clearOverlays(); //清除地图上所有覆盖物
@@ -137,15 +139,17 @@
 			traffic() {
 				this.map.clearOverlays();
 				this.transit.search(this.start, this.end);
+				console.log(this.start, this.end)
 			},
 			trafficComplete(results) {
 				if(this.transit.getStatus() != BMAP_STATUS_SUCCESS) return;
 				let plan = results.getPlan(0);
-				let output = `从${this.start}到${this.end}驾车需要${plan.getDuration(true)}${"\n"}总路程为: ${plan.getDistance(true)}`;
-				setTimeout(function() {
-					alert(output)
-				}, "500");
+				this.pop.output = `从${this.start}到${this.end}驾车需要${plan.getDuration(true)}</br>总路程为: ${plan.getDistance(true)}`;
+				this.pop.appear = true;
 			}
+		},
+		components: {
+			"jack-popUp": popUp
 		}
 	}
 </script>
@@ -161,5 +165,13 @@
 	
 	.baidu-map {
 		height: 30rem;
+	}
+	.popUp-box p{
+		background: white;
+		width: 18rem;
+		padding: 2rem 1.5rem;
+		font: 1rem/1.5rem arial;
+		color: gray;
+		border-radius: 1rem;
 	}
 </style>
