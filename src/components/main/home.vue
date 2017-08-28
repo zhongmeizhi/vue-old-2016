@@ -1,7 +1,7 @@
 <template>
   <section class="home">
-  	<!-- laugh -->
-    <laugh></laugh>
+  	<!-- animation -->
+  	<jack-anm></jack-anm>
     <!-- popUp -->
     <jack-popUp v-if="web && platformPopUp" @popUpClose="popUpClose">
     	<p class="pop-content">{{msg}}</p>
@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import laugh from "@/components/common/laugh"
 import popUp from "@/components/common/popUp"
+import anm from "@/components/common/anm"
 
 export default {
   name: 'home',
@@ -31,8 +31,8 @@ export default {
 	  	})
 	},
   components: {
-  	"laugh": laugh,
-  	"jack-popUp": popUp
+  	"jack-popUp": popUp,
+  	"jack-anm": anm
   },
   methods: {
   	popUpClose() {
