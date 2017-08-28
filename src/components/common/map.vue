@@ -24,7 +24,11 @@
 					output: "",
 					appear: false
 				},
-				start: "富锦路地铁站",
+				start: {
+					lng: "",
+					lat: "",
+					start: ""
+				},
 				end: ""
 			}
 		},
@@ -83,10 +87,13 @@
 				this.customersMark(this.customers);
 			},
 			showLocation(position) {
-				let longitude = position.coords.longitude;
-				let latitude = position.coords.latitude;
-				let gpsPoint = new BMap.Point(longitude, latitude);
-
+				// H5 获取地址
+				this.start.lng = position.coords.longitude;
+				this.start.lat = position.coords.latitude;
+				let gpsPoint = new BMap.Point(this.start.lng, this.start.lat);
+				
+				
+				// 百度地图矫正H5经纬度
 				let translateCallback = (data) => {
 					if(data.status === 0) {
 						let markergps = new BMap.Marker(data.points[0], {
@@ -94,6 +101,9 @@
 						});
 						this.map.addOverlay(markergps); //添加GPS标注  
 						this.map.setCenter(data.points[0]);
+						// 矫正经纬度
+						this.start.lng = data.points[0].lng;
+						this.start.lat = data.points[0].lat;
 					}
 				}
 
@@ -138,13 +148,14 @@
 			},
 			traffic() {
 				this.map.clearOverlays();
-				this.transit.search(this.start, this.end);
-				console.log(this.start, this.end)
+				//  获取当前位置
+				this.start.start = new BMap.Point(this.start.lng, this.start.lat);
+				this.transit.search(this.start.start, this.end);
 			},
 			trafficComplete(results) {
 				if(this.transit.getStatus() != BMAP_STATUS_SUCCESS) return;
 				let plan = results.getPlan(0);
-				this.pop.output = `从${this.start}到${this.end}驾车需要${plan.getDuration(true)}</br>总路程为: ${plan.getDistance(true)}`;
+				this.pop.output = `到${this.end}驾车需要${plan.getDuration(true)}</br>总路程为: ${plan.getDistance(true)}`;
 				this.pop.appear = true;
 			}
 		},
