@@ -3,8 +3,9 @@
 		
 		<div class="customerBox">
 			<div>
-				<span class="customerDetail" @click="appearDetail=true">查看顾客详情</span>
-				<span class="customerShow" @click="customerShow">显示全部顾客</span>
+				<span class="customerDetail" @click="appearDetail=true">顾客详情</span>
+				<span class="customerShow" @click="getLocation">当前地址</span>
+				<span class="customerShow" @click="customerShow">显示顾客</span>
 			</div>
 		</div>
 		<!-- Customers List-->
@@ -63,6 +64,9 @@ export default{
   		},
   		customerShow(){
   			this.$refs.sonMap.customersMark(this.customers);
+  		},
+  		getLocation(){
+  			this.$refs.sonMap.getLocation();
   		}
   	}
 }
