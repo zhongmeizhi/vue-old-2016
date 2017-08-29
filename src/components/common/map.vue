@@ -91,7 +91,7 @@
 				this.start.lng = position.coords.longitude;
 				this.start.lat = position.coords.latitude;
 				let gpsPoint = new BMap.Point(this.start.lng, this.start.lat);
-				
+				console.log(gpsPoint);				
 				
 				// 百度地图矫正H5经纬度
 				let translateCallback = (data) => {
@@ -117,9 +117,12 @@
 			},
 			errorHandler(err) {
 				if(err.code == 1) {
-					console.error("Error: Access is denied!");
+					this.pop.appear = true;
+					this.pop.output = "不能定位到当前位置。";
+					alert()
 				} else if(err.code == 2) {
-					console.error("Error: Position is unavailable!");
+					this.pop.appear = true;
+					this.pop.output =  "当前经纬度不可用。";
 				}
 			},
 			getLocation() {
