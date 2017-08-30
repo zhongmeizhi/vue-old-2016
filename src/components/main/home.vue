@@ -1,9 +1,9 @@
 <template>
   <section class="home">
   	<!-- animation -->
-  	<jack-anm></jack-anm>
+  	<jack-anm :show="platformPopUp"></jack-anm>
     <!-- popUp -->
-    <jack-popUp v-if="web && platformPopUp" @popUpClose="popUpClose">
+    <jack-popUp v-if="platformPopUp" @popUpClose="popUpClose">
     	<p class="pop-content">{{msg}}</p>
     </jack-popUp>
   </section>
@@ -18,14 +18,12 @@ export default {
   data () {
     return {
     	msg: "You're not a platform for mobile phones.",
-    	web: false,
-    	platformPopUp: true
+    	platformPopUp: false
     }
   },
   mounted() {
 	  	this.$nextTick(()=>{
 				if(navigator.platform.indexOf("Win")!=-1 || navigator.platform.indexOf("Mac")!=-1){
-					this.web = true
 					this.platformPopUp = sessionStorage.getItem("platformPopUp") ? false : true;
 				};
 	  	})
@@ -36,7 +34,7 @@ export default {
   },
   methods: {
   	popUpClose() {
-  		this.web=false;
+  		this.platformPopUp = false;
   		sessionStorage.setItem("platformPopUp","done");
   	}
   }
