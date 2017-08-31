@@ -44,7 +44,7 @@
 					scale: 0.5
 				},{
 					duration: 300,
-					delay: 800
+					delay: 1000
 				});
 				// step2 出现+摔下来，反弹一下
 				Velocity($s2,{
@@ -111,14 +111,14 @@
 	}
 	.step1{
 		top: -3rem;
-		left: 2rem;	
+		left: calc(50% - 9rem);
 		font-size: 1.9rem;
 		font-weight: bold;			
 	}
 	.step2{
 		opacity: 0;
-		left: 7rem;
-		width: 7rem;
+		left: calc(50% - 4rem);
+		width: 8rem;
 	}
 	.step3,.step4,.step5,.step6{
 		left: 50%;
