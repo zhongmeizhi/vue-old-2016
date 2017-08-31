@@ -4,7 +4,7 @@
 			<p class="step1">每天叫醒你的是什么？</p>
 			<object  class="step2" data="/static/tiny/clock.svg" type="image/svg+xml" />
 			<p class="step3">不</p>
-			<p  class="step4">是</p>
+			<p class="step4">是</p>
 			<p class="step5">梦</p>
 			<p class="step6">想</p>
 		</div>

@@ -118,10 +118,10 @@
 			errorHandler(err) {
 				if(err.code == 1) {
 					this.pop.appear = true;
-					this.pop.output = "由于你翻墙了，在并不能定位到你当前位置。</br>那么默认经纬度为121.48,31.24";
+					this.pop.output = "(你是不是翻墙了？ or 没开定位？)</br>不能定位到你当前位置。</br>那么默认经纬度为121.48,31.24";
 				} else if(err.code == 2) {
 					this.pop.appear = true;
-					this.pop.output =  "当前经纬度不可用。</br>那么默认经纬度为121.48,31.24";
+					this.pop.output =  "(你是不是翻墙了？ or 没开定位？)</br>当前经纬度不可用。</br>那么默认经纬度为121.48,31.24";
 				}
 				this.start.lng = 121.48;
 				this.start.lat = 31.24;
