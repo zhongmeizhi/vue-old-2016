@@ -5,60 +5,32 @@
 		</div>
 		<div class="infoBox">
 			<ul>
-				<li v-if="login" @click="login=!login">Fast Buy</li>
-				<li v-else @click="login=!login">Sign In</li>
+				<li v-show="login" @click="login=!login">Fast Buy</li>
+				<li v-show="!login" @click="login=!login">Sign In</li>
 			</ul>
 		</div>
 		<!-- login -->
-		<div class="oldInfo" v-if="login">
-			<h1>
-				There will be become... Sign In!<br />
-				But, I don't want to do.
-			</h1>
-		</div>
+		<jack-login v-if="login"></jack-login>
 		<!-- new Info -->
-		<div class="shipBox" v-else>
-			<ul class="shipList">
-				<li v-for="list in shipList">
-					 <!--@click="upLabel(list)"-->
-					<label :class="{active:list.name==curName}" :for="list.name">{{list.label}}</label>
-					<input :type="list.type" :name="list.name" :id="list.name"  @focus="upLabel(list)" @blur="downLabel(list)"/>
-				</li>
-			</ul>
-			<div class="confirm">
-				<router-link to="/payment/alipay">
-					<button>Alipay 模拟</button>
-				</router-link>	
-				<router-link to="/payment/wechat">
-					<button>WeChat 模拟</button>
-				</router-link>
-			</div>
-		</div>
+		<jack-ship v-else></jack-ship>
 	</section>
 </template>
 
 <script>
-export default{
-	data(){
-		return {
-			shipList:[
-				{label:"Name",type:"text",name:"name"},
-				{label:"Address",type:"text",name:"address"},
-				{label:"Phone",type:"tel",name:"phone"}
-			],
-			curName:"",
-			login:false
-		}
-	},
-	methods:{
-		upLabel(list){
-			this.curName = list.name;
+	import ship from "@/components/main/section/ship/shipBox"
+	import login from "@/components/main/section/ship/loginBox"
+	
+	export default{
+		data(){
+			return {
+				login:false
+			}
 		},
-		downLabel(list){
-			this.curName = "";
+		components: {
+			"jack-ship": ship,
+			"jack-login": login
 		}
 	}
-}
 </script>
 
 <style scoped>
@@ -76,38 +48,6 @@ export default{
 		background: url(/static/tiny/cart.svg) no-repeat;
 		background-size: 2.8rem;
 	}
-	.shipList{
-		margin: 0 1rem;
-	}
-	.shipList li{
-		position: relative;
-		margin: 1.3rem 0;
-	}
-	.shipList label{
-		position: absolute;
-		z-index: 55;
-		color: gray;
-		display: inline-block;
-		margin-left: 1.4rem;
-		padding: 0 0.2rem;
-		background: white;
-		font-size: 1.2rem;
-		top: 1.36rem;
-		transition: all 0.6s;
-	}
-	.shipList input{
-		height: 4rem;	
-		width: 100%;
-		padding-left: 0.81rem;
-		border: 0.1rem gainsboro solid;
-		border-radius: 0.3rem;
-		box-sizing: border-box;
-		font-size: 1.2rem;
-	}
-	.shipList label.active{
-		top: -0.74rem;
-		transition: all 0.6s;
-	}
 	.infoBox{
 		margin: 0 1rem;
 	}
@@ -123,16 +63,5 @@ export default{
 	}
 	.infoBox li:first-child{
 		margin-bottom: 1.3rem;
-	}
-	.confirm button{
-		margin-right: 2rem;
-		float: right;
-		border-radius: 4rem;
-		background: #7ec801;
-		color: white;
-		width: 12rem;
-		height: 2.8rem;
-		font-size: 1.26rem;
-		font-weight: bold;
 	}
 </style>

@@ -50,6 +50,7 @@ export default{
 	.logo span{
 		color: orange;
 		font-size: 1.5rem;
+		text-shadow: 0.1rem 0.1rem 0.1rem sienna;
 	}
 	.logo img,.logo a{
 		height: 2.5rem;

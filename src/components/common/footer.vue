@@ -16,8 +16,9 @@
 		font:1.5rem/3rem arial;
 		text-align: center;
 		background: white;
-	}
-	.jackFooter{
 		color: orange; 
+	}
+	.jackFooter p{
+		text-shadow: 0.05rem 0.05rem 0.05rem sienna;
 	}
 </style>

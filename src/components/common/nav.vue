@@ -56,5 +56,6 @@ export default{
 		padding: 0.2rem 0.8rem;
 		color: white;
 		font-size: 1.2rem;		
+		text-shadow: 0.1rem 0.05rem 0.1rem black;
 	}
 </style>
