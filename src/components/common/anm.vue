@@ -4,9 +4,11 @@
 			<p class="step1">每天叫醒你的是什么？</p>
 			<object  class="step2" data="/static/tiny/clock.svg" type="image/svg+xml" />
 			<p class="step3">不</p>
-			<p class="step4">是</p>
-			<p class="step5">梦</p>
-			<p class="step6">想</p>
+			<div>
+				<p class="step4">是</p>
+				<p class="step5">梦</p>
+				<p class="step6">想</p>
+			</div>
 		</div>
 	</transition>
 </template>
@@ -68,8 +70,8 @@
 					opacity: 1,
 					scale: 20
 				},{
-					duration: 300,
-					delay: 2700
+					duration: 299,
+					delay: 2701
 				});
 				Velocity($s3,{
 					scale: 23
@@ -86,7 +88,7 @@
 				// step4 展现+由小变大+旋转
 				Velocity([$s4,$s5,$s6],{
 					opacity: 1,
-					scale: 10,
+					scale: 1,
 					rotateZ: 1800
 				},{
 					duration: 1000,
@@ -105,23 +107,23 @@
 		color: orangered;
 		height: 32rem;
 		overflow: hidden;
+		display: flex;
+		align-content: space-around;
+		justify-content: space-around;
 	}
-	.text object,.text p{
+	.text object,.text>p,.text div{
 		position: absolute;
 	}
 	.step1{
 		top: -3rem;
-		left: calc(50% - 9rem);
 		font-size: 1.9rem;
 		font-weight: bold;			
 	}
 	.step2{
 		opacity: 0;
-		left: calc(50% - 4rem);
 		width: 8rem;
 	}
 	.step3,.step4,.step5,.step6{
-		left: 50%;
 		opacity: 0;
 	}
 	.step3{
@@ -129,15 +131,9 @@
 		background: white;
 	}
 	.step4,.step5,.step6{
+		font-size: 10rem;
+		transform: scale(0.2);
+		line-height: 10rem;
 		color: black
-	}
-	.step4{
-		top: 15%;
-	}
-	.step5{
-		top: 45%;
-	}
-	.step6{
-		top: 75%;
 	}
 </style>

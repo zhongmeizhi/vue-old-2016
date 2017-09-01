@@ -63,7 +63,7 @@
 				initData: [
 					{people:"self",saying:"Ah, summer, what power you have to make us suffer and like it？"},
 					{people:"other",saying:"Due to love. Because hot."},
-					{people:"other",saying:"Summer is coming, haha. winter be far behind."},
+					{people:"other",saying:"可以通过底部按钮发生emoji表情和图片↓↓"},
 				],
 				curData:[],
 				swiperOption: {
