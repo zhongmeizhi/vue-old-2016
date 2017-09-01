@@ -4,11 +4,9 @@
 			<p class="step1">每天叫醒你的是什么？</p>
 			<object  class="step2" data="/static/tiny/clock.svg" type="image/svg+xml" />
 			<p class="step3">不</p>
-			<div>
-				<p class="step4">是</p>
-				<p class="step5">梦</p>
-				<p class="step6">想</p>
-			</div>
+			<p class="step4">是</p>
+			<p class="step5">梦</p>
+			<p class="step6">想</p>
 		</div>
 	</transition>
 </template>
@@ -107,33 +105,42 @@
 		color: orangered;
 		height: 32rem;
 		overflow: hidden;
-		display: flex;
-		align-content: space-around;
-		justify-content: space-around;
 	}
-	.text object,.text>p,.text div{
+	.text object,.text p{
 		position: absolute;
 	}
 	.step1{
 		top: -3rem;
+		left:  calc(50% - 9rem);
 		font-size: 1.9rem;
 		font-weight: bold;			
 	}
 	.step2{
-		opacity: 0;
 		width: 8rem;
+		left:  calc(50% - 4rem);
 	}
-	.step3,.step4,.step5,.step6{
+	.step2,.step3,.step4,.step5,.step6{
 		opacity: 0;
 	}
 	.step3{
+		left: 50%;
 		top: 40%;
 		background: white;
 	}
 	.step4,.step5,.step6{
 		font-size: 10rem;
 		transform: scale(0.2);
+		left: calc(50% - 5rem);
 		line-height: 10rem;
 		color: black
+	}
+	.step4{
+		top: 5%;
+	}
+	.step5{
+		top: 35%;
+	}
+	.step6{
+		top: 65%;
 	}
 </style>
