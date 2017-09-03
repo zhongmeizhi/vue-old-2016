@@ -65,14 +65,12 @@ export default{
 	    },
 	    total(){
 	    	let sum = 0;
-	    	try{
-	    		this.getBooks.forEach(function(v,i){
+    		if(this.getBooks){
+    			this.getBooks.forEach(function(v,i){
 		    		sum += v.price * v.num
 		    	})
 	    		return sum;
-	    	}catch(e){
-	    		return null;
-	    	}
+    		}
 	    },
 	},
 	watch:{

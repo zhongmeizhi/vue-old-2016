@@ -7,6 +7,7 @@
 			</div>
 			<div class="selectBox">
 				<select name="orderByPrice" @change="orderPrice()" v-model="orderRule">
+					<option disabled="disabled" value="">popular</option>
 					<option value="low">price(low to high)</option>
 					<option value="high">price(high to low)</option>
 				</select>
@@ -45,7 +46,7 @@
 				filterBook:[],
 				search:"",
 				searchFlag:false,
-				orderRule:"low"
+				orderRule:""
 			}
 		},
 		mounted(){
@@ -55,9 +56,6 @@
 		created() {
 			this.$http.get('/static/test.json').then((response) => {
 				this.testBook = response.data;
-				this.testBook.books.sort(function(a,b){
-					return a.price - b.price;
-				});
 				this.filterBook = JSON.parse(JSON.stringify(this.testBook));
 			}).catch(function(response) {
 				console.error(response)
@@ -81,15 +79,9 @@
 				this.searchFlag = !this.searchFlag; 	
 			},
 			orderPrice(){
-				if (this.orderRule == "low") {
-					this.filterBook.books.sort((a,b) => {
-						return a.price - b.price;
-					})
-				} else{
-					this.filterBook.books.sort((a,b) => {
-						return b.price - a.price;
-					})
-				}
+				this.filterBook.books.sort((a,b) => {
+					return  this.orderRule == "low" ? a.price - b.price : b.price - a.price;
+				})
 			},
 		}
 	}
