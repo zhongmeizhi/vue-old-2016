@@ -79,4 +79,7 @@ export default {
 		content: "";
 		clear: both;
 	}
+	img[alt='www.000webhost.com'] {
+		display: none !important;
+	}
 </style>
