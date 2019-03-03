@@ -12,7 +12,7 @@
 		<jack-popUp v-show="appearDetail" @popUpClose="popUpClose">
 			<h3>顾客清单</h3>
 			<ul class="pop-content">
-				<li v-for="customer in customers" class="customer">
+				<li v-for="customer in customers" class="customer" :key="customer.id">
 					<p>
 						<span class="name">{{customer.name}}</span>
 						<span class="phone">{{customer.phone}}</span>
@@ -38,12 +38,12 @@ export default{
 	data(){
 		return {
 			customers: [
-				{name: "刘先生", food: "猪排饭", address: "上海市中山北路470号3号楼", phone: 1868686886},
-				{name: "徐先生", food: "上海猪杂饭", address: "上海市广中西路777号多媒体大厦", phone: 1383838438},
-				{name: "朱女士", food: "哈根达斯", address: "上海市五角场地铁站", phone: 1520520520},
-				{name: "梁女士", food: "必胜客披萨", address: "上海市浦东新区郭守敬路498号", phone: 1581001011},
-				{name: "范女士", food: "必胜客披萨", address: "上海市浦东新区耀华支路39弄9号", phone: 1581008611},
-				{name: "贾先生", food: "必胜客披萨", address: "上海市徐汇区田林路487号20号楼", phone: 1581258011},
+				{id: 1, name: "刘先生", food: "猪排饭", address: "上海市中山北路470号3号楼", phone: 1868686886},
+				{id: 2, name: "徐先生", food: "上海猪杂饭", address: "上海市广中西路777号多媒体大厦", phone: 1383838438},
+				{id: 3, name: "朱女士", food: "哈根达斯", address: "上海市五角场地铁站", phone: 1520520520},
+				{id: 4, name: "梁女士", food: "必胜客披萨", address: "上海市浦东新区郭守敬路498号", phone: 1581001011},
+				{id: 5, name: "范女士", food: "必胜客披萨", address: "上海市浦东新区耀华支路39弄9号", phone: 1581008611},
+				{id: 6, name: "贾先生", food: "必胜客披萨", address: "上海市徐汇区田林路487号20号楼", phone: 1581258011},
 			],
 			appearDetail: false
 		}

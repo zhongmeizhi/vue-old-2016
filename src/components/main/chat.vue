@@ -2,24 +2,24 @@
 	<section class="chat" >
 <!-- note chat box-->
 		<div class="note" :class="{active:imgOpen||emojiOpen}" @click="faceTF(0,0)">
-			<transition-group name="chat">
-				<div v-for="chat in curData" :class="chat.people" class="clearfix" key="chat">
-					<i class="head"></i>
-					<p v-if="chat.saying" class="chatSay">
-						<span>{{chat.saying}}</span>
-					</p>
-					<p v-else  class="chatImg">
-						<span class="imgCell" :style="chat.imgStyle"></span>
-					</p>
-				</div>	
-			</transition-group>
-			
+			<div v-for="(chat,idx) in curData" :class="chat.people" class="clearfix" :key="idx">
+				<i class="head"></i>
+				<p v-if="chat.saying" class="chatSay">
+					<span>{{chat.saying}}</span>
+				</p>
+				<p v-else  class="chatImg">
+					<span class="imgCell" :style="chat.imgStyle"></span>
+				</p>
+			</div>	
 		</div>
 <!-- emoji swipe-->
 		<div  class="booth" :class="{active:emojiOpen}">
 			<swiper :options="swiperOption" ref="mySwiper">
-				<swiper-slide  class="emojiBox" v-for="(emojiPage,i) in emojiSet" key="emojiPage">
-					<span v-for="(emoji,j) in emojiPage" @click="sendEmoji(i,j)" :title="emoji.key" key="emoji">
+				<swiper-slide  class="emojiBox" v-for="(emojiPage,i) in emojiSet" :key="i">
+					<span v-for="(emoji,j) in emojiPage"
+						@click="sendEmoji(i,j)"
+						:title="emoji.key"
+						:key="j">
 						{{emoji.value}}
 					</span>	
 				</swiper-slide>
@@ -32,8 +32,8 @@
 <!-- img swipe-->
 		<div class="booth" :class="{active:imgOpen}">
 			<swiper :options="swiperOption" ref="mySwiper" >
-				<swiper-slide class="imgBox" v-for="(imgPage,i) in imgSet" key="imgPage">
-					<p v-for="(img,j) in imgPage" key="img" @click="sendImg(i,j)">
+				<swiper-slide class="imgBox" v-for="(imgPage,i) in imgSet" :key="i">
+					<p v-for="(img,j) in imgPage" :key="j" @click="sendImg(i,j)">
 						<i :style="img" class="imgCell"></i>
 					</p>
 				</swiper-slide>
@@ -101,7 +101,7 @@
 				const row = 3,
 					column = 6,
 					pageNum = row * column;
-				this.$http.get("/static/emoji.json").then((res)=> {
+				this.$http.get("@/../static/emoji.json").then((res)=> {
 					res.data.people.forEach((v,i)=> {
 						let page = Math.floor(i/pageNum);
 						if(this.emojiSet[page]==undefined)
@@ -234,10 +234,10 @@
 		background: #F5DEB3;
 	}
 	.self .head{
-		background: url(/static/tiny/talk.svg) no-repeat aquamarine;
+		background: url(~@/../static/tiny/talk.svg) no-repeat aquamarine;
 	}
 	.other .head{
-		background: url(/static/tiny/talk.svg) no-repeat #F5DEB3;
+		background: url(~@/../static/tiny/talk.svg) no-repeat #F5DEB3;
 	}
 	.self .head,.other .head{
 		background-size: 1.81rem;
@@ -276,7 +276,7 @@
 		display: inline-block;
 		width: 66px;
 		height: 60px;
-		background: url(/static/books/emoji.png) no-repeat;
+		background: url(~@/../static/books/emoji.png) no-repeat;
 	}
 	.imgBox .imgCell{
 		margin: 1rem 0;
@@ -326,12 +326,12 @@
 		width: 2.2rem;
 	}
 	.face{
-		background: url(/static/tiny/talk.svg) no-repeat;
+		background: url(~@/../static/tiny/talk.svg) no-repeat;
 		background-size: 2.2rem;
 		left: 13%;
 	}
 	.love{
-		background: url(/static/tiny/love.svg) no-repeat;
+		background: url(~@/../static/tiny/love.svg) no-repeat;
 		background-size: 2.2rem;
 		right: 13%;
 	}

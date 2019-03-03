@@ -18,15 +18,17 @@
 			<span class="close" v-if="searchFlag" @click="searchFlag=false"></span>
 		</div>
 		<ul class="bookList">
-			<li v-for="book in filterBook.books">
+			<li v-for="book in filterBook.books" :key="book.productID">
 				<div class="bookBox">
 					<div class="bookImg">
-						<img :alt="book.name" :src="book.img"/>
+						<img :alt="book.name" :src="'@/..' + book.img"/>
 					</div>
 					<div class="bookDetail">
-						<p v-for="(value,key) in book" v-if="key!='productID' && key!='img'">
-							<span>{{key}}</span>{{value}}
-						</p>
+						<template v-for="(value,key) in book">
+							<p v-if="key!=='productID' && key!='img'" :key="key">
+								<span>{{key}}</span>{{value}}
+							</p>
+						</template>
 						<button class="payment">
 							<router-link  to="/cart" @click.native="savePro(book)">Buy Now</router-link>
 						</button>
@@ -54,7 +56,7 @@
 			})
 		},
 		created() {
-			this.$http.get('/static/test.json').then((response) => {
+			this.$http.get('@/../static/test.json').then((response) => {
 				this.testBook = response.data;
 				this.filterBook = JSON.parse(JSON.stringify(this.testBook));
 			}).catch(function(response) {
@@ -110,7 +112,7 @@
 	}
 	.parentObj span{
 		display: inline-block;
-		background: url(/static/tiny/search.svg) no-repeat;
+		background: url(~@/../static/tiny/search.svg) no-repeat;
 		background-size: 1.8rem;
 		height:1.8rem;
 		width:1.8rem;
@@ -140,7 +142,7 @@
 		bottom: 0;
 		margin: auto;
 		z-index: 333;
-		background: url(/static/tiny/close.svg) no-repeat;
+		background: url(~@/../static/tiny/close.svg) no-repeat;
 		background-size: 1.3rem;
 	}
 	.selectBox select{

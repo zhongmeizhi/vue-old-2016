@@ -45,7 +45,7 @@
 		display: inline-block;
 		width: 3rem;
 		height: 3rem;
-		background: url(/static/tiny/cart.svg) no-repeat;
+		background: url(~@/../static/tiny/cart.svg) no-repeat;
 		background-size: 2.8rem;
 	}
 	.infoBox{

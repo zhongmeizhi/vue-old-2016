@@ -65,7 +65,7 @@
 				this.map.enableScrollWheelZoom(true);
 				this.map.addControl(top_right_navigation);
 				//	ico标记
-				this.icon = new BMap.Icon('/static/tiny/location.ico', new BMap.Size(32, 32), {
+				this.icon = new BMap.Icon('static/tiny/location.ico', new BMap.Size(32, 32), {
 					anchor: new BMap.Size(16, 32)
 				});
 

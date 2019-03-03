@@ -2,31 +2,29 @@
 	<section class="cart">
 		<hr />
 		<div  v-if="total">
-			<transition-group name="fade">
-				<div v-for="book in getBooks" class="bookList clearfix" key="book">
-					<div class="bookL"><img :src="book.img" alt="book.name" /></div>
-					<div class="bookR">
-						<ul>
-							<li class="name"><p>{{book.name}}</p></li>
-							<li>
-								<p>Price:</p>
-								<span>￥{{book.price}}</span>
-							</li>
-							<li class="number">
-								<p>Number:</p>
-								<b  @click="count(book)" class="reduce"></b>
-								<span>{{book.num}}</span>
-								<b  @click="count(book,'add')" class="add"></b>
-							</li>
-						</ul>
-						<div class="subTotal">
-							<p>SubTotal:</p>
-							<span>￥{{book.num * book.price}}</span>
-						</div>
-						<b class="closeP" @click="closePro(book)"></b>
+			<div v-for="book in getBooks" class="bookList clearfix" :key="book">
+				<div class="bookL"><img :src="book.img" alt="book.name" /></div>
+				<div class="bookR">
+					<ul>
+						<li class="name"><p>{{book.name}}</p></li>
+						<li>
+							<p>Price:</p>
+							<span>￥{{book.price}}</span>
+						</li>
+						<li class="number">
+							<p>Number:</p>
+							<b  @click="count(book)" class="reduce"></b>
+							<span>{{book.num}}</span>
+							<b  @click="count(book,'add')" class="add"></b>
+						</li>
+					</ul>
+					<div class="subTotal">
+						<p>SubTotal:</p>
+						<span>￥{{book.num * book.price}}</span>
 					</div>
+					<b class="closeP" @click="closePro(book)"></b>
 				</div>
-			</transition-group>
+			</div>
 			<hr />
 			<div class="total">Total:&nbsp;<span>￥{{total}}</span></div>
 			<router-link class="checkout" to="/checkout">
@@ -37,7 +35,7 @@
 		</div>
 		
 		<div class="cartEmpty" v-if="!total">
-			<object data="/static/tiny/cry.svg" type="image/svg+xml"></object>
+			<object data="static/tiny/cry.svg" type="image/svg+xml"></object>
 			<h1>
 				OH. NO!
 				<br />
@@ -72,8 +70,6 @@ export default{
 	    		return sum;
     		}
 	    },
-	},
-	watch:{
 	},
 	methods:{
 		count(book,param){
@@ -152,7 +148,7 @@ export default{
 		right: 1rem;
 		width: 1.3rem;
 		height: 1.3rem;
-		background: url(/static/tiny/close.svg) no-repeat;
+		background: url(~@/../static/tiny/close.svg) no-repeat;
 		background-size: 1rem;
 	}
 	.bookR span{
@@ -165,11 +161,11 @@ export default{
 		vertical-align: text-top;
 	}
 	.number .reduce{
-		background: url(/static/tiny/reduce.svg) no-repeat;
+		background: url(~@/../static/tiny/reduce.svg) no-repeat;
 		background-size: 1.2rem;
 	}
 	.number .add{
-		background: url(/static/tiny/add.svg) no-repeat;
+		background: url(~@/../static/tiny/add.svg) no-repeat;
 		background-size: 1.2rem;
 	}
 	.total{

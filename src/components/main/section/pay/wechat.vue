@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<img src="/static/books/w.jpg"/>
+		<img src="static/books/w.jpg"/>
 	</div>
 </template>
 

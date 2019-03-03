@@ -28,7 +28,7 @@ export default{
 	  		var w;
 				if(typeof(Worker)!=="undefined"){
 					if(typeof(w)=="undefined"){
-				    w = new Worker("/static/plug/woker.js");
+				    w = new Worker("static/plug/woker.js");
 			    }
 				  w.onmessage = (value)=> {
 							this.msg = value.data; 

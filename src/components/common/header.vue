@@ -77,10 +77,10 @@ export default{
 	.cartSvg a{
 		width: 2.5rem;
 		height: 2.5rem;
-	    background: url(/static/tiny/cart.svg) no-repeat;
-	    background-size:2.3rem ;
-	    padding-right: 1.4rem;
-	    position: relative;
+		background: url(~@/../static/tiny/cart.svg) no-repeat;
+		background-size:2.3rem ;
+		padding-right: 1.4rem;
+		position: relative;
 	}
 	.cartSvg span{
 		color: white;

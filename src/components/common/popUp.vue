@@ -53,7 +53,7 @@
 		display: inline-block;
 		width: 1.5rem;
 		height: 1.5rem;
-		background: url(/static/tiny/close.svg);
+		background: url(~@/../static/tiny/close.svg);
 		background-size: 1.5rem;
 		position: absolute;
 		top: 0.5rem;
